@@ -1,0 +1,452 @@
+<!-- Creator     : groff version 1.19.2 -->
+<!-- CreationDate: Sat Jan 15 15:28:34 2011 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p     { margin-top: 0; margin-bottom: 0; }
+       pre   { margin-top: 0; margin-bottom: 0; }
+       table { margin-top: 0; margin-bottom: 0; }
+</style>
+<title>IROFFER</title>
+
+</head>
+<body>
+
+<h1 align=center>IROFFER</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#OPTIONS">OPTIONS</a><br>
+<a href="#IMPLEMENTATION NOTES">IMPLEMENTATION NOTES</a><br>
+<a href="#RETURN VALUES">RETURN VALUES</a><br>
+<a href="#SIGNALS">SIGNALS</a><br>
+<a href="#FILES">FILES</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+<a href="#HISTORY">HISTORY</a><br>
+
+<hr>
+
+
+<a name="NAME"></a>
+<h2>NAME</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">iroffer
+&minus;&minus; DCC file server bot</p>
+
+<a name="SYNOPSIS"></a>
+<h2>SYNOPSIS</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>iroffer -v
+<br>
+iroffer -c [configfile] <br>
+iroffer [-b] [-d] [-k] [-n] [-s] [-u user] [-t dir] [-i
+file] <br>
+configfile [configfile ...]</b></p>
+
+<a name="DESCRIPTION"></a>
+<h2>DESCRIPTION</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>iroffer</b>
+is a file server which uses the DCC feature of IRC to send
+requested files to other users. The name of a configuration
+file must be given on the command line for normal
+operation.</p>
+
+<a name="OPTIONS"></a>
+<h2>OPTIONS</h2>
+
+
+<table width="100%" border=0 rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em" valign="top"><b>&minus;v</b></p> </td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Display version
+information and exit.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em" valign="top"><b>&minus;c</b></p> </td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Generate an
+encrypted password and exit. If a configfile is given, the
+encrypted password will not be printed, but directly added
+to the end of the configfile.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em" valign="top"><b>&minus;b</b></p> </td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Run in the
+background.</p> </td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em" valign="top"><b>&minus;d</b></p> </td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Increase debug
+level.</p> </td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em" valign="top"><b>&minus;k</b></p> </td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Attempt to adjust
+ulimit to allow core files.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em" valign="top"><b>&minus;n</b></p> </td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">No colors in
+foreground mode.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="3%">
+
+
+
+<p style="margin-top: 1em" valign="top"><b>&minus;s</b></p> </td>
+<td width="8%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">No screen
+manipulation in foreground mode.</p></td>
+</table>
+
+<p style="margin-left:11%;"><b>&minus;u user</b></p>
+
+<p style="margin-left:22%;">Run as user (you have to start
+as root).</p>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p style="margin-top: 1em" valign="top"><b>&minus;t
+dir</b></p> </td>
+<td width="2%"></td>
+<td width="64%">
+
+
+<p style="margin-top: 1em" valign="top">Chroot to dir (you
+have to start as root).</p></td>
+<td width="14%">
+</td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="9%">
+
+
+<p style="margin-top: 1em" valign="top"><b>&minus;w
+dir</b></p> </td>
+<td width="2%"></td>
+<td width="64%">
+
+
+<p style="margin-top: 1em" valign="top">Chdir to dir as
+working directory.</p></td>
+<td width="14%">
+</td>
+</table>
+
+<p style="margin-left:11%;"><b>&minus;i file</b></p>
+
+<p style="margin-left:22%;">Import and old style mybot.xdcc
+file.</p>
+
+<a name="IMPLEMENTATION NOTES"></a>
+<h2>IMPLEMENTATION NOTES</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>multiple IRC
+networks</b></p>
+
+<p style="margin-left:22%;">Supports connecting to multiple
+IRC networks at the same time.</p>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p style="margin-top: 1em" valign="top"><b>IPv6</b></p></td>
+<td width="5%"></td>
+<td width="64%">
+
+
+<p style="margin-top: 1em" valign="top">Supports connecting
+and transfers via IPv6</p></td>
+<td width="14%">
+</td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="6%">
+
+
+<p style="margin-top: 1em" valign="top"><b>DCC</b></p></td>
+<td width="5%"></td>
+<td width="64%">
+
+
+<p style="margin-top: 1em" valign="top">Supports transfers
+of files greater 4 GB.</p></td>
+<td width="14%">
+</td>
+</table>
+
+<p style="margin-left:11%;"><b>passive DCC</b></p>
+
+<p style="margin-left:22%;">Supports passive DCC transfers
+and uploads.</p>
+
+<p style="margin-left:11%;"><b>HTTP server</b></p>
+
+<p style="margin-left:22%;">Supports internal HTTP server
+for status and pack list.</p>
+
+<p style="margin-left:11%;"><b>Telnet server</b></p>
+
+<p style="margin-left:22%;">Supports internal Telnet server
+for background administration.</p>
+
+<p style="margin-left:11%;"><b>FISH encrpytion</b></p>
+
+<p style="margin-left:22%;">Support for FISH encryption for
+mesasages and channel.</p>
+
+<p style="margin-left:11%;"><b>SSL encrpytion</b></p>
+
+<p style="margin-left:22%;">Optional support to connect via
+SSL to IRC-servers if OpenSSL or GnuTLS is availible.</p>
+
+<p style="margin-left:11%;"><b>CertFP with SSL</b></p>
+
+<p style="margin-left:22%;">CertFP Authentification with
+SSL.</p>
+
+<p style="margin-left:11%;"><b>GeoIP and GeoIPv6</b></p>
+
+<p style="margin-left:22%;">Optional support to limit
+transfers to countrys with libGeoIP.</p>
+
+<table width="100%" border=0 rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p style="margin-top: 1em" valign="top"><b>Curl</b></p></td>
+<td width="4%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Optional support to
+fetch files via FTP/HTTP if libcurl is compiled in.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p style="margin-top: 1em" valign="top"><b>UPnP</b></p></td>
+<td width="4%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Optional Universal
+Plug and Play support to connect via NAT Routers, this
+requires lib miniupnpc present. Used to obtain public
+IP-Address and Set/Remove port forwardings for incomming
+connections.</p> </td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p style="margin-top: 1em" valign="top"><b>Ruby</b></p></td>
+<td width="4%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Optional support
+for scripting plugins in Ruby. Support for CGI scripts with
+the internal HTTP server.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p style="margin-top: 1em" valign="top"><b>XML</b></p></td>
+<td width="4%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Support for XML
+Packlist allows integration with other websites.</p></td>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="7%">
+
+
+<p style="margin-top: 1em" valign="top"><b>Batch</b></p></td>
+<td width="4%"></td>
+<td width="78%">
+
+
+<p style="margin-top: 1em" valign="top">Allows batched
+transfers without delaying new users.</p></td>
+</table>
+
+<a name="RETURN VALUES"></a>
+<h2>RETURN VALUES</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The iroffer
+program exits 0 on successful termination, and &gt;0 if an
+error occurs.</p>
+
+<a name="SIGNALS"></a>
+<h2>SIGNALS</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>SIGUSR1</b></p>
+
+<p style="margin-left:22%;">Jumps to another server, same
+as admin command &quot;JUMP&quot;.</p>
+
+<p style="margin-left:22%; margin-top: 1em">kill
+&minus;USR1 &lsquo;mybot.pid&lsquo;</p>
+
+<p style="margin-left:11%;"><b>SIGUSR2</b></p>
+
+<p style="margin-left:22%;">Re-reads config file, same as
+admin command &quot;REHASH&quot;</p>
+
+<p style="margin-left:22%; margin-top: 1em">kill
+&minus;USR2 &lsquo;mybot.pid&lsquo;</p>
+
+<p style="margin-left:11%;"><b>SIGTERM</b></p>
+
+<p style="margin-left:22%;">Shuts down iroffer, same as
+admin command &quot;SHUTDOWN NOW&quot;</p>
+
+<p style="margin-left:22%; margin-top: 1em">kill
+&lsquo;mybot.pid&lsquo;</p>
+
+<a name="FILES"></a>
+<h2>FILES</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>mybot.pid</b></p>
+
+<p style="margin-left:22%;">the pid of the currently
+running iroffer</p>
+
+<p style="margin-left:11%;"><b>mybot.state</b></p>
+
+<p style="margin-left:22%;">the main database for the
+iroffer</p>
+
+<p style="margin-left:11%;"><b>mybot.txt</b></p>
+
+<p style="margin-left:22%;">generated list of packs in
+plain text</p>
+
+<p style="margin-left:11%;"><b>mybot.xml</b></p>
+
+<p style="margin-left:22%;">generated list of packs in
+XML</p>
+
+<p style="margin-left:11%;"><b>mybot.log</b></p>
+
+<p style="margin-left:22%;">logfile wit all notes error and
+while running</p>
+
+<a name="SEE ALSO"></a>
+<h2>SEE ALSO</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>/usr/share/doc/iroffer</b></p>
+
+<p style="margin-left:22%;">Please look for more detailed
+information in this directory.</p>
+
+
+<p style="margin-left:11%;"><b>http://iroffer.dinoex.net/</b></p>
+
+<p style="margin-left:22%;">Downloads and
+Documentation.</p>
+
+
+<p style="margin-left:11%;"><b>http://iroffer.dinoex.de/projects/show/iroffer</b></p>
+
+<p style="margin-left:22%;">Projectpage with Tracker and
+RSS feed.</p>
+
+<a name="HISTORY"></a>
+<h2>HISTORY</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The original
+iroffer version was written by by David Johnson. <br>
+iroffer-dinoex is developed by Dirk Meyer.</p>
+<hr>
+</body>
+</html>

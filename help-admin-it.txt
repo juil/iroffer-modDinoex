@@ -1,0 +1,156 @@
+** -- Info Commands --
+**   HELP                 : Mostra le opzioni disponibili
+**   XDLFULL              : Elenca tutti i packs disponibili
+**   XDLGROUP [gruppo]    : Mostra i pacchi del <gruppo>
+**   XDL                  : Elenca tutti i gruppi ed i packs senza gruppo
+**   XDLOCK               : Mostra i packs bloccati
+**   XDTRIGGER            : Mostra tutti i pack con triggers dinamici
+**   FIND pattern         : Lista tutti i packs che corrispondono alla <chiave>
+**   XDS                  : Salva un file di stato
+**   DCL                  : Elenca i trasferimenti in corso
+**   DCLD                 : Elenca i trasferimenti in corso dettagliatamente
+**   TRINFO id            : Mostra le informazioni del trasferimento con <id>
+**   GETL                 : Elenca la coda attuale degli uploads
+**   QUL                  : Elenca la coda attuale
+**   IGNL                 : Mostra la lista Ignorati
+**   LISTUL [directory]   : Mostra il contenuto della directory upload
+**   DISKFREE             : Mostra lo spazio libero nella cartella upload
+**   CHANL [net]          : Mostra tutti gli utenti di un chan (ed in optional anche di una net)
+** -- Transfer Commands --
+**   CLOSE [id]           : Ferma il trasferimento con <id>
+**   CLOSEU [id]          : Stoppa gli uploads con <id>
+**   ACCEPTU min [hostmask] : Accetta uploads da <hostmask> per <x> minuti
+**   GET net nick n [password] : Richiede pack <n> dal bot <nick>
+**   CLOSEGET net nick    : Cancella le richieste al bot dal <Nick>
+**   RMQ [posizione]      : Rimuove la <posizione> dalla coda principale
+**   RMIQ [posizione]     : Rimuove la voce dalla <posizione> della coda inattiva
+**   RMALLQ               : Rimuove tutte le voci dalla coda attiva e dalla coda inattiva
+**   NOMIN id             : Disabilita il limite minimo di velocità per il trasferimento con <id>
+**   NOMAX id             : Disabilita il limite massimo di velocità per il trasferimento con <id>
+**   UNLIMITED id         : Disabilita tutti i limiti di velocità per il trasferimento con <id>
+**   MAXSPEED id x        : Setta il massimo limite banda di <x> kB/s per il trasferimento <id>
+**   SEND nick n [net]    : Invia il pack <n> al <nick> della <net>
+**   QUEUE nick n [net]   : Accoda per il pack <n> il <nick> sulla coda principale
+**   IQUEUE nick n [net]  : Inserisce nella coda inattiva il pack <n> per <nick>
+**   BATCH nick n-m [net] : Inserisce nella coda inattiva i packs da <n> a <m> per <nick>
+**   PSEND chan style [net] : Invia con <style> (full|minimal|summary) una XDCC LIST al <chan> della <net>
+**   QSEND [id]           : Avvia il primo utente in lista nella coda principale
+**   IQSEND [id]          : Sposta il prossimo invio dalla coda secondaria a quella primaria
+**   SLOTSMAX [slots]     : Cambia temporaneamente il numero di slots massimi a: <slots>
+**   QUEUESIZE [slots]    : Cambia temporaneamente il numero di posizioni disponibili per la coda principale in: <slots>
+**   REQUEUE x y          : Sposta uno slot di coda (princiale) da <x> a <y>
+**   REIQUEUE x y         : Muove la voce della coda inattiva dalla posizione <x> a <y>
+** -- Pack Commands --
+**   INFO n               : Mostra le informazioni per il pack <n>
+**   REMOVE n [m]         : Rimuove il pack <n> o i pack da <n> a <m> (es. Remove 2 6)
+**   REMOVEDIR dir        : Rimuove tutti i packs per i files trovati nella <dir>
+**   REMOVEGROUP gruppo   : Rimuove tutti i packs del <gruppo>
+**   RENUMBER x [y] z     : Sposta i packs da <x> a <y> in posizione <z>
+**   SORT [field] [field] : Ordina tutti i packs secondo l'opzione scelta. Opzioni:NAME,DESC,GROUP,PATH,SIZE,TIME,ADDED
+**   ADD nomefile         : Aggiunge un nuovo pack con <nomefile>
+**   ADDDIR dir           : Aggiunge tutti i files trovati nella <dir>
+**   ADDNEW dir           : Aggiunge solo i nuovi files trovati nella <dir>
+**   ADDGROUP gruppo dir  : Aggiunge i nuovi file della <dir> al <gruppo>
+**   ADDMATCH pattern     : Aggiunge nuovi file che corrispondono a questa chiave
+**   AUTOADD              : Cerca nuovi files nella directory e ne crea i relativi packs (directory selezionata nel config)
+**   AUTOCANCEL           : Annulla le azioni ADD e REMOVE in attesa
+**   AUTOGROUP            : Crea un group per ogni directory con packs
+**   NOAUTOADD x          : Disabilita AUTOADD per i prossimi <x> minuti
+**   CHFILE n nomefile    : Cambia il nome del pack <n> in <nomefile>
+**   NEWDIR dirname nuovo : Rinomina la cartella per determinati packs
+**   CHDESC n [msg]       : Cambia la descrizione del pack <n> in <msg>
+**   CHNOTE n [msg]       : Cambia la nota del pack <n> in <msg>
+**   CHTIME n [msg]       : Cambia la data di aggiunta del pack <n> in <msg>
+**   CHMINS n [m] x       : Setta per i packs da <n> ad <m> la velocità minima di <x> kB/s (minspeed)
+**   CHMAXS n [m] x       : Setta per i packs da <n> ad <m> la velocità massima di <x> kB/s (maxspeed)
+**   CHLIMIT n [m] x      : Cambia il limite download dei packs da <n> ad <m> a <x> trasferimenti al giorno
+**   CHLIMITINFO n [msg]  : Cambia il limite di info del pack <n> a <msg>
+**   CHTRIGGER n [msg]    : Cambia il trigger per il pack <n> in <msg>
+**   DELTRIGGER n [m]     : Cancella il trigger per i pacchi da <n> a <m>
+**   CHGETS n [m] x       : Setta il muneratore downloads dei packs da <n> ad <m> a <x>
+**   CHCOLOR n [m] x[,b][,s] : Imposta i pacchi da <n> ad <m> col colore <x> background <b> style <s>
+**   LOCK n [m] password  : Blocca i packs da <n> a <m> con la <password> (per scaricare: XDCC SEND #1 Password)
+**   UNLOCK n [m]         : Sblocca i packs da <n> a <m>
+**   LOCKGROUP gruppo password : Blocca tutti i packs del <gruppo> con <password>
+**   UNLOCKGROUP gruppo   : Sblocca tutti i packs del <gruppo>
+**   RELOCK vecchia-password password : Riblocca tutti i packs con la <vecchia-password>, con la nuova <password>
+**   GROUPDESC gruppo msg : Cambia la descrizione del <gruppo> in <msg>
+**   GROUP n gruppo       : Sposta il pack <n> nel <gruppo>
+**   MOVEGROUP n m gruppo : Sposta nel <gruppo> i packs da <n> a <m>
+**   REGROUP gruppo nuovo : Sposta tutti i packs del <gruppo> nel nuovo gruppo con nome <nuovo>
+**   NEWGROUP gruppo dir  : Aggiunge tutti i files della <dir> nel <gruppo>
+**   ANNOUNCE n [msg]     : Annuncia col <msg> il pack <n> in tutti i canali joinati
+**   NEWANN n [channel] [net] : Annuncia gli ultimi <n> pacchi in tutti i canali
+**   MANNOUNCE n m [msg]  : Annuncia con <msg> i packs da <n> a <m> in tutti i canali in cui è presente
+**   CANNOUNCE channel n [msg] : Annuncia con <msg> il pack <n> nel <canale>
+**   SANNOUNCE n [m]      : Annuncio breve dei packs da <n> a <m> in tutti i canali in cui è presente
+**   NOANNOUNCE x         : Annunci disabilitati per i prossimi <x> minuti
+**   ADDANN nomefile      : Aggiunge ed annuncia un nuovo pack
+**   MD5 [n] [m]          : Calcola MD5 and CRC sums dei pack da <n> a <m>
+**   CRC [n] [m]          : Controlla il CRC dei packs da <n> a <m>
+** -- File Commands --
+**   FILEMOVE nomefile nuovo : Rinomina un file sul disco
+**   MOVEFILE n nomefile  : Rinomina il file del pack <n> sul disco col <nomefile>
+**   MOVEGROUPDIR gruppo dir : Sposta tutti i files del gruppo <g> nella <directory>
+**   FILEDEL nomefile     : Rimuove un file dal disco
+**   FILEREMOVE n [m]     : Rimuove il pack <n> o i packs da <n> ad <m> ed elimina i rispettivi files dal disco
+**   SHOWDIR dir          : Mostra le directory del disco
+**   MAKEDIR dir          : Crea una nuova directory sul disco
+**   FETCH file url       : Scarica da un URL e salva il file nella directory upload
+**   FETCHCANCEL [id]     : Ferma il download avviato con FETCH che ha il seguente <id>
+** -- Misc Commands --
+**   MSG nick message     : Invia un <message> all'utente col <nick> o ad un chan
+**   AMSG msg             : Invia un <msg> in tutti i canali joinati
+**   MSGNET net nick message : Invia un <message> all'utente col <nick> o ad un chan
+**   MESG message         : Invia un <message> a tutti gli utenti con trasferimento in corso
+**   MESQ message         : Invia un <message> a tutti gli utenti in coda
+**   IGNORE x hostmask    : Ignora la <hostmask> (nick!user@host) per <x> minuti (caratteri Jolly ammessi)
+**   UNIGNORE hostmask    : Toglie l'ignore per la <hostmask>
+**   BANNHOST x hostmask  : Stoppa i trasferimenti ed ignora <hostmask> (nick!user@host) per <x> minuti
+**   BANNNICK nick [net]  : Stoppa i trasferimenti e rimuove <nick> dalla coda
+**   NOSAVE x             : Disablilta l'autosalvataggio per i prossimi <x> minuti
+**   NOSEND x [msg]       : Disabilita gli XDCC SEND per i prossimi <x> minuti
+**   NOLIST x             : Disabilita gli XDCC LIST ed i PLIST per i prossimi <x> minuti
+**   NOMD5 x              : Disabilita calcoli MD5 e CRC per i prossimi <x> minuti
+**   MSGREAD              : Mostra i messaggi loggati
+**   MSGDEL               : Cancella i messaggi loggati
+**   RMUL nomefile        : Cancella un file dalla directory upload (RMUL nomefile)
+**   RAW comando          : Invia un <comando> al server (RAW IRC)
+**   RAWNET net comando   : Invia un <comando> al server (RAW IRC)
+**   LAG [net]            : Mostra la latenza nel network
+** -- Bot Commands --
+**   SERVERS [net]        : Mostra l'elenco dei servers configurati nel config (si può anche specificare una NET precisa)
+**   HOP [channel] [net]  : Esce e rientra (Cycle) da un chan
+**   NOCHANNEL x [channel] : Esce dal chan per <x> minuti
+**   JOIN channel [net] [key] : Entra in un canale fino al rehash
+**   PART channel [net]   : Esce da un canale fino al rehash
+**   JUMP server [net]    : Riconnette ad un server qualunque (Jump) o ad un determinato <server> (Jump server)
+**   SERVQC               : Cancella le code del server
+**   STATUS               : Mostra diverse informazioni sul bot (code, trasferimenti, banda)
+**   REHASH               : Rilegge il file config e si riconfigura (eseguibile anche in automatico se impostato nel config)
+**   BOTINFO              : Mostra informazioni sullo stato del bot (limiti trasferimenti, server, nick, directory impostate ecc...
+**   MEMSTAT              : Mostra le informazioni sull'utilizzo della memoria
+**   CLEARRECORDS         : Resetta i dati sui trasferimenti, banda, uptime, invii totali, e limiti trasferimenti
+**   CLEARGETS            : Cancella i contatori dei downloads per tutti i packs
+**   REDRAW               : Ridisegna lo schermo (console)
+**   DELHIST              : Cancella lo storico della console
+**   QUIT                 : Chiude questa DCC CHAT
+**   EXIT                 : Chiude questa DCC CHAT
+**   LOGOUT               : Chiude questa DCC CHAT
+**   CHATME               : Ti invia una richiesta di DCC CHAT
+**   CHATL                : Mostra tutte le DCC CHAT attive
+**   CLOSEC [id]          : Chiude le DCC CHAT con <id> (per vedere l'ID: CHATL)
+**   DEBUG x              : Imposta il livello DEBUG a <x>
+**   CONFIG campo valore  : Setta temporaneamente una <campo> del file config col <valore> (es. CONFIG user_nick nick2) ma non lo scrive sul file.
+**   PRINT campo          : Legge un <campo> dal file config ed indica il relativo valore
+**   IDENTIFY [net]       : Identifica il Nick con NickServ
+**   HOLDQUEUE [x]        : Cambia il flag holdqueue, x=1 set, x=0 reset
+**   OFFLINE [net]        : Chiudi il network indicato o tutti i networks
+**   ONLINE [net]         : Connetti al network indicato o a tutti i networks
+**   RUBY parametro [args] : Richiama una funzione nel ruby_script con parametro <args>
+**   SHUTDOWN act         : Spegne Iroffer con <act> (azione) che può essere "now", "delayed", o "cancel"
+**   BACKGROUND           : Passa alla modalità background
+**   DUMP                 : Scrive un Dump nel file log
+**   RESTART              : Spegne e riavvia il bot
+**   CRASH                : Scrive un Dump nel file log ed esce
+** For additional help, see the documentation at http://iroffer.dinoex.net/

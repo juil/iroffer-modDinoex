@@ -1,0 +1,91 @@
+      Installation d'Iroffer Mod Dinoex sous Linux en tant qu'utilisateur
+
+Procédure d'installation
+
+    1. Nous allons en tant qu'utilisateur dans le répertoire HOME.
+cd /home
+
+    2. Nous allons créer un répertoire pour iroffer
+mkdir iroffer
+cd iroffer/
+
+    3. Obtenir les sources de programme.
+wget http://iroffer.dinoex.net/iroffer-dinoex-snap.tar.gz
+
+    4. Décompressez les sources.
+tar -xvzf iroffer-dinoex-snap.tar.gz
+
+    5. Nous allons configurer les sources pour notre Linux.
+cd iroffer-dinoex-snap
+./Configure -curl -geoip -ruby
+
+    6. Devrait afficher quelques erreurs, il manque encore des paquets.
+       Suffisant sous Debian :
+sudo aptitude install make
+sudo aptitude install gcc
+sudo aptitude install libc-dev
+sudo aptitude install libcurl4-openssl-dev
+sudo aptitude install libgeoip-dev
+sudo aptitude install libssl-dev
+sudo aptitude install ruby1.8-dev
+sudo aptitude install ruby1.8
+sudo aptitude install libruby-extras
+
+    7. Nous voulons les textes en français. Nous construisons le
+       programme.
+make fr
+
+    8. Nous allons copier le programme au bon endroit.
+cp iroffer-fr ..
+cp *.html ..
+cp -r htdocs ../
+
+    9. Nous commençons par copier notre configuration.
+cp exemple.config ../mybot.config
+cd ..
+chmod 600 mybot.config
+
+   10. Seul le robot doit avoir les droits d'écriture
+chmod 700 .
+
+   11. Nous allons générer un mot de passe pour l'admin chat.
+./iroffer-fr -c mybot.config
+
+   12. On renseigne tous les répertoires dans le fichier de configuration
+       "mybot.config".
+       "adminhost" doit être configuré de manière appropriée.
+       Les fonctions Web interne sont activé.
+       Le répertoire d'upload pour les fichiers peut être saisi.
+       mybot.config devrait inclure :
+http_port 8000
+http_dir htdocs
+filedir /home/bot/files
+uploaddir /home/bot/files
+
+       (Remplacez 'bot' par votre login)
+   13. Nous allons créer le répertoire pour les packages.
+cd ..
+mkdir files
+
+       Puis on se connect au XDCC via FTP pour transférer les fichiers.
+   14.
+   15. Créer un script de démarrage.
+cd ..
+puis
+nano -w start-iroffer.sh
+ou
+vim start-iroffer.sh
+
+       Nous écrivons le script
+#!/bin/sh
+cd /home/bot/iroffer
+./iroffer-fr -b /home/bot/iroffer/mybot.config
+
+       (Remplacez 'bot' par votre login)
+   16. On rend le script exécutable.
+chmod +x start-iroffer.sh
+
+   17. Lancer.
+sh start-iroffer.sh
+
+       Le bot devrait maintenant fonctionner.

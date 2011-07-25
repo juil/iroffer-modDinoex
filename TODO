@@ -1,0 +1,226 @@
+[Iroffer.dinoex.de]
+Feature #38 xdcc command to export the crc32/md5 as sumfile
+Feature #70 command for saving the "running" config
+Feature #89 limit autoaddan to file that matches a given mask
+Feature #114: Support for compressing the rotated logfiles
+Feature #118: Add ability to whitelist certain filetypes for adddir
+
+[Iroffer.org]
+
+Known Problems (All Versions): 
+   161 7/2/00 Open specifying a user_nick too long causes confusion
+   158 10/11/99 Open some servers dont allow multiple recipiants
+   170 12/09/03 Open queue remaining times dont take into consideration maxtransfersperperson
+
+Short Term Features:
+   165 02/03/01 Open specify more than one type of plist for a single channel with different times
+   138 7/16/00 Open compress old logs
+   135 4/22/00 Open let (queued) users request dcc list
+   175 12/09/03 Open sort by name listing
+   177 12/09/03 Open dont join channels until nickserv has authenticated iroffer
+   181 12/09/03 Open xdcc list display estimated time until queue slot opens up
+   189 12/09/03 Open configurable to disable all stats
+   193 12/09/03 Open different lowbdwth for day and night speeds
+   194 12/09/03 Open send note to user on get of file
+   201 1/19/04 Open configurable to set how aggressive auto-ignore is  
+   204 2/2/04 Open configurable to cover both maxqueueditemsperperson and maxtransfersperperson
+   207 4/02/04 Open md5sum uploads
+   214 7/17/04 Open invite into channel using chanserv
+
+Long Term Features:
+   127 12/14/00 Open individual slotsmax for each pack
+   123 10/21/99 Open lock console with password
+   148 01/01/01 Open channel file for dynamic channels, read in like another config file and written by admin commands
+   190 12/09/03 Open different bandwidth limiting for each day of the week
+   209 4/25/04 Open DCC2 support
+   210 5/3/04 Open hostmasks that bypass queue
+   211 6/8/04 Open (auto) resend on lost connection instead instead of going to next queued user
+
+Not going to happen anytime soon:
+   115 long ago Deferred fserve
+   114 3/2/00 Deferred multiple files per pack
+   111 12/3/99 Deferred exec a shell command
+   129 12/5/00 Deferred built-in identd server for windows
+   171 12/09/03 Deferred online config file editor
+   176 12/09/03 Deferred customize xdcc list output
+   182 12/09/03 Deferred MIRC style dccserver support
+   183 12/09/03 Deferred SOCKS4/5 support
+   198 12/09/03 Deferred Windows service
+
+Page last modified: 09/01/04 
+
+[Iroffer-lamm features requests which are availible in iroffer-dinoex]
+[ 730904 ] send queue max
+[ 1121980 ] Transfer to only +v/+o/+h (done)
+[ 1190632 ] CRC 
+[ 1571142 ] RMUL anywhere
+[ 1600818 ] Sort Packlist by name
+
+[Iroffer-lamm feature requests]
+[ 829114 ] hostmask check on queues
+[ 829837 ] Log nick+hostmask on DCC chat attempts
+[ 1473932 ] IP retrieval
+
+[Iroffer mod Dinoex]
+
+Short Term Features:
+  1379  different packlists for different groups
+  1438  more announce types for plist
+  1494  send note to user when queuing
+  1498  rss feed on the bot
+  1516  allow batch syntax for XDCC SEND
+  1535  reduce queued message on batch
+  1536  silent add
+
+Long Term Features:
+  1015  http admin
+  1018  warning in chat when bot was kicked
+  1042  hentai flag
+  1068  restore tty console on fatal error
+  1103  Silc Support
+  1110  XDCC QUEUE compact output
+  1113  trim spaces in config
+  1114  service script for linux
+  1135  Compress output per nick.
+  1136  Save size even when nomd5
+  1145  make autoadd reentrant
+  1149  move after upload to dir
+  1170  telnet with more terminal codes
+  1176  pre_desc, post_desc
+  1193  disable all privmsg
+  1202  Reduce message length when using fish.
+  1206  remove file after last person finishes downloading
+  1216  ADDGROUP with file
+  1234  better response to find
+  1240  bandwith trigger
+  1243  move upload files into filesdir/subdir
+  1246  keep statistik when file is removed and added
+  1248  max logfiles size, rotate if reached
+  1253  do not warn if xdccllistfile changes
+  1262  @find should report the newest files first
+  1271  @find not found message
+  1275  autoaddann
+  1279  single passive send
+  1280  edit color messages
+  1282  macros in config
+  1286  show one level dir in description
+  1293  count transfers als queued
+  1315  Web-Configurator
+  1334  trigger !lag, !packs
+  1337  MOVEDIR
+  1340  better perfomance for sort
+  1343  trigger fro batch downloads
+  1346  trigger !listul, !size
+  1350  automatic fetch new packs from a bot
+  1363  XDCC LIST from pack n
+  1367  GET with CTCP
+  1368  XDCC SNOOZE
+  1389  PART all channels till REHASH
+  1370  inform user after ACCEPTU
+  1376  SSL-Bouncer connecten
+  1381  support for 8 bit nicks
+  1383  support { in network line
+  1384  auto delete of rotated logfiles
+  1385  !NEWDOWNLOAD trigger
+  1391  check md5 hashes against external file
+  1400  add hosts/users to a list that can skip the queue if it is full
+  1406  admin command for Weblist ON | OFF
+  1416  XDCC BATCH group *.avi
+  1417  XDCC BATCH in weblist
+  1418  autodetect packlist and move it to 1.
+  1421  configure autoignore limits.
+  1422  don't log IP-adresses.
+  1433  Turbo DCC
+  1434  transfer info for a upload
+  1448  announce xdcc batch
+  1454  Auto-update GEOIP
+  1455  write running config as file
+  1458  show list latest 5 packs on top
+  1459  transfer new files to another bot
+  1477  batch announce
+  1483  autoaddann pattern
+  1486  autotrim input from users " XDCC SEND"
+  1490  delay the responce to the !new command
+  1500  force to send a pack to someone who downloaded a certain pack
+  1521  hostmask or nick in exempt list for ignoreduplicate ip
+  1522  strip extentions in announce
+  1526  variables in config file
+  1529  XDCC-DELTA
+  1530  summary after find.
+  1542  Fix future date
+  1544  Warn if ssl connects do non-ssl port
+  1545  Supoort color codes in announce
+  1546  Auth telnet/chat with CERTFP
+  1547  Monitor diskload and reduce slots
+  1552  wildcards dirnames in autoadd_dir
+  1555  easier color for announce
+  1558  suppress batch notices, suppress remove notices
+  1563  Restrict group admin access to DCLD and others
+  1567  Support netmap for line rate (14.88Mpps) on a 10GigE link 
+
+Not going to happen anytime soon:
+  1001  need voice seperate for each channel
+  1004  daily/weekly/monthly transferlimits for uploads 
+  1005  auto part annd join channel after netsplit
+  1009  limit file access to upload and download
+  1010  strip logfiles
+  1022  send notes on mutiple triggers
+  1030  msg to owner when it activates flood protection
+  1032  configureable note after Record
+  1034  age verification for hentai
+  1038  shared bot, each admin manages its own files.
+  1047  edit config via web/admin
+  1048  cancel for MSGREAD
+  1054  Donwnloadkeys
+  1060  limited directfile_acess
+  1069  multithreading
+  1075  execue programs/shell
+  1080  need_voice per group
+  1081  virtuelle bots
+  1090  password to get http list
+  1108  MySQL Support
+  1112  botinfo with queue size
+  1119  Variable Substition %random in Nickname
+  1128  Metalink, aria2c, proz support
+  1130  multithread sends via XDCC
+  1133  add pack to a certain number
+  1134  qsend with overwrite limits
+  1141  priority que'ing for user with level
+  1150  extend addnew to uploaddir
+  1153  show last user on xdl (admin only)
+  1157  config modify per admin chat
+  1162  group within a group
+  1172  check nodownloadhost on nickchange
+  1183  support filenamees with ...
+  1184  send msg to server before welcome
+  1185  configure the source port for outgoing connections
+  1210  bonjour/zeroconf, apipa
+  1210  dcc2
+  1210  https
+  1211  report more os info
+  1213  support SCTP
+  1220  group bots and block users from paralell DL
+  1220  limit DL for reistered users NickServ STATUS
+  1225  bann bad clients by CTCP VERSION
+  1250  slotsmax and overallmaxspeed setable by time
+  1259  support SNMP
+  1260  !find trigger
+  1261  SORTGROUP
+  1267  high priority send for people with high speeds
+  1276  get all missing packs from some other bot
+  1287  different speed limits by status
+  1290  build-in ftp server
+  1338  build in torrent
+  1341  rfc2817 HTTP/TLS
+  1342  incomann channel
+  1344  drop down menues in weblist
+  1351  http dowloads for users
+  1398  dcc password containing spaces
+  1437  trigger to find a pack by number of the episiode
+  1443  make ctrl+c disabled
+  1452  zeroconf/mdns/avahi-support
+  1495  support for plowshare
+  1525  user defined limits
+  1543  native windows build with MINGW
+  1565  lock packs on fixed posion while sorting the rest
+

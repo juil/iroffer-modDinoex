@@ -1,0 +1,122 @@
+        Installation de Iroffer mod Dinoex sous Linux avec virtual Hosts
+
+Procédure d'installation
+
+    1. L'utilisateur "bot" et le domaine "bot.domaine.fr" doivent avoir
+       été créé avec plexx/confix.
+    2. Nous allons dans le répertoire racine de l'utilisateur "bot".
+cd /var/www/vhosts/bot.domain.fr/
+
+    3. Créez un répertoire supplémentaire pour iroffer.
+mkdir iroffer
+cd iroffer/
+
+    4. Récupèrez sur le Web les sources du programme.
+wget http ://iroffer.dinoex.net/iroffer-dinoex-snap.tar.gz
+
+    5. Décompressez les sources.
+tar -xvzf iroffer-dinoex-snap.tar.gz
+
+    6. Configurez les sources pour votre Linux.
+cd iroffer-dinoex-snap
+./Configure -curl -geoip -ruby
+
+    7. Si "Configure" affiche quelques erreurs, alors il manque encore des
+       paquets.
+       suffisant sous Debian :
+aptitude install make
+aptitude install gcc
+aptitude install libc-dev
+aptitude install libcurl4-openssl-dev
+aptitude install libgeoip-dev
+aptitude install libssl-dev
+aptitude install ruby1.8-dev
+aptitude install ruby1.8
+aptitude install libruby-extras
+
+    8. Nous voulons les textes en français. Nous construisons le
+       programme.
+make fr
+
+    9. On copie le programme au bon endroit.
+cp iroffer-fr ..
+
+   10. Nous commençons avec "exemple.config".
+cp exemple.config ../monbot.config
+cd ..
+chown bot monbot.config
+chmod 600 monbot.config
+
+   11. Seul le Bot doit avoir les droits d'écriture.
+cd ..
+chown bot .
+chmod 700 .
+
+   12. Nous allons générer un Mot de passe pour l'Admin Chat.
+./iroffer-fr -c monbot.config
+
+   13. Nous renseignons tous les répertoires dans le fichier de
+       configuration "monbot.config".
+       "adminhost" doit être réglé de manière appropriée.
+       Les chemins pour "monbot.state" et "monbot.txt" sont modifiés pour
+       les sites Web.
+       Le répertoire pour les fichiers peut être saisi.
+       monbot.config devrait contenir :
+logfile /iroffer/monbot.log
+pidfile /iroffer/monbot.pid
+statefile /httpdocs/monbot.state
+xdcclistfile /httpdocs/monbot.txt
+filedir /files
+uploaddir /files
+
+   14. Nous allons créer le répertoire pour les fichiers.
+cd ..
+mkdir files
+chown bot files
+
+Il faudra se connecter par le XDCC ou via FTP pour uploader les fichiers.
+
+   15. Téléchargement du listing Web externe.
+wget http ://iroffer.dinoex.net/iroffer-state217.zip
+cd httpdocs
+unzip ../iroffer-state217.zip
+touch size.data
+cp iroffer-sample-fr.php index.php
+
+   16. Configuration du listing Web externe.
+nano -w index.php
+ou
+vim index.php
+
+       Dans le index.php à 2) une ligne est a insérée :
+# 2) Pour un Nick précis enregistré :
+#$nick = 'XDCC|irofferbot';
+$nick = 'XDCC|monbot';
+
+   17. Créer un script de démarrage.
+cd ..
+puis
+nano -w start-iroffer.sh
+ou
+vim start-iroffer.sh
+
+       Nous écrivons le script
+#!/bin/sh
+cd iroffer
+./iroffer-fr -b -u bot -t /var/www/vhosts/bot.domain.fr /iroffer/monbot.config
+
+   18. On rend le script exécutable.
+chmod +x start-iroffer.sh
+
+   19. Lancer.
+sh start-iroffer.sh
+
+       Le Bot devrait maintenant fonctionner.
+   20. Si DNS ne fonctionne pas dans le chroot :
+mkdir /var/www/vhosts/bot.domain.fr/etc
+cp -p /etc/resolv.conf /etc/nsswitch.conf /var/www/vhosts/bot.domain.fr/etc/
+mkdir /var/www/vhosts/bot.domain.fr/lib
+cp -p /lib/libnss_dns.so.2 /lib/libresolv.so.2 /var/www/vhosts/bot.domain.fr/lib
+/
+
+       Le robot ne doit pas être redémarré.

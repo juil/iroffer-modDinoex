@@ -1,0 +1,124 @@
+      Installation of iroffer mod Dinoex on Linux with virtual hosts setup
+
+Installation steps
+
+    1. Create user "bot" und domain "bot.domain.net" with plexx/confix.
+    2. As root, change into the directory of the user "bot".
+cd /var/www/vhosts/bot.domain.net/
+
+    3. Create a new directoty only for iroffer.
+mkdir iroffer
+cd iroffer/
+
+    4. Get the sources for the program.
+wget http://iroffer.dinoex.net/iroffer-dinoex-snap.tar.gz
+
+    5. Extract the sources.
+tar -xvzf iroffer-dinoex-snap.tar.gz
+
+    6. We configure the sources for our Linux version.
+cd iroffer-dinoex-snap
+./Configure -curl -geoip -ruby
+
+    7. Should "Configure" report some errors, we have to retry after
+       installing the missing packages.
+       Sufficient under Debian:
+aptitude install make
+aptitude install gcc
+aptitude install libc-dev
+aptitude install libcurl4-openssl-dev
+aptitude install libgeoip-dev
+aptitude install libssl-dev
+aptitude install ruby1.8-dev
+aptitude install ruby1.8
+aptitude install libruby-extras
+
+    8. We build the program.
+make
+
+    9. Now we copy the program to the right place.
+cp -p iroffer ..
+
+   10. We start with the "example.config.
+cp example.config ../mybot.config
+cd ..
+chown bot mybot.config
+chmod 600 mybot.config
+
+   11. Only the bot needs to have write permissions here.
+cd ..
+chown bot .
+chmod 700 .
+
+   12. We create a password for the admin-chat.
+./iroffer -c mybot.config
+
+   13. We add the directories to the configuration file "mybot.config".
+       "adminhost" should be set to your hostmask.
+       We set the path for "mybot.state" and "mybot.txt" so wthe weblist
+       can access them.
+       The directories for the files is added and we uses it also for
+       uploads.
+       mybot.config should include:
+logfile /iroffer/mybot.log
+pidfile /iroffer/mybot.pid
+statefile /httpdocs/mybot.state
+xdcclistfile /httpdocs/mybot.txt
+filedir /files
+uploaddir /files
+
+   14. We create the directory for the files.
+cd ..
+mkdir files
+chown bot files
+
+       Here we can upload the files with FTP or with XDCC later.
+   15. Download the source of the weblist.
+wget http://iroffer.dinoex.net/iroffer-state217.zip
+cd httpdocs
+unzip ../iroffer-state217.zip
+touch size.data
+cp iroffer-sample.php index.php
+
+   16. Edit the configuration of the weblist.
+nano -w index.php
+
+       or
+vim index.php
+
+       In the file index.php you define und 2) one line with the nickname
+       of your bot:
+# 2) Set nickname by hand
+#$nick = 'XDCC|irofferbot';
+$nick = 'XDCC|mybot';
+
+   17. We create a startup script.
+cd ..
+
+       then
+nano -w start-iroffer.sh
+
+       or
+vim start-iroffer.sh
+
+       Here we add the following lines:
+#!/bin/sh
+cd iroffer
+./iroffer -b -u bot -t /var/www/vhosts/bot.domain.net /iroffer/mybot.config
+
+   18. Make the script executeable.
+chmod +x start-iroffer.sh
+
+   19. Start.
+sh start-iroffer.sh
+
+       Now the bot should run and connect.
+   20. If iroffer fails to resolve the DNS name of the IRC server inside
+       your chroot:
+mkdir /var/www/vhosts/bot.domain.net/etc
+cp -p /etc/resolv.conf /etc/nsswitch.conf /var/www/vhosts/bot.domain.net/etc/
+mkdir /var/www/vhosts/bot.domain.net/lib
+cp -p /lib/libnss_dns.so.2 /lib/libresolv.so.2 /var/www/vhosts/bot.domain.net/li
+b/
+
+       The bot don't have to be restarted to conenct.

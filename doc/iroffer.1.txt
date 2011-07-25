@@ -1,0 +1,146 @@
+IROFFER(1)                       User Manuals                       IROFFER(1)
+
+
+
+NAME
+       iroffer -- DCC file server bot
+
+SYNOPSIS
+       iroffer -v
+
+       iroffer -c [configfile]
+
+       iroffer  [-b]  [-d] [-k] [-n] [-s] [-u user] [-t dir] [-i file] config-
+       file [configfile ...]
+
+DESCRIPTION
+       iroffer  is  a  file  server  which uses the DCC feature of IRC to send
+       requested files to other users. The name of a configuration  file  must
+       be given on the command line for normal operation.
+
+OPTIONS
+       -v     Display version information and exit.
+
+       -c     Generate  an  encrypted  password  and exit.  If a configfile is
+              given, the encrypted password will not be printed, but  directly
+              added to the end of the configfile.
+
+       -b     Run in the background.
+
+       -d     Increase debug level.
+
+       -k     Attempt to adjust ulimit to allow core files.
+
+       -n     No colors in foreground mode.
+
+       -s     No screen manipulation in foreground mode.
+
+       -u user
+              Run as user (you have to start as root).
+
+       -t dir Chroot to dir (you have to start as root).
+
+       -w dir Chdir to dir as working directory.
+
+       -i file
+              Import and old style mybot.xdcc file.
+
+IMPLEMENTATION NOTES
+       multiple IRC networks
+              Supports connecting to multiple IRC networks at the same time.
+
+       IPv6   Supports connecting and transfers via IPv6
+
+       DCC    Supports transfers of files greater 4 GB.
+
+       passive DCC
+              Supports passive DCC transfers and uploads.
+
+       HTTP server
+              Supports internal HTTP server for status and pack list.
+
+       Telnet server
+              Supports internal Telnet server for background administration.
+
+       FISH encrpytion
+              Support for FISH encryption for mesasages and channel.
+
+       SSL encrpytion
+              Optional support to connect via SSL to IRC-servers if OpenSSL or
+              GnuTLS is availible.
+
+       CertFP with SSL
+              CertFP Authentification with SSL.
+
+       GeoIP and GeoIPv6
+              Optional support to limit transfers to countrys with libGeoIP.
+
+       Curl   Optional support to fetch files via FTP/HTTP if libcurl is  com-
+              piled in.
+
+       UPnP   Optional  Universal  Plug  and  Play  support to connect via NAT
+              Routers, this requires lib miniupnpc present.   Used  to  obtain
+              public  IP-Address and Set/Remove port forwardings for incomming
+              connections.
+
+       Ruby   Optional support for scripting plugins in Ruby.  Support for CGI
+              scripts with the internal HTTP server.
+
+       XML    Support for XML Packlist allows integration with other websites.
+
+       Batch  Allows batched transfers without delaying new users.
+
+RETURN VALUES
+       The iroffer program exits 0 on successful termination,  and  >0  if  an
+       error occurs.
+
+SIGNALS
+       SIGUSR1
+              Jumps to another server, same as admin command "JUMP".
+
+              kill -USR1 `mybot.pid`
+
+       SIGUSR2
+              Re-reads config file, same as admin command "REHASH"
+
+              kill -USR2 `mybot.pid`
+
+       SIGTERM
+              Shuts down iroffer, same as admin command "SHUTDOWN NOW"
+
+              kill `mybot.pid`
+
+FILES
+       mybot.pid
+              the pid of the currently running iroffer
+
+       mybot.state
+              the main database for the iroffer
+
+       mybot.txt
+              generated list of packs in plain text
+
+       mybot.xml
+              generated list of packs in XML
+
+       mybot.log
+              logfile wit all notes error and while running
+
+SEE ALSO
+       /usr/share/doc/iroffer
+              Please look for more detailed information in this directory.
+
+       http://iroffer.dinoex.net/
+              Downloads and Documentation.
+
+       http://iroffer.dinoex.de/projects/show/iroffer
+              Projectpage with Tracker and RSS feed.
+
+HISTORY
+       The original iroffer version was written by by David Johnson.
+
+       iroffer-dinoex is developed by Dirk Meyer.
+
+
+
+All Posix OS                      Januar 2011                       IROFFER(1)

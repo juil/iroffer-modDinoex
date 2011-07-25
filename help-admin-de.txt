@@ -1,0 +1,156 @@
+** -- Info Commands --
+**   HELP                 : Hilfe anzeigen
+**   XDLFULL              : Anzeigen aller auf dem Bot befindlichen Pakete
+**   XDLGROUP [gruppe]    : Anzeigen der Pakete in <gruppe>
+**   XDL                  : Liste der Gruppen und der Pakete ohne Gruppe
+**   XDLOCK               : Anzeige aller gesperrten Pakete
+**   XDTRIGGER            : Zeige alle Pakete mit einem dynamischen Trigger
+**   FIND muster          : Zeige Pakete die den Text <muster> enthalten
+**   XDS                  : Speichern der State-Datei
+**   DCL                  : Alle laufenden Übertragungen anzeigen
+**   DCLD                 : Alle laufenden Übertragungen ausführlich anzeigen
+**   TRINFO id            : Daten zu Transfer <id> anzeigen
+**   GETL                 : Zeige aktuelle Upload Wartschlange
+**   QUL                  : Anzeigen der Warteschlange
+**   IGNL                 : Ignorliste anzeigen
+**   LISTUL [dir]         : Inhalt des Uploadverzeichnisses anzeigen
+**   DISKFREE             : Freien Paltz im Uploadverzeichnis anzeigen
+**   CHANL [netz]         : Liste aller Channels und ihrer aktuellen User anzeigen
+** -- Transfer Commands --
+**   CLOSE [id]           : Abbrechen der Übertragung mit ID = <n>
+**   CLOSEU [id]          : Abbrechen des Uploads mit ID = <n>
+**   ACCEPTU min [hostmask] : Erlaube Uploads von <hostmask> für <x> Minuten
+**   GET netz nick n [passwort] : Fordere Paket <n> von Bot <nick> an
+**   CLOSEGET net nick    : Breche den Upload von Bot <nick> ab
+**   RMQ [position]       : Löschen von <position> in der Warteschlange
+**   RMIQ [position]      : Löschen von <position> in der 2. Warteschlange
+**   RMALLQ               : Löschen aller Einträge in beiden Warteschlangen
+**   NOMIN id             : Mindestgeschwindigkeit für Transfer <id> deaktivieren
+**   NOMAX id             : Maximalgeschwindigkeit für Transfer <id> deaktivieren
+**   UNLIMITED id         : Aufheben aller Bandbreitengrenzen für Transfer <id>
+**   MAXSPEED id x        : Setzen einer Bandbreitengrenze von <x> kB/s für Transfer <id>
+**   SEND nick n [netz]   : Sende Paket <n> an <nick>
+**   QUEUE nick n [netz]  : Paket <n> in die Warteschlange für <nick> einfügen
+**   IQUEUE nick n [netz] : Paket <n> in die 2. Warteschlange für <nick> einfügen
+**   BATCH nick n-m [netz] : Paket <n>-<m> in die 2. Warteschlange für <nick> einfügen
+**   PSEND channel style [netz] : Sende <style> (full|minimal|summary) XDCC LIST an <channel>
+**   QSEND [id]           : Starte einen neuen Transfer für das nächste Paket in der Warteschlange
+**   IQSEND [id]          : Verschiebe einen Eintrag von der 2. Warteschlange in die 1. Warteschlange
+**   SLOTSMAX [slots]     : Ändere zeitweise den Wert von 'slotsmax' auf <slots>
+**   QUEUESIZE [slots]    : Ändere zeitweise den Wert von 'queuesize' auf <slots>
+**   REQUEUE x y          : Verschiebe Eintrag in der Warteschlange von Position <x> nach <y>
+**   REIQUEUE x y         : Verschiebe Eintrag in der 2. Warteschlange von Position <x> nach <y>
+** -- Pack Commands --
+**   INFO n               : Zeigt die Infos für Paket <n> an
+**   REMOVE n [m]         : Entfernt Paket <n>, oder Paket <n> bis <m>
+**   REMOVEDIR dir        : Entfernt jedes Paket aus Verzeichnis <dir>
+**   REMOVEGROUP gruppe   : Entfernt jedes Paket aus der Gruppe <gruppe>
+**   RENUMBER x [y] z     : Verschiebe Pakete <x> bis <y> an Position <z>
+**   SORT [feld] [feld]   : Sortiere alle Pakete nach den Feldern
+**   ADD dateiname        : Fügt Datei <dateiname> als neues Paket hinzu
+**   ADDDIR dir           : Fügt jede Datei in Verzeichnis <dir> hinzu
+**   ADDNEW dir           : Fügt jede neue Datei in Verzeichnis <dir> hinzu
+**   ADDGROUP gruppe dir  : Fügt jede Datei aus Verzeichnis <dir> zu <gruppe> hinzu
+**   ADDMATCH muster      : Fügt neue Dateien hinzu die auf <muster> passen.
+**   AUTOADD              : Suche jetzt in 'autoadd_dir' nach neuen Dateien
+**   AUTOCANCEL           : Abbrechen aller laufenden ADD und REMOVE Befehle
+**   AUTOGROUP            : Erstelle ein Gruppe für jedes Verzeichnis mit Paketen
+**   NOAUTOADD x          : Sperrt AUTOADD für die nächsten <x> Minuten
+**   CHFILE n dateiname   : Ändert die Datei, die zu Paket <n> gehört, auf <dateiname>
+**   NEWDIR dirname neu   : Ändert das Verzeichnis in allen zutreffenden Paketen
+**   CHDESC n [msg]       : Ändert die Beschreibung von Paket <n> zu <msg>
+**   CHNOTE n [msg]       : Ändert die Anmerkung von Paket n auf <msg>
+**   CHTIME n [msg]       : Setze Datum des Eintrags des Paketes <n> auf <msg>
+**   CHMINS n [m] x       : Ändert die Minimalgeschwindigkeit von Paket <n> bis <m> auf <x> kB (0 für aus)
+**   CHMAXS n [m] x       : Ändert die Maximalgeschwindigkeit von Paket <n> bis <m> auf <x> kB (0 für aus)
+**   CHLIMIT n [m] x      : Ändert das tägliche Downloadlimit von Paket <n> bis <m> auf <x> Übertragungen (0 für aus)
+**   CHLIMITINFO n [msg]  : Ändert die Mitteilung bei Überschreitung des Downloadlimits von Paket <n> auf <msg>
+**   CHTRIGGER n [msg]    : Ändert den Trigger von Paket n auf <msg>
+**   DELTRIGGER n [m]     : Entferne die Trigger von Paket <n> bis <m>
+**   CHGETS n [m] x       : Verändert den Downloadzähler von Paket <n> bis <m> zu Wert <x>
+**   CHCOLOR n [m] x[,b][,s] : Setze für das Paket <n> bis <m> die Farbe <x>, den Hintergrund <b> und den Style <s>
+**   LOCK n [m] passwort  : Sichert Paket <n> bis <m> mit Passwort <passwort>
+**   UNLOCK n [m]         : Entfernt das Passwort für Paket <n> bis <m>
+**   LOCKGROUP gruppe passwort : Sichert alle Pakete in der <gruppe> mit Passwort <passwort>
+**   UNLOCKGROUP gruppe   : Entfernt das Passwort für alle Pakete in der <gruppe>
+**   RELOCK altes-passwort passwort : Ändert alle Pakete mit <altes-password> zu <passwort>
+**   GROUPDESC gruppe msg : Ändert die Beschreibung von <gruppe> auf <msg>
+**   GROUP n gruppe       : Ändert die Gruppenzugehörigkeit von Paket <n> auf <gruppe>
+**   MOVEGROUP n m gruppe : Ändert die Gruppenzugehörigkeit von Paket <n> bis <m> auf <gruppe>
+**   REGROUP gruppe neu   : Verschiebt alle Pakete von <gruppe> in die Gruppe <neu>
+**   NEWGROUP gruppe dir  : Ändert die Gruppenzugehörigkeit von allen Dateien in <dir> auf <gruppe>
+**   ANNOUNCE n [msg]     : ANNOUNCE <msg> für Paket <n> in allen Channels
+**   NEWANN n [channel] [netz] : ANNOUNCE für die letzen <n> Pakete in allen Channels
+**   MANNOUNCE n m [msg]  : ANNOUNCE <msg> für Paket <n> bis <m> in allen Channels
+**   CANNOUNCE channel n [msg] : ANNOUNCE <msg> für Paket <n> in Channel <channel>
+**   SANNOUNCE n [m]      : Kurze ANNOUNCE für Paket <n> bis <m> in allen Channels
+**   NOANNOUNCE x         : Sperrt alle ANNOUNCE für die nächsten <x> Minuten
+**   ADDANN dateiname     : Fügt Datei <dateiname> als neues Paket hinzu und sendet ein ANNOUNCE
+**   MD5 [n] [m]          : Berrechne die MD5 und die CRC Prüfsummen des Pakets <n> bis <m>
+**   CRC [n] [m]          : Zeigt das Ergebnis der CRC Prüfung von Paket <n> bis <m> an
+** -- File Commands --
+**   FILEMOVE dateiname neu : Umbenennen einer Datei
+**   MOVEFILE n dateiname : Umbenennen der Datei die zu Paket <n> gehört
+**   MOVEGROUPDIR gruppe dir : Alle Dateien der <gruppe> in das <dir> verschieben
+**   FILEDEL dateiname    : Löschen der Datei auf der Festplatte
+**   FILEREMOVE n [m]     : Löschen des Pakets <n> oder der Pakete <n> bis <m> und der zugehörigen Dateien
+**   SHOWDIR dir          : Das Verzeichnis auf der Festplatte anzeigen
+**   MAKEDIR dir          : Das Verzeichnis auf der Festplatte anlegen
+**   FETCH file url       : Startet einen Download von <url> und speichert im Uploadverzeichnis
+**   FETCHCANCEL [id]     : Bricht den Download <id> ab
+** -- Misc Commands --
+**   MSG nick message     : Sendet Mitteilung <message> an Nick oder Channel <nick>
+**   AMSG msg             : Sendet Mitteilung in allen Channels
+**   MSGNET netz nick message : Sendet Mitteilung <message> an Nick oder Channel <nick>
+**   MESG message         : Sendet Mitteilung <message> an alle Nutzer, die aktuell vom Bot etwas herunterladen
+**   MESQ message         : Sendet eine Mitteilung an alle Nutzer, die gerade in der Warteschlange stehen
+**   IGNORE x hostmask    : Ignoriere hostmask (nick!user@host) für <x> Minuten, Jokerzeichen (?*) sind erlaubt
+**   UNIGNORE hostmask    : Löschen des Ignores für hostmask
+**   BANNHOST x hostmask  : Breche die Transfers ab und ignoriere <hostmask> (nick!user@host) für <x> Minuten
+**   BANNNICK nick [netz] : Breche die Transfers ab und entferne <nick> aus der Warteschlange
+**   NOSAVE x             : Verhindert das Speichern der XDCC-Datei für die nächsten <x> Minuten
+**   NOSEND x [msg]       : Verhindert das Versenden von Dateien in den nächsten <x> Minuten
+**   NOLIST x             : Verhindert die Benutzung des Kommandos XDCC LIST und die Ausgabe der Paketliste für die nächsten <x> Minuten
+**   NOMD5 x              : Sperrt die Berechnung von MD5 und CRC32 für die nächsten <x> Minuten
+**   MSGREAD              : Zeigt die vom Bot aufgezeichneten Mitteilungen
+**   MSGDEL               : Löschen der Mitteilungsaufzeichnungen
+**   RMUL dateiname       : Löscht Datei <dateiname> im Uploadverzeichnis
+**   RAW command          : Sendet <command> zum Server (RAW IRC)
+**   RAWNET netz command  : Sendet <command> zum Server (RAW IRC)
+**   LAG [netz]           : Zeige den Zeitversatz der Netzwerke
+** -- Bot Commands --
+**   SERVERS [netz]       : Zeigt die Serverliste des Bots an
+**   HOP [channel] [net]  : <channel> verlassen und neu betreten
+**   NOCHANNEL x [channel] : Verlasse den Channel <channel> für <x> Minuten
+**   JOIN channel [net] [key] : Betrete den Channel <channel> bis zum REHASH
+**   PART channel [netz]  : Verlasse den Channel <channel> bis zum REHASH
+**   JUMP server [netz]   : Wechselt zu einem zufälligen Server oder zu <server>
+**   SERVQC               : Löscht die Serversendwarteschlange
+**   STATUS               : Zeigt nützliche Statusinformationen an
+**   REHASH               : Lädt erneut die Konfigurationsdatei und re-konfiguriert den Bot
+**   BOTINFO              : Zeigt Informationen über den Botstatus an
+**   MEMSTAT              : Zeigt Daten zum Speicherverbrauch des Bots an
+**   CLEARRECORDS         : Löscht die Übertragungs-, Bandbreiten-, Gesamtübertragungsrekorde, Uptime und Übertragungsvolumen
+**   CLEARGETS            : Löscht den Downloadzähler in allen Paketen
+**   REDRAW               : Zeichnet den Text auf der Konsole neu
+**   DELHIST              : Löschen der eingegebene Zeilen aus dem Speicher
+**   QUIT                 : Diesen DCC-Chat beenden
+**   EXIT                 : Diesen DCC-Chat beenden
+**   LOGOUT               : Diesen DCC-Chat beenden
+**   CHATME               : Den Bot eine DCC-Chat zu dir aufbauen lassen
+**   CHATL                : Anzeige der DCC-Chats
+**   CLOSEC [id]          : Beende DCC-Chat <id>
+**   DEBUG x              : Schalte die Debug-Ausgabe bis Stufe <n> ein (0 für aus)
+**   CONFIG name wert     : Setze Konfigurationsvariable <name> auf <wert>
+**   PRINT key            : Zeige den Wert der Variable <key>
+**   IDENTIFY [netz]      : Sende das Passwort für 'nickserv' erneut
+**   HOLDQUEUE [x]        : Keine weiteren Downloads starten
+**   OFFLINE [netz]       : Trenne Bot vom angegebenen Netz oder von allen Netzen
+**   ONLINE [netz]        : Verbine Bot zum angegebenen Netz oder zu allen Netzen
+**   RUBY methode [args]  : Rufe die Methode <methode> im Ruby-Script mit den Parametern <args> auf
+**   SHUTDOWN act         : Bot beenden, <act> kann sein "now", "delayed", oder "cancel"
+**   BACKGROUND           : Bot im Hintergund weiterlaufen lassen
+**   DUMP                 : Schreibt alle Internen Informationen in das Logfile
+**   RESTART              : Beende den Bot und starte ihn neu
+**   CRASH                : Schreibt alle Internen Informationen in das Logfile, und beendet den Bot
+** For additional help, see the documentation at http://iroffer.dinoex.net/

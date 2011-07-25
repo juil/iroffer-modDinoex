@@ -1,0 +1,103 @@
+#!/bin/sh
+#
+# by Dirk Meyer (dinoex)
+# Copyright (C) 2004-2011 Dirk Meyer
+#
+# By using this file, you agree to the terms and conditions set
+# forth in the GNU General Public License.  More information is
+# available in the LICENSE file.
+#
+# If you received this file without documentation, it can be
+# downloaded from http://iroffer.dinoex.net/
+#
+# $Id: Lang,v 1.14 2011/01/21 10:05:28 cvs Exp $
+#
+lang="${1-de}"
+lang="${lang%.txt}"
+if test "${lang}" = "en"
+then
+	for c in src/iroffer*.c src/dinoex*.c
+	do
+		if test -f "${c}.en"
+		then
+			echo \
+			mv -f "${c}.en" "${c}"
+			mv -f "${c}.en" "${c}"
+		fi
+	done
+	exit 0
+fi
+if test -n "${2}"
+then
+	charset="${2}"
+else
+	# autodetect
+	case "${LANG}" in
+	*.ISO8859-*)
+		charset="latin1"
+		;;
+	*.UTF-8*|*.utf-8*)
+		charset="utf-8"
+		;;
+	esac
+fi
+utf8="cat"
+case "${charset}" in
+u*)
+	echo "utf-8 enabled ..."
+	utf8="iconv -f latin1 -t utf-8"
+	;;
+esac
+echo -n "parsing ... "
+sed -e 's| |	|' en.txt > en.tmp
+sed -e 's| |	|' "${lang}.txt" > "${lang}.tmp"
+join -t '	' en.tmp "${lang}.tmp" |
+sed -e 's|^[0-9]*|s|' -e 's|"$|"	g|' |
+awk -F '	' '
+{ 
+	if ( $2 == $3 )
+		next
+	print
+}
+' |
+${utf8} |
+sed -e 's|\\|\\\\|g' -e 's|\*|\\*|g' -e 's|\+|\\+|g' -e 's|\.|\\.|g' -e 's|\[|\\[|g' -e 's|\]|\\]|g' -e 's|\&|\\&|g' > "${lang}.sed"
+rm -f en.tmp "${lang}.tmp"
+echo "done"
+if test ! -d "src.${lang}"
+then
+	mkdir "src.${lang}"
+fi
+for c in src/iroffer*.c src/dinoex*.c
+do
+	l="src.${lang}/${c#src/}"
+	sed -f "${lang}.sed" "${c}" > "${l}.new"
+	if test -f "${l}"
+	then
+		if diff -q "${l}" "${l}.new"
+		then
+			rm -f "${l}.new"
+			continue
+		fi
+	fi
+	echo \
+	mv -f "${l}.new" "${l}"
+	mv -f "${l}.new" "${l}"
+done
+for c in src/*.h src/[bcpsu]*.c
+do
+	l="src.${lang}/${c#src/}"
+	cp -p "${c}" "${l}.new"
+	if test -f "${l}"
+	then
+		if diff -q "${l}" "${l}.new"
+		then
+			rm -f "${l}.new"
+			continue
+		fi
+	fi
+	echo \
+	mv -f "${l}.new" "${l}"
+	mv -f "${l}.new" "${l}"
+done
+# eof

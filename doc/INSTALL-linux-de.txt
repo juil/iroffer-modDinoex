@@ -1,0 +1,92 @@
+            Installation von iroffer mod Dinoex unter Linux als User
+
+Installationsschritte
+
+    1. Wir gehen als User in das HOME Verzeichnis.
+cd
+
+    2. Wir legen ein extra Verzeichnis für iroffer an.
+mkdir iroffer
+cd iroffer/
+
+    3. Holen der Quellen für Programm.
+wget http://iroffer.dinoex.net/iroffer-dinoex-snap.tar.gz
+
+    4. Auspacken der Quellen.
+tar -xvzf iroffer-dinoex-snap.tar.gz
+
+    5. Wir konfigurieren die Quellen für unser Linux.
+cd iroffer-dinoex-snap
+./Configure -curl -geoip -ruby
+
+    6. Sollte "Configure" Fehler melden, so fehlen noch Pakete.
+       Diese sind zu installieren und dann "Configure" wiederholen.
+       Unter Debian reicht:
+sudo aptitude install make
+sudo aptitude install gcc
+sudo aptitude install libc-dev
+sudo aptitude install libcurl4-openssl-dev
+sudo aptitude install libgeoip-dev
+sudo aptitude install libssl-dev
+sudo aptitude install ruby1.8-dev
+sudo aptitude install ruby1.8
+sudo aptitude install libruby-extras
+
+    7. Wir bauen das Programm mit deutsche Texten.
+make de
+
+    8. Nun das Programm an die richtige Stelle kopieren.
+cp -p iroffer-de ..
+cp *.html ..
+cp -r htdocs ../
+
+    9. Wir starten mit der "beispiel.config".
+cp beispiel.config ../mybot.config
+cd ..
+chmod 600 mybot.config
+
+   10. Nur der Bot muss Schreibrechte besitzen.
+chmod 700 .
+
+   11. Wir erzeugen ein Passwort für den Admin-Chat.
+./iroffer-de -c mybot.config
+
+   12. Wir tragen die Verzeichnisse in die Konfigurationsdatei
+       "mybot.config" ein.
+       "adminhost" sollte passend gesetzt werden.
+       Die die interne Webliste wird aktiviert.
+       Das Verzeichniss für die Pakete wird eingetragen.
+       mybot.config sollte enthalten:
+http_port 8000
+http_dir htdocs
+filedir /home/bot/files
+uploaddir /home/bot/files
+
+       (Ersetze 'bot' durch deinen Login)
+   13. Wir legen das Verzeichnis für die Pakete an.
+cd ..
+mkdir files
+
+       Dort können dann per XDCC oder FTP die Dateien hochgeladen werden.
+   14. Erstellen eines Start-Scriptes.
+cd ..
+
+       dann
+nano -w start-iroffer.sh
+
+       oder
+vim start-iroffer.sh
+
+       Dort tragen wir ein:
+#!/bin/sh
+cd /home/bot/iroffer
+./iroffer-de -b /home/bot/iroffer/mybot.config
+
+       (Ersetze 'bot' durch deinen Login)
+   15. Das Script ausführbar machen.
+chmod +x start-iroffer.sh
+
+   16. Starten.
+sh start-iroffer.sh
+
+       Nun sollte der Bot laufen.

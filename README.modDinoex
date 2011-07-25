@@ -1,0 +1,3276 @@
+Aktuelle Version auf: http://iroffer.dinoex.net/
+
+With Version 3.27:
+------------------
+
+bugfix: XDCC SEND
+  If user has already packs in the idlequeue, do not add new packs from him to the mainqueue.
+
+381) subdirs_delayed
+  When configured, addir, addnew, and autoadd will scan subdirs later.
+  This keeps the bot responsive if you have a huge directory tree.
+  Default: off, subdirectories are scanned immediatly.
+
+bugfix: DUMP
+  Fix output of values with multiplier.
+
+380) server_connect_timeout (insprired by Thom)
+  Set the starting timeout in seconds on connect to the IRC-server.
+  This setting can only be set per network.
+  Default: 5
+
+379) DCLD (insprired by Aashiqmunda)
+  Show IP and country with DCLD.
+
+378) respondtochannellist, respondtochannelxdcc (inspired by CreeW)
+  This setting can be global or per network.
+
+377) periodicmsg (insprired by nanashiRei)
+  Setting now only per network. Multiple lines per net allowed.
+
+376) IQSEND (inspired by CreeW)
+
+  new admin commands:
+  IQSEND                             Push next entry from idle queue into main queue
+  IQSEND <id>                        Push given entry from idle queue into main queue
+
+bugfix: HOLDQUEUE
+  Show HOLDQUEUE in botinfo when active.
+
+375) OFFLINE, ONLINE (inspired by isengaurd)
+
+  new admin commands:
+  OFFLINE                            Close all networks
+  OFFLINE <net>                      Close given network
+  ONLINE                             Resume all networks
+  ONLINE <net>                       Resume given network
+
+374) announce_size (inspired by vice)
+  Print size of pack on announce.
+  Default: no
+
+bugfix: http_port
+  Force GMT to all Dates.
+
+373) http_dir
+  Support partial downloads and resume of files.
+  Count all files into maxspeed.
+
+bugfix: ignore_duplicate_ip
+  Remove user from queue too.
+
+372) statefile
+  Startup and shutdown of the bot is now much faster.
+
+371) tcp_nodelay, tcp_buffer_size (inspired by Aashiqmunda)
+  Better defaults for Windows/CYGWIN builds.
+
+extend debug and log information.
+
+bugfix: BATCH (reported by Aashiqmunda)
+  versions affected: 3.23 - 3.26
+  Bot did crash on admin command if the range was exeeding the last pack on the bot.
+
+370) delayed announce (inspired by TheDeath)
+  Delay announce till all files are added
+  and the checkums has been computed.
+  Wait if pack stays locked.
+
+bugfix: autosendpack (reported by Jikan)
+  Allow "autosendpack" with packnumber '-1'.
+
+369) RUBY
+
+  new admin commands:
+  RUBY <method> <args>               Call a method in the ruby_script with parameters <args>
+  RUBY <method>                      Call a method in the ruby_script with no parameters
+
+bugfix: REHASH (reported by CreeW)
+  versions affected: 3.0 - 3.26
+  Bot crashed when no global "user_nick" was defined.
+
+368) XDCC SEND (inspired by TheDeath)
+  Tell user to use "XDCC REMOVE <number>".
+
+367) PRINT, ruby_script
+  New variables for irconfig() "disk_space", "disk_space_text", "packsum",
+  "idlequeueused", "mainqueueused", "slotsfree", "slotsused",
+  "transfereddaily", "transferedweekly", "transferedmonthly",
+  "transferedtotal", "transferedtotalbytes", "uptime", "totaluptime",
+  "bandmax", "banduse"
+  New variable "mynick"
+
+366) http_port
+  Use short urls in weblist.
+
+bugfix: mime_type
+  versions affected: 3.0 - 3.26
+  Extra mime_type definitions where only used once.
+
+With Version 3.26:
+------------------
+
+365) tcp_nodelay
+  Disable the Nagle buffering algorithm in TCP.
+  The operating system will not optimze the size of each TCP packet.
+
+364) tcp_buffer_size
+  Set the Networkbuffer for TCP connection to the given value in kByte.
+  Default: 0 = the operating system default.
+
+extend debug and log information.
+
+bugfix: statefile
+  Allow loading a 64bit statefile on a 32bit system.
+  Format is now independent from time_t of the system.
+
+bugfix: XDCC INFO
+  Fix byteorder of CRC32 of a compressed file.
+
+363) backup statefile
+  Backup statefile when version of iroffer changes
+  
+362) offline
+  Disable connecting to this network.
+
+bugfix: CLOSEC (reported by unlogisch)
+  Bot did crash when parameter did not match a chat.
+  versions affected: 3.25
+
+bugfix: getip_network (reported by Gotanius)
+  DCC IP was not set on startup.
+  versions affected: 3.23 - 3.25
+
+bugfix: ruby_script (reported by Zir0h)
+  Use new API for ruby 1.9.2
+
+361) Export the crc32/md5 as sumfile
+  htdocs/sfv.txt.rb: export crc32 in sfv format.
+    pack:  "/sfv.txt.rb?pack=21"
+    range: "/sfv.txt.rb?pack=21;last=29"
+    group: "/sfv.txt.rb?group=ZZZ"
+  htdocs/md5.txt.rb: export md5 in md5sum format
+    pack:  "/md5.txt.rb?pack=21"
+    range: "/md5.txt.rb?pack=21;last=29"
+    group: "/md5.txt.rb?group=ZZZ"
+  htdocs/info.txt.rb: export file info as list.
+    pack:  "/info.txt.rb?pack=21"
+    range: "/info.txt.rb?pack=21;last=29"
+    group: "/info.txt.rb?group=ZZZ"
+
+360) htdocs
+  Suport ruby cgi scripts that generate non html mime data.
+  "name.txt.rb" will generate plain text content.
+
+359) ruby_script
+  Extend method "info_pack" to request fields of a pack.
+  Implemented: "group_desc", "bytes", "size", "name"
+  Extend access to network config for simple variables.
+  Extend "command" to take any number of parameters.
+
+bugfix: NEWANN
+  NEWANN caused the bot to crash.
+  versions affected: 3.25
+
+358) NEWANN (inspired by SellKony, CreeW)
+
+  new admin commands:
+  NEWANN <n> <channel> <net>         ANNOUNCE for the last <n> packs in channel <channel> on net <net>
+  NEWANN <n> <channel>               ANNOUNCE for the last <n> packs in channel <channel>
+
+bugfix: XDCC STOP
+  Bot did not remove "XDCC LIST" when the output had not started yet.
+
+357) RMALLQ (inspired by Loke_AF)
+
+  new admin command:
+  RMALLQ                             Removes entries from idle and main queue
+
+356) translations
+  All translation can be build from the same src
+  All translaten binaries have a suffix by default:
+    iroffer-de, iroffer-fr, iroffer-it
+  Fix problem with leftover files from older versions.
+
+bugfix: bsdmake
+  Generated Makefile now supports both gnumake and bsdmake.
+
+355) XDCC BATCH, BATCH (inspired by Aashiqmunda)
+  Allow backwards ranges from <a> downto <b>.
+
+bugfix: logstats (reported by LazyTiger)
+  With logstats off, logroate was ignored.
+  With logstats on and no logfile defined, not stats where printed to DCC chat.
+
+bugfix: ./Lang ??
+  Detect and use "utf-8" if $LANG is set in the enviroment.
+
+354) iroffer -c mybot.config 
+  If a configfile is given,
+  the encrypted password will not be printed,
+  but directly added to the end of the configfile.
+
+bugfix: XDCC INFO
+  Don't show desc if it is identical with filename.
+
+bugfix: XDCC BATCH (reported by Aashiqmunda)
+  The end of a range was not checked.
+
+With Version 3.25:
+------------------
+
+bugfix: BOTINFO (reported by dns777)
+  BOTINFO showed garbage for DCC-IP before the first connect.
+
+bugfix: UNLIMITED
+  Bot could crash when paramater did not match a transfer.
+  versions affected: 3.23 - 3.24
+
+bugfix: local_vhost
+  Connect only to the matching address family of the vhost.
+
+353) expire_logfiles (inspired by UndErDarK, TheDeath)
+  After the given number of days the old logfiles are deleted.
+  This will only be checked after logrotate.
+  Default: logfiles are not deleted.
+
+352) geoip6database (inspired by TheDeath)
+  Set the path to the database file for IPv6.
+  If you don't have a database you can download it from:
+  http://www.maxmind.com/app/geolitecountry
+  Default: no lookups for IPv6.
+
+bugfix: geoipdatabase
+  Reload database after file is updated.
+
+351) NOAUTOADD (inspired by [M]-V)
+
+  new admin command:
+  NOAUTOADD <x>                      Disables AUTOADD for next <x> minutes
+
+350) XDCC BATCH (inspired by Aashiqmunda)
+  Allow mutiple segments and lists in BATCH.
+
+  new user commands:
+  XDCC BATCH <a>,<b>,<c>             try to send or queue packs <a>, <b> and <c>
+  XDCC BATCH <a>-<b>,<n>-<m>         try to send or queue packs from <a> to <b> and <n> to <m>
+
+349) BATCH (inspired by Aashiqmunda)
+  Allow mutiple segments and lists in BATCH.
+
+  new admin commands:
+  BATCH <nick> <g>,<s>,<n-m>         Queues pack with group <g>, pack <s> and pack <n> to <m> for <nick> in idle queue
+  BATCH <nick> <g>,<s>,<n-m> <net>   Queues pack with group <g>, pack <s> and pack <n> to <m> for <nick> in idle queue
+
+348) French translation (contributed by Dandevito)
+  Activate with "./Lang fr" after "Configure"
+  to switch back to English call "./Lang en"
+
+347) XDCC INFO
+  Show the CRC32 of content of a compressed file.
+
+346) ignore_duplicate_ip (inspired by Loke_AF)
+  Detect faked hostmasks and abort multiple transfers to the same host
+  and ignore the user for the give time in hours.
+  Default: 0 == no check.
+
+bugfix: ruby_script (reported by Zir0h)
+  Bot did not build with ruby 1.9.1.
+
+345) xdccxmlfile
+  Speed up writing the xdccxmlfile.
+
+344) DUMP
+  On DUMP now all config data is written in seperate section.
+
+343) dump_all
+  If set shows all config vars on DUMP.
+  Default is to show only non default entries.
+
+342) announce_suffix_color (inspired by Aashiqmunda)
+  Set color for the instructions suffix in the announce message.
+  This will print the text "/MSG <botname> XDCC GET <nr>" in color.
+  Default no color.
+
+341) CHLIMIT, CHGETS
+
+  new admin commands:
+  CHLIMIT <n> <m> <x>                Change download limit to <x> transfers per day for pack <n> to <m>
+  CHGETS <n> <m> <x>                 Set the get counter to <x> for pack <n> to <m>
+
+340) CHMINS, CHMAXS (inspired by CreeW)
+
+  new admin commands:
+  CHMINS <n> <m> <x>                 Change min speed to <x> KB/s for pack <n> to <m>
+  CHMAXS <n> <m> <x>                 Change max speed to <x> KB/s for pack <n> to <m>
+
+bugfix: autoaddann (reported by Aashiqmunda)
+  Removed []-brackets from default announce text.
+
+339) show_group_of_pack (inspired by Zenquibo)
+  Export your xdcc list with group for each pack.
+  Default output is just the packs
+
+bugfix: xdccxmlfile (report by Hikaru Shindo)
+  Extend the structure so it is easier to parse.
+  Create and publish an XML DTD file.
+
+338) AUTOCANCEL (inspired by [M]-V)
+
+  new admin command:
+  AUTOCANCEL                         Cancels all pending add and remove actions
+
+337) adddir_min_size (inspired by Gamerkun)
+  When configured, addir, adnew and autoadd will skip all files that are
+  smaller then the gives size in kB.
+  Default: no check
+
+- bugfix: getip_network (reported by paulhamm)
+  Bot could crash when paramater did not match a network.
+  versions affected: 3.23 - 3.24
+
+336) channel -plaintext (inspired by TheDeath)
+  Disable colors when announcing for this channel.
+
+335) plaintext
+  Disable colors when announcing on this network. 
+
+- bugfix: console
+  Bot could crash when editing commandline.
+  versions affected: 3.23 - 3.24
+
+- bugfix: BOTINFO
+  Show list of compiled in features.
+
+With Version 3.24:
+------------------
+
+bugfix: fix small memory leaks
+
+bugfix: SHUTDOWN (reported by Zir0h)
+  Bot crashes on "SHUTDOWN" when build with ruby 1.9.
+
+extend debug and log information.
+
+bugfix: xdccxmlfile (report by nanashiRei)
+  Fix spelling in xmltag bandwith -> bandwidth.
+
+bugfix: CLOSEU (reported by [M]-V)
+  Bot did crash when a bad upload id is passed.
+  versions affected: 3.23
+
+bugfix: autoadd_dir
+  Directories with spaces where not parsed.
+
+bugfix: GET (reported by unlogisch)
+  Bot crashed if uploaddir was not defined.
+  versions affected: 3.21 - 3.23
+
+bugfix: autoaddann (reported by Aashiqmunda)
+  If no ruby_script was defined, bot did no announce.
+
+With Version 3.23:
+------------------
+
+bugfix: ruby_script (reported by Zir0h)
+  Method "on_added" did not announce on true.
+
+bugfix: transfermethod "freebsd-sendfile" (reported by SamKook)
+  Fall back on plain read/write if sendfile aborts.
+
+bugfix: xdccxmlfile (submitted by praya)
+  The XML was not well-formed for transfereddaily an more.
+
+335) requeue_sends (inspired by Loke_AF, Xarda)
+  When the bot shutdowns, sends are aborted. With this option set, sends
+  are saved with the queued items, so transfers might resume on restart.
+
+bugfix: CHCOLOR (reported by Aashiqmunda)
+  xdcclistfileraw was ignored.
+  versions affected: 3.21 - 3.22
+
+bugfix: ADMIN
+  versions affected: 3.21 - 3.22
+  Bot did respond in a message in a channel start with ADMIN.
+
+bugfix: xdcclist_grouponly (reported by Trellmor)
+  If xdcclist_grouponly is not set, do not confuse the user with
+  "XDCC LIST group" and " XDCC LIST ALL".
+
+334) RMQ, RMIQ (inspired by [M]-V)
+
+  new admin commands:
+  CLOSE                              Cancels all transfers
+  CLOSEU                             Cancels all uploads
+  RMQ                                Removes all entries from main queue
+  RMIQ                               Removes all entries from idle queue
+  FETCHCANCEL                        Stop download of all fetch running
+  CLOSEC                             Closes all DCC chats
+
+333) http_forbidden (inspired by TheDeath)
+  Defines the URL page to show when access is forbidden.
+  The given URL must resolve in a file in http_dir.
+  Default: Send only the HTTP error.
+
+bugfix: http_geoip (reported by TheDeath)
+  Could not be switched off.
+  Now generate HTTP 403 Forbidden.
+
+bugfix: CHCOLOR
+  Fix problem when filename starts with a number.
+
+332) no_natural_sort (inspired by lailoken)
+  Wenn konfiguriert, werden alle Texte nach ASCII sortiert.
+  Default: natürlliche Sortierenung.
+
+bugfix: http_port (reported by Nouhime)
+  Allow groups with "&" in weblist.
+
+331) BATCH (inspired by Misha-SU, Aashiqmunda)
+
+  new admin commands:
+  BATCH <nick> <g>                   Queues pack with group <g> for <nick> in idle queue
+  BATCH <nick> <g> <net>             Queues pack with group <g> for <nick> in net <net> in idle queue
+  BATCH <nick> <n>-<m>               Queues pack <n> to <m> for <nick> in idle queue
+  BATCH <nick> <n>-<m> <net>         Queues pack <n> to <m> for <nick> in net <net> in idle queue
+
+bugfix: SHUTDOWN
+  versions affected: 1.0 - 3.22
+  Nicht alle Nachricten wurden gesendet.
+  Laufende Uploads un Downloads wurden nicht sauber beendet.
+
+bugfix: AUTOADD
+  versions affected: 3.22
+  If you have filenames with multiple directory separators,
+  e.G. "//",  "/./" or "/../" then the
+  Bot could stop working with "To many open files".
+
+With Version 3.22:
+------------------
+
+bugfix: autosendpack, CHTRIGGER (reported by Lamune)
+  versions affected: 3.21
+  Bot crashes on trigger message.
+
+330) AUTOADD
+  If a renamed file is found on AUTOADD, fix the existing pack with the new filename.
+
+bugfix: Configure
+  Ensure detection works with gcc46.
+
+bugfix: upnp_router
+  Update for libminiupnpc 1.4.20100609
+
+Make autoadd less verbose.
+
+bugfix: CTCP PING (reported by TheDeath)
+  versions affected: 3.8 - 3.21
+  Bot did not respond on CTCP PING.
+
+bugfix: server_connected_raw (reported by mynakee)
+  versions affected: 3.12 - 3.21
+  Do not crash on invalid config lines.
+
+329) autoadd_color (inspired by CreeW)
+  Set color for files to be added in autoadd_dir.
+  Default no color.
+  Format: <color>,<background>,<style>
+
+328) CHCOLOR (inspired by CreeW)
+
+  new admin commands:
+  CHCOLOR <n> <m> <x>,<b>,<s>        Set the of pack <n> to <m> to color <x>, background <b> and style <s>
+  CHCOLOR <n> <x>,<b>,<s>            Set the of pack <n> to color <x>, background <b> and style <s>
+
+  values for color, background:
+     0 no color
+     1 black
+     2 blue (navy)
+     3 green
+     4 red
+     5 brown (maroon)
+     6 purple
+     7 orange (olive)
+     8 yellow
+     9 light green (lime)
+    10 teal (a green/blue cyan)
+    11 light cyan (cyan) (aqua)
+    12 light blue (royal)
+    13 pink (light purple) (fuchsia)
+    14 grey
+    15 light grey (silver)
+    16 white
+
+  values for style:
+     0 = none
+     1 = bold
+     2 = underline
+     4 = italic
+     8 = inverse
+
+bugfix: italic text was not stripped
+
+327) DISKFREE (inspired by Erdrick)
+  new admin command:
+  DISKFREE                        Shows free space in upload directory
+
+bugfix: fix small memory leaks
+
+bugfix: XDCC BATCH (reported by Loke_AF)
+  versions affected: 3.21
+  BATCH was aborted after one pack.
+
+bugfix: SSL
+  Make connection more robust if the irc-server is busy.
+
+326) http_access_log (inspired by TheDeath)
+  If defined, iroffer will log http request in CLF compatible format.
+  Default: disabled.
+
+325) logrotate <n> (inspired by Globulus)
+  Allow faster logroate each <n> hour.
+
+324) download_completed_msg (inspired by Xarda)
+  Put a credit at the end of each transfer.
+
+   References TODO:
+Short Term Features:
+   141 11/12/00 Open send credit line when sending packs
+
+323) DELTRIGGER (inspired by k1ll0r-chan)
+  new admin command:
+  DELTRIGGER <n> <m>              Delete trigger for pack <n> to <m>
+
+322) CLOSEGET
+  new admin command:
+  CLOSEGET <net> <nick>           Cancel Request for bot <nick>
+
+321) status_time_dcc_chat (inspired by OmegaPhil)
+  Defines the time in seconds for a status line in dcc chat.
+  Default: 120
+
+extend debug and log information.
+
+With Version 3.21:
+------------------
+
+bugfix: PRINT (reported by Rilly, patch by Bachstelze)
+  versions affected: 3.13 - 3.20
+  Bot did crash if an undef config var was requested.
+
+bugfix: AUTOADD
+  Warn if files have date in the future.
+
+bugfix: CHCOLOR (reported by Vision)
+  Use Color in ANNOUNCE, XDCC SEARCH, and !NEW, !FIND trigger.
+
+320) configfile
+  Allow to network sections with same name to effect one network.
+
+Configure LOCALBASE= PREFIX=
+  Set paths for needed libs and installatiion.
+
+319) CHCOLOR
+
+  new admin commands:
+  CHCOLOR <n> <m> <x>,<b>            Set the of pack <n> to <m> to color <x> and background <b>
+  CHCOLOR <n> <x>,<b>                Set the of pack <n> to color <x> and background <b>
+
+bugfix: CTCP
+  versions affected: 3.13 - 3.20
+  Respond to CTCP in channel.
+
+bugfix: connectionmethod ssl (reported by Misha-SU)
+  versions affected: 3.0 - 3.20
+  Connection handshake is now non-blocking.
+
+318) login_name (suggested by Tak0r)
+  If you would like to register with the LOGIN command you need to
+  define the name if the service you have to use here.
+  This setting can only be set per network.
+
+318) auth_name (suggested by Tak0r)
+  If you would like to register with the AUTH command you need to define
+  the name if the service you have to use here.
+  This setting can only be set per network.
+
+bugfix: lots of concurrent transfers (reported by Loke_AF)
+  versions affected: 1.2 - 3.20
+  Bot could crash when selecting a transfer.
+
+317) restrictsend, restrictlist (inspired by HymnToLife)
+  You can set restrictsend and restrictlist for each network differently.
+
+316) ruby_script
+  Extend method "info_pack" to request fields of a pack.
+  Implemented: "lock", "dlimit_max", "dlimit_used", "has_md5sum", "has_crc32", "mtime", "xtime", "crc32", "md5sum"
+
+315) logrotate (inspired by TheDeath)
+  The logfile_httpd will be rotated too.
+
+314) -w dir
+  Chdir to dir as working directory.
+
+extend debug and log information.
+
+313) group_admin uploadhost (inspired by dondieschotte)
+  After the grouplist you can define an uploaddir for this admin.
+  The hostmask will be automatically added as uploadhost.
+  Allow LISTUL if uploaddir is defined.
+
+   References TODO:
+Long Term Features:
+   213 7/17/04 Open allow multiple uploaddirs>
+
+bigfix: ANNOUNCE (reported by Henrik Krohns)
+  Give announces priority over XDCC LIST.
+
+bugfix: -plist (reported by Henrik Krohns)
+  Skip plist when announce queue is already full.
+
+bugfix: restrictsend (reported by torque)
+  Bot did not start sending packs when restrictsend is off and no channel configured.
+
+bugfix: QUIT (reported by Henrik Krohns)
+  Print a warning and close the conenction when the server sends QUIT to the bot.
+
+With Version 3.20:
+------------------
+
+bugfix: restricsend
+  versions affected: 3.19
+  Users gets "group access restricted" even if they are in the right channel.
+
+With Version 3.19:
+------------------
+
+312) http_index (inspired by Eomyn)
+  Defines the page to show when no filename is given in the URL.
+  Default: xdcclistfile
+  For Weblist set: http_index /?
+  For your own static page in htdocs set: http_index /index.html
+
+311) Identifying Using SSL + CertFP (inspired by Lamune)
+  Supports Identifying via an self signed SSL certificate.
+  The bot looks for the file "<networkname>.pem" which
+  must hold cert and key. If this file is not found it looks
+  for "<networkname>.crt" and "<networkname>.key".
+  The found certificate is passed to the server on connect.
+
+310) XDCC REMOVE
+
+  new user command:
+  XDCC REMOVE <n>                    remove pack <n> from all Queues.
+
+309) passive_dcc_chat (inspired by TheDeath)
+  Allow all admins to use passive DCC chat on the bot.
+  Default: off.
+  Admins must use "/MSG bot ADMIN password CHATME" instead.
+
+bugfix: autoadd (reported by Loke_AF)
+  Bot can't handle filenames with '\', we skip them.
+
+bugfix: mirc_dcc64
+  Bot sent to many bytes in handshake when user uploads a file to the bot.
+
+bugfix: need_level (reported by fred|krue)
+  versions affected: 2.0 - 3.18
+  report needed status to user.
+
+308) http_admin_dir
+  Defines directory for protected files handled out by the webserver
+  for the admin user.
+  Default: disabled.
+
+307) hide_list_stop (inspired by fred|krue)
+  Don't print line with "/msg nick xdcc stop"
+
+306) NOANNOUNCE (inspired by Lamune and TheDeath)
+
+  new admin command:
+  NOANNOUNCE <x>                     Disables all announces for next <x> minutes
+
+bugfix: http_search (reported by Nouhime)
+  versions affected: 3.16 - 3.18
+  search did not find any pack.
+
+With Version 3.18:
+------------------
+
+bugfix: statefile
+  Use 64bit time if avaliible.
+  Read 32bit statefile on 64bit systems.
+
+305) slow_privmsg (inspired by Lamune)
+  Restrict PRIVMSG to n lines per sec in this network to avoid flooding.
+  This setting is only per network.
+  Default: 1
+
+304) performance
+  Use free crc32 tables.
+  Reduce memory footprint.
+  Speed up writing of statefile.
+
+303) XDCC SEND
+  Resend "DCC SEND" mesaage again, if user doesn't connect.
+
+  References TODO:
+Short Term Features:
+   173 12/09/03 Open resend dcc send message if user doesn't connect
+
+bugfix: do not limit console output.
+
+bugfix: old_statefile (reported by Loke_AF)
+  Import 32bit timestamps from older versions.
+
+bugfix: include_subdirs (reported by super89)
+  versions affected: 2.0 - 3.17
+  On linux autoadd with include_subdirs could skip files.
+
+extend debug and log information.
+
+bugfix: statefile
+  versions affected: 3.6 - 3.17
+  Set version 2 in the "statefile".
+  Fix error messages while parsing.
+
+302) CHCOLOR (inspired by CreeW)
+
+  new admin commands:
+  CHCOLOR <n> <m> <x>                Set the of pack <n> to <m> to color <x>
+  CHCOLOR <n> <x>                    Set the of pack <n> to color <x>
+  CHCOLOR <n>                        Remove the color of pack <n>
+
+With Version 3.17:
+------------------
+
+bugfix: connectionmethod ssl (reported by Bachstelze)
+  Allow normal connection when build with "GNU TLS".
+
+With Version 3.16:
+------------------
+
+301) xdccxmlfile
+  New tags "mainqueue" and "idlequeue".
+
+bugfix: http_port
+  Use ';' instead '&' for navigation.
+
+bugfix: CHDESC
+  versions affected: 3.12 - 3.15
+  Bot did crash when argument was omitted.
+
+301) ruby_script
+  New method "on_added", called for each pack added to the bot.
+  New method "info_pack" to request fields of a pack.
+  Implemented: "file", "desc", "note", "group", "trigger", "gets", "size"
+
+bugfix: transfermethod "linux-sendfile" (reported by isengaurd)
+  Fall back on plain read/write if sendfile aborts.
+
+300) xdccxmlfile (inspired by PastisD)
+  New tags for network and nicknames.
+
+bugfix: removelostfiles
+  Remove all lost files in a single run.
+
+299) noannounce (inspired by Hamikzo)
+  Disable all announces for the current network.
+
+298) no_find_trigger (inspired by Dragon)
+  Iroffer will respond to "!find" too if atfind is defined.
+  This flag will make the bot ignore "!find".
+  default: response to "!find"
+
+297) admin_job_file
+  Allow comments while parsing the file "admin_job_file".
+
+296) xdccxmlfile
+  New tag "transferedtotalbytes" (inspired by Chii-sama).
+  Tag "added" is changed to "adddate".
+
+opensolaris: set buffer size for output
+
+bugfix: xdcclistfile (reported by Procyon)
+  Size of a pack was shown without unit when bytes where rouded up to "10.0".
+
+bugfix: fix small memory leaks
+
+extend debug and log information.
+
+bugfix: connectionmethod ssl (contributed by HymnToLife)
+  Build with "GNU TLS" on systems without any "OpenSSL".
+
+bugfix: XDCC upload (reported by TheDeath)
+  Some versions of mIRC triggered on passive upload
+  the error message "File to big."
+
+bugfix: fix small memory leaks
+
+295) getipfromupnp
+  Get my own IP from the upnp router and use this as value for usenatip.
+  Set usenatip to a default value (0.0.0.0) when using this option.
+
+With Version 3.15:
+------------------
+
+bugfix: XDCC SEND LIST (reported by Kamina)
+  versions affected: 3.0 - 3.14
+  Bot did crash after restart when LIST had been queued.
+
+bugfix: Darwin (inspired by HymnToLife)
+  fix build under Darwin.
+
+bugfix: upnp_router
+  Update for libminiupnpc 1.3
+
+294) http_geoip (inspired by TheDeath)
+  Enables geoip country check for HTTP requests.
+  Default: disabled.
+
+293) vital information (inspired by MasterCJ)
+  Tell admin which variable is missing.
+
+292) NEWANN (inspired by Protected)
+
+  new admin command:
+  NEWANN <n>                         ANNOUNCE for the last <n> packs in all joined channels
+
+291) geoipexcludegroup
+  Allow downloads for packs in this group, even if geoip entry differs.
+
+290) XDLGROUP
+
+  new admin command:
+  XDLGROUP                           List packs without a group
+
+289) FETCH (inspired by Scorp)
+  Support HTML redirects while using FETCH.
+
+bugfix: GET (reported by Scorp)
+  hostmask did not match when nicksname contained "[]".
+
+288) logfile_httpd (inspired by TheDeath, AnimeNeko)
+  If defined, iroffer will log http request and errors in this logfile.
+
+With Version 3.14:
+------------------
+
+289) RESTART (inspired by Ryu)
+
+  new admin command:
+  RESTART                            Shutdown and restart the bot.
+
+287) chats and uploads (inspired by Ryu)
+  Drop hard limits on chats and uploads.
+
+bugfix: XDCC SEND LIST (reported by LazyTiger)
+  versions affected: 3.0 - 3.13
+  Bot did crash if no xdcclistfile was defined.
+
+bugfix: fix small memory leaks
+
+bugfix: BOTINFO
+  Show the network specific nicks.
+
+bugfix: MULTINET
+  Allow up to 10 networks.
+
+bugfix: XDCC BATCH (reported by Wetter)
+  Accept XDCC BATCH with only 1 Parameter.
+
+bugfix: HOP
+  versions affected: 3.9 - 3.13
+  HOP without network did nor check all networks.
+
+bugfix: autoadd_group_match (reported by dns777)
+  versions affected: 3.13
+  The patterns was not stored, so the config was not active.
+
+286) LAG (inspired by Ryu)
+
+  new admin commands:
+  LAG                                Show lag on all networks.
+  LAG <net>                          Show lag on one network.
+
+bugfix: DCLD (reported by HymnToLife)
+  versions affected: 3.13
+  reporting nicknames now in original case.
+
+With Version 3.13:
+------------------
+
+bugfix: xdccxmlfile (reported by freijie)
+  packinfo extended with packbytes
+
+285) MAKEDIR (suggested by Blade121, Ryu)
+
+  new admin command:
+  MAKEDIR <dir>                      Create a new directory on disk.
+
+extend debug and log information.
+
+284) atfind (inspired by Vision)
+  New trigger "!FIND", same as "@FIND".
+
+bugfix: channel (reported by Vision)
+  versions affected: 3.12
+  Do not print error when last argument ends with '"'.
+
+bugfix: ignore 
+  Upload are now protected with ignore.
+
+283) htdocs
+  Basic support to execute ruby sripts (.rb) over HTTP.
+
+Configure -no-libs
+  Build a static binary.
+
+bugfix: CONFIG (reported by SellKony)
+  versions affected: 3.7 - 3.13
+  Bot did crash when argument was omitted.
+
+bugfix: xdcclist_grouponly (reported by Aashiqmunda)
+  If changed on REHASH, recreate xdcclistfile.
+
+282) QUL
+  Better computation of estimated download time.
+
+bugfix: auto_path_group
+  Works now for relative pathnames.
+
+bugfix: autoadd_group_match (reported by dns777)
+  Works now for relative pathnames.
+
+281) PRINT (inspired by TheDeath)
+
+  new admin command:
+  PRINT <key>                        Print config variable <key>
+
+280) ruby_script
+  Skip processing if event returns true.
+  Read access to config valiables.
+
+bugfix: atfind (reported by freijie)
+  versions affected: 3.12
+  @find responded only if more than 3 special chars are in the pattern.
+
+bugfix: ADDDIR (reprted by [M]-V)
+  versions affected: 3.12
+  Fixed dirnames and filenames with spaces.
+
+improved italian translation.
+
+bugfix: weblist_info
+  Strip " from names in weblist.
+
+With Version 3.12:
+------------------
+
+bugfix: FETCHCANCEL (reported by HymnToLife)
+  Allow to kill transfer if id > 1, make id static.
+
+bugfix: trashcan_dir
+  Don't remove files if moving fails.
+
+bugfix: FILEDEL (reported by Lamune)
+  versions affected: 3.0 - 3.11
+  Bot did crash when using relative pathnames.
+
+279) channel -notrigger (inspired by AnimeNeko)
+  Do not respond to any triggers on this channel.
+
+278) send_batch, XDCC BATCH (inspired by: Otaku, Alita-chan, TheDeath, satmd)
+  Permit XDCC BATCH. The packs are Queued up in the bot is possible.
+  default: disabled
+
+  new user commands:
+  XDCC BATCH <group>                 try to send or queue all packs of a group
+  XDCC BATCH <group> <password>      try to send or queue all packs of a group locked with password
+  XDCC BATCH <from>-<to>             try to send or queue the given range of packs
+  XDCC BATCH <from>-<to> <password>  try to send or queue the given range of packs locked with password
+
+277) ruby_script
+  Reload if script has been changed.
+  Error handling to report programm errors.
+  Script uses the new event interface.
+  You need to rewrite your old scripts.
+  Autovoice is now possible.
+  Admin commands are now possible.
+
+bugfix: XDCC upload (reported by Bambus)
+  versions affected: 3.2 - 3.11
+  Bot changed '&' and others chars in filename to to '_'.
+
+bugfix: DUMP
+  Do no longer dump on chat or console.
+  Schreibe den DUMP nicht mer in Chat oder Konsole.
+
+276) no_auto_rehash (inspired by TheDeath)
+  If defined, iroffer will not automaticlly REHASH when a configfile was
+  was changed. Default: Do a REHASH.
+
+275) XDCC SEARCH (inspired by TheDeath)
+  Parse all arguments for search.
+
+274) group_admin
+  Allow group_admin to issue "/msg ADMIN".
+
+extend debug and log information.
+
+bugfix: CONTROL-C
+  versions affected: 2.15 - 3.11
+  Fix hang when forced shutdown by double CONTROL-C.
+
+With Version 3.11:
+------------------
+
+bugfix: FETCH (reported by Bambus)
+  Don't check the name of the certicfiates for SSL hosts.
+
+extend debug and log information.
+
+bugfix: NOSEND, NOLIST, NOSAVE, NOMD5 (reported by xShatteRx)
+  In case of overflow the minutes are now limited.
+
+bugfix: DCC CHAT (reported by Radicand)
+  versions affected: 3.0 - 3.10
+  Bot will crash when typing on console while listening for DCC chat.
+
+bugfix: fix small memory leaks
+
+bugfix: XDCC SEND (reported by xShatteRx)
+  Do not let users skip queue by sending a new XDCC SEND right when the transfer closes.
+
+bugfix: XDCC SEND
+  Put new XDCC SEND while starting up in Idle queue.
+
+bugfix: REGROUP (reported by eagle_bot)
+  Allow to rename groups with spaces by quating.
+
+bugfix: AUTOGROUP (reported by eagle_bot)
+  Don't create groups with spaces.
+
+273) REHASH
+  Read the dns resolver config on REHASH.
+
+272) MANNOUNCE (inspired by Gentatsu)
+  new admin commands:
+  ANNOUNCE n                      ANNOUNCE <autoaddann> for pack n in all joined channels
+  MANNOUNCE <n> <m>               ANNOUNCE <autoaddann> for pack <n> to <m> in all joined channels
+  CANNOUNCE <channnel> <n>        ANNOUNCE <autoaddann> for pack n in <channel>
+
+271) no_status_chat (inspired by xShatteRx)
+  If defined, iroffer will suppress status line in chat.
+
+270) no_status_log (inspired by TheDeath)
+  If defined, iroffer will suppress status line in logfile.
+
+269) JOIN (inspired by Kamina)
+
+  new admin command:
+  JOIN <channel> <net> <key> join channel with password <key> till rehash
+
+bugfix: REGROUP
+  The rename to group "MAIN" is possible.
+
+268) charset
+  This must be set to the encoding of your filenames.
+  The charset in header.html must match to this.
+
+bugfix: DCC CHAT (reported by dondieschotte)
+  Restrict adminpassword to adminhost
+
+bugfix: /etc/auth.conf (reported by Kaonashi)
+  Configure detects md5 and blf.
+
+bugfix: xdccxmlfile (reported by dns777)
+  Fix output of filenames in utf-8
+
+267) support setlocale()
+
+bugfix: XDCC SEND LIST (reported by xShatteRx)
+  versions affected: 3.0 - 3.10
+  Fix crash on to many XDCC SEND LIST.
+
+bugfix: REHASH pidfile
+  versions affected: 3.0 - 3.10
+  On REHASH remove old pidfile, create a new one if needed.
+
+extend debug and log information.
+
+bugfix: XDCC STOP
+  Revome user from both message queues.
+
+bugfix: send_listfile
+  Omit warning if send_xdccfile was changed.
+
+266) -i mybot.xdcc
+  Import old iroffer-style mybot.xdcc file on start.
+
+bugfix: XDCC LIST (reported by Kamina)
+  show correct volume if greater 10 TB
+
+With Version 3.10:
+------------------
+
+265) no_minspeed_on_free (inspired by TheDeath)
+  Don't enforce minspeed when bot still has free slots.
+
+  References TODO:
+Short Term Features:
+   199 12/12/03 Open dont enforce minspeed if there are free slots
+ 
+bugfix: xdccxmlfile (reported by chibi)
+  packinfo extended with added
+
+bugfix: upnp_router
+  Update for libminiupnpc 1.2
+
+bugfix: CLOSEC (reported by Lamune)
+  Close listen port and UPNP data when closing.
+
+bugfix: REGROUP (reported by HymnToLife)
+  After REGROUP you could have 2 descriptions for one group.
+
+bugfix: ADDGROUP (reported by HymnToLife)
+  Option autoadd_sort was ignored for ADDGROUP.
+
+bugfix: GET (reported by spielefreak)
+  Queue could stall when case sensitive nick was used.
+
+bugfix: FETCH, SSL
+  Improve detection of SSL in curl on Debian.
+
+bugfix: CHTRIGGER (reported by spielefreak)
+  When changing trigger, the old one must be deleted.
+
+bugfix: group_admin (reported by dns777)
+  Bot did freeze if REMOVEDIR is not allowed to remove all packs.
+
+bugfix: group_admin
+  Allow group admins to issue CHATME
+
+bugfix: BSD (submitted by HymnToLife)
+  Install in group "wheel".
+
+bugfix: SunOS (reported by Tass)
+  Fix build on SunOS.
+
+264) xdcc_allow
+  Defines ip masks, which are allowed to download from the server.
+  Multiple ip masks can be specified
+  Default: all.
+ 
+263) xdcc_deny (inspired by Lamune)
+  Defines ip masks, that should not download from the server.
+  Multiple ip masks can be specified
+  Default: none.
+
+bugfix: http_deny, http_allow
+  Changed to CIDR Syntax.
+
+bugfix: IGNORE (reported by Solidus_Snake)
+  If value overflows set it to maximum.
+
+bugfix: IGNORE (reported by Lamune)
+  Count auto ignore for triggers, "!list", "@find" and "!new".
+
+bugfix: UNIGNORE
+  Find hostmask case insentitive
+
+bugfix: fix small memory leaks
+
+262) mirc_dcc64 (inspired by T4K)
+  All transfers greater 4GB will use mIRC style 64bit DCC.
+  NOTE: This works only with mIRC version 6.33.
+  NOTE: XChat, Irssi will work only in 32bit DCC mode.
+  Default: 32bit DCC
+
+bugfix: XDCC LIST (inspired by Yumi)
+  Switch automatically from MB to GB/TB
+
+261) xdccxmlfile (inspired by chibi)
+  Extened by uptime
+
+bugfix: CANNOUNCE (reported by spielefreak)
+  Send only to given channel.
+
+260) LOCK, UNLOCK (inspired by dsd)
+
+  new admin commands:
+  LOCK <n> <m> <password>    Lock the pack <n> to <m> with <password>
+  UNLOCK <n> <m>             Unlock the pack <n> to <m>
+
+259) group_admin (inspired by Thunder)
+  Remote commands can only be issued by a nick with a matching hostmask
+  and knows the coresponding password. Access is limit to the groups
+  listed in the same line and by the given level.
+  group_admin <level> <hostmask> <encrypted_password> <grouplist>
+
+bugfix: upnp_router
+  Update for libminiupnpc 1.1
+
+With Version 3.9:
+-----------------
+
+bugfix: fish_only (reported by Vision)
+  Allow CTCP, DCC and CHAT in this mode.
+
+bugfix: fish (reported by Vision)
+  Limit @find to buffer length.
+
+bugfix: fish (reported by Vision)
+  Encode colors and non ascii chars correctly.
+
+bugfix: fix small memory leaks
+
+258) #channel -waitjoin <time> (inspired by Lamune)
+  Wait given seconds after connect before joining this chan.
+
+257) show_list_all (inspired by TheBotKiller)
+  Print line with "/msg nick xdcc list all".
+
+256) no_duplicate_filenames (inspired by AnimeNeko)
+  When configured, add, adddir and addnew refuses to add a files with a
+  name that already have been added.
+
+bugfix: DCC RESUME (reported by fred|krue)
+  Detects complete Download when resumed > 4GB.
+
+bugfix: DCLD (reported by fred|krue)
+  Display resume size for > 4GB correctly.
+
+bugfix: fish (reported by Vision)
+  Some values where not decoded cleanly.
+
+255) http_admin 
+  Allow http_admin to download packs via HTTP.
+
+254) http_allow
+  Defines ip masks, which are allowed to access the server.
+  wild cards are:
+   * = 0 or more characters,  ? = 1 character,  # = any positive integer
+  Multiple ip masks can be specified
+  Default: all.
+ 
+253) http_deny
+  Defines ip masks, that should not access the server.
+  wild cards are:
+   * = 0 or more characters,  ? = 1 character,  # = any positive integer
+  Multiple ip masks can be specified
+  Default: none.
+
+bugfix: http_port
+  Enable caching of html pack list.
+
+252) HOP
+   new admin command:
+   HOP <channel> <net>        leave and rejoin a channel to get status in a network
+
+bugfix: restrichsend, restrictlist
+  versions affected: 1.2 - 3.8
+  restrictsend was not checked, restrictlist was used.
+
+bugfix: autoadd_sort (reported by unlogisch)
+  Fix sorting by group.
+
+bugfix: new_trigger (contributed by dns777)
+  Don't show hidden packs.
+
+251) CTCP LIST (contributed by dns777)
+  Support CTCP LIST.
+
+250) #channel -rgroup (contributed by dns777)
+  Users in this channel can only access packs in groups listed after this.
+
+249) #channel -listmsg (contributed by dns777)
+  The text after listmsg is used as a channel specific respondtochannellistmsg.
+
+248) xdccxmlfile (contributed by dns777)
+  Deliver this file over HTTP.
+
+bugfix: BOTINFO (reported by Lamune)
+  Keep "joined for" time during REHASH.
+
+247) ruby_script
+  Run a ruby script on each line the bot gets from the irc server.
+
+246) need_voice, need_level
+  you can set need_voice and need_level for each network differently.
+
+245) MD5/CRC (inspired by Drake)
+  Display Pack number with each MD5/CRC message on Konsole.
+
+244) verbose_crc32 (inspired by fred|krue)
+  By default, after adding iroffer will only report bad checksums.
+  If set, it will print out the computed checksum in every case.
+
+extend debug and log information.
+
+With Version 3.8:
+-----------------
+
+243) fish_exclude_nick (inspired by dondieschotte)
+  Messages to this nicks won't be encryted.
+
+bugfix: http_port (reported by TheDeath)
+  versions affected: 3.0 - 3.7
+  Bot could crash on shutdown, when xdcclistfile was requested over HTTP.
+
+bugfix: GROUPDESC (reported by RyoOhki)
+  Allow quoted arguments
+
+bugfix: FETCH (reported by Bohnenstange)
+  Support resume for curl < 7.11.0
+ 
+bugfix: CONFIG (reported by OmegaPhil, TheDeath)
+  versions affected: 3.7
+  Bot did crash when this command had no argument.
+
+242) privmsg_encrypt (inspired by Vision)
+  If set, all notice and privmsg will be encrypted.
+
+241) dos_text_files (inspired by Infamous)
+  Write xdcclistfile as DOS text format, with CRLF als line break.
+  Default: no, on CYGWIN default: yes
+
+240) log_exclude_text (inspired by Yasuo|Iwakura)
+  Exclude given list of patterns from filling up your logfiles
+  or polluting your saved messages.
+  Wild cards are:
+   * = 0 or more characters,  ? = 1 character,  [0-9] = any digit
+
+239) log_exclude_host
+  Exclude given list of hostmasks from filling up your logfiles
+  or polluting your saved messages.
+
+238) privmsg_fish (inspired by Vision, dondieschotte)
+  If set, decode encrypted messages with this global fish key.
+
+bugfix: autoadd_group_match (reported by dns777)
+  if the  group does not exist, it was created without groupdesc.
+
+237) Italian translation
+  Activate with "./Lang it" after "Configure"
+  to switch back to English call "./Lang en"
+
+bugfix: channel -fish key (reported by Vision)
+  versions affected: 3.5 - 3.7
+  bot could crash when using fish while printing lines with a certain length.
+
+bugfix: new_trigger (reported by StoVoKor)
+  versions affected: 3.7
+  bot did crash when trigger is run with no packages on bot.
+
+bugfix: xdccxmlfile (reported by dns777)
+  Fix pack size for very small files.
+
+bugfix: FETCHCANCEL (reported by Radicand, Lamune)
+  Bot printed "curlhandle not found" again and again.
+
+extend debug and log information.
+
+bugfix: fix small memory leaks
+
+236) fish_only (inspired by Vision)
+  If set, ignores not encrypted triggers in channels with a fish key.
+
+bugfix: autoadd_group_match (reported by dondieschotte, disi)
+  autoadd_group_match works now without auto_default_group.
+
+With Version 3.7:
+-----------------
+
+235) @find, XDCC SEARCH (inspired by dondieschotte)
+  search for date added if configured
+
+234) reconnect_delay (inspired by dondieschotte)
+  Do not reconnect when connections is dropped for given seconds.
+
+bugfix: reconnect
+  If connection drops, do not reconnect immediately.
+
+233) SORT
+  new admin commands:
+  SORT ADDED                        Sort all Packs by time added
+  SORT -ADDED                       Sort all Packs backwards by time added
+
+232) show_date_added (inspired by dondieschotte, Gotham)
+  Show date the pack was added with XDCC LIST.
+
+bugfix: -no-memsave (reported by dondieschotte)
+  versions affected: 3.3 - 3.6
+  Fix crash on startup
+
+231) BOTINFO
+  Extend BOTINFO to report how long its been since on a server and on each channel.
+
+  References TODO:
+Short Term Features:
+  150 01/30/01 Open keep track of how long its been since on a server and/or on a channel
+
+bugfix: connectionmethod ssl
+  versions affected: 3.0 - 3.6
+  Bot could show problems on reconnecting to server.
+
+230) <TAB>
+  Command expansion with <TAB> in the console.
+
+extend debug and log information.
+
+bugfix: PSEND (reported by dondieschotte)
+  could not send to nicks, make output stopable.
+
+229) new_trigger (inspired by TheBotKiller, Vision)
+  iroffer will respond to "!new" requests sent to a channel.
+  It will respond with latest <n> packs added.
+  default: 0 = no response at all
+
+228) direct_config_access, CONFIG
+  Enable admin commands to manipulate configuration.
+
+  new admin command:
+  CONFIG <key> <value>
+
+227) disk_quota
+  Check used space on disk for files and do not add more packs.
+  Specifies the maximum size in MB used in all packs.
+
+bugfix: fix small memory leaks
+
+226) fileremove_max_packs (inspired by Thunder)
+  Max number of packs on this bot, if more are added, the oldest ones
+  are removed from disk.
+  Default: 0 = disabled.
+
+226) channel -fish key (inspired by dondieschotte, Vision)
+  blowfish encryption for channel announces and triggers.
+
+bugfix: restrictsend (reported by dsd)
+  versions affected: 3.5 - 3.6
+  restrictsend was not checked, restrictlist was used.
+
+bugfix: channel -pformat full -pgroup (reported by DrX)
+  force separate announces in each channel.
+  join other announces in channel.
+
+225) IRC 470 (inspired by Road)
+  stops auto rejoin when bot is transfered to a different channel
+
+With Version 3.6:
+-----------------
+
+bugfix: RMUL (reported by Thunder)
+  Allow RMUL even if uploadhost is not defined.
+
+bugfix: autoadd (inspired by dondieschotte)
+  check upload names in autoadd
+
+224) transferlimits (inspired by DevelDoll)
+  Tell user which transferlimit was reached
+
+bugfix: http_port (reported by Wetter)
+  versions affected: 3.5
+  fix truncation of page within weblist
+
+bugfix: FETCH (reported by Lamune)
+  ignore leading spaces in URL
+
+bugfix: DCC RESUME (reported by Misha-SU)
+  versions affected: 2.10 - 3.5
+  Fix resume with quoted filenames.
+
+223) CHTIME
+  new admin commands:
+  CHTIME <n>                      Delete date of add for pack <n>.
+  CHTIME <n> <date>               Set date of add for pack <n>.
+
+extend debug and log information.
+
+222) old_statefile
+  Writes smaller irofer statefile by default.
+  Set this option to write a statefile that is compatible with old versions.
+
+WARNING: You need this option for the PHP weblist iroffer-state.php version 2.10 and below.
+
+221) XDCC SEARCH, FIND
+  Allow *,?,# as jokers
+
+bugfix: atfind
+  do not match path of file.
+
+220) NOSEND (inspired by Lamune)
+  new admin command:
+  NOSEND <x> <msg>                Disables XDCC SEND for next <x> minutes
+                                  The response to user will have the <msg> included.
+
+bugfix: http_admin
+  versions affected: 3.0 - 3.5
+  Fix crash with invalid URL.
+
+Configure -no-admin
+ Build without HTTP Admin
+
+Configure
+  Now use long options
+
+bugfix: QUIT
+  Now cleaner shutdown when bot exits.
+
+219) GET (inspired by Radicand)
+  new admin commands:
+  GETL                            Lists current upload queue
+  GET <net> <nick> <n> [password] Request pack <n> from bot <nick>
+  GET <net> <nick>                Cancel Request for bot <nick>
+
+218) channel -joinmsg (inspired by eagle_bot)
+   joinmsg: text after this keyword is posted in channel after join
+
+   Sample:
+channel #chan04 -joinmsg "!voiceme"
+
+217) weblist_info running (inspired by Wetter)
+  Show total uptime, revert uptime to last started
+
+extend debug and log information.
+
+216) xdccxmlfile (inspired by Thunder)
+  packinfo extended with md5 and crc
+
+bugfix: XDCC LIST
+  Fix logging in "queued" state
+
+With Version 3.5:
+-----------------
+
+bugfix: ADD (reported by xtr)
+  versions affected: 3.0 - 3.4
+  Fix crash when try to add a Path that is not file.
+
+bugfix: XDCC LIST
+  Change messages to avoid triggering commands on the downloader.
+
+216) http_port
+  Add Javascript to copy to clipboard
+
+215) xdccxmlfile (inspired by Thunder)
+  sysinfo extended with stats, limits and transfers.
+
+bugfix: weblist_info uptime
+  Show total uptime
+
+214) MANNOUNCE (inspired by xtr)
+  new admin commands:
+  MANNOUNCE <n> <m> <msg>         ANNOUNCE <msg> for pack <n> to <m> in all joined channels
+  SANNOUNCE <n> <m>               Short ANNOUNCE <n> to <m> in all joined channels
+
+bugfix: fix large memory leak
+  versions affected: 3.3 - 3.4
+
+bugfix: connectionmethod ssl (reported by Misha-SU)
+  versions affected: 3.0 - 3.4
+  Bot will crash when rehash and connectionmethod changed to ssl when connected
+
+With Version 3.4:
+-----------------
+
+bugfix: punishslowusers (reported by Misha-SU)
+  versions affected: 3.3
+  Bot will crash if punishslowusers is executed.
+
+bugfix: XDCC LIST GROUP (reported by dondieschotte)
+  versions affected: 3.0 - 3.3
+  Fix message in logfile.
+
+With Version 3.3:
+-----------------
+
+bugfix: XDCC upload (reported by Radicand)
+  Bot could lock up in transfer when TCP window was closed.
+
+Configure -no-memsave
+  Build without memory protection
+
+Configure -no-http
+  Build without HTTP server
+
+Configure -no-telnet
+  Build without Telnet server
+
+bugfix: http_port (reported by TheTheath)
+  versions affected: 3.0 - 3.2
+  leak of file handle in header/footer
+
+bugfix: IQUEUE
+  insert in idle queue, even if main queue is empty
+
+bugfix: DCC RESUME
+  Allow RESUME even when port number is changed by broken NAT routers.
+
+bugfix: DCC RESUME
+  versions affected: 2.10 - 3.2
+  handle clients that send the filenames in DCC SEND (esacped.?)
+
+bugfix: connectionmethod ssl (reported by xtr)
+  versions affected: 3.0 - 3.2
+  Bot will crash when rehash and connectionmethod changed to ssl.
+
+213) autoadd_group_match (inspired by dondieschotte)
+  Define groups for files added in autoadd_dir based on filename.
+
+bugfix: channel -headline
+  Syntax changed, text has to be escaped with ".
+
+212) announce_seperator (inspired by dondieschotte)
+  printed between pack number and name on announce
+
+bugfix: Transfer Complete
+  versions affected: 3.0 - 3.2
+  show size of transfer in kb instead of bytes.
+
+bugfix: user_nick
+  versions affected: 3.0 - 3.2
+  show user_nick in all messages before connect
+
+extend debug and log information.
+
+bugfix: DCL
+  versions affected: 3.0 - 3.2
+  fix crash when odd number of downloads active
+
+211) ACCEPTU (inspired by SpiegelEiXXL)
+  new admin commands:
+  ACCEPTU <min>                   Accepting uploads from everybody for <x> minutes
+  ACCEPTU <min> <hostmask>        Accepting uploads from <hostmask> for <x> minutes
+  ACCEPTU 0                       Remove everybody from list of allowed uploads
+  ACCEPTU 0 <hostmask>            Remove <hostmask> from list of allowed uploads
+
+bugfix: XDCC SEARCH (submitted by xtr)
+  Report to the user if the search limit has been met.
+
+bugfix: XDCC QUEUE
+  Report to the user the time of the message.
+  Report only first item in idle queue.
+
+bugfix: XDCC STOP
+  Report to the user that his messages are deleted.
+
+bugfix: XDCC CANCEL
+  Report to the user if no transfer is found.
+
+bugfix: fix small memory leaks
+
+bugfix: autoignore
+  versions affected: 2.13 - 3.2
+  no user was added to ignore.
+
+bugfix: hostmasks with "|" on some linux builds
+  drop regexp in favor of fnmatch.
+
+bugfix: Configure (reported by Shock)
+  versions affected: 3.0 - 3.2
+  certain combinations did not complete.
+
+With Version 3.2:
+-----------------
+
+210) RELOCK
+  new admin command:
+  RELOCK <old-password> <password> Lock all packs with <old-password> with <password>
+
+209) BOTINFO
+  Display DCC IP on BOTINFO.
+
+bug_fix: usenatip (reported by Cork)
+  versions affected: 3.0 - 3.1
+  usenatip was only in effect for the first network.
+  usenatip had to be set global
+
+bug_fix: getipfromserver
+  versions affected: 3.0 - 3.1
+  usenatip could be ignored when server welcome had no IP
+
+bug_fix: need_level
+  versions affected: 2.13 - 3.1
+  need_level was always 0
+
+bugfix: xdccxmlfile (reported by chibi)
+  Cleanup IRC special chars
+
+bugfix: fix small memory leaks
+
+208) http_date
+  Define output from of dates on the webpage.
+
+bugfix: CRC (reported by ThzeDeath)
+  versions affected: 3.0 - 3.1
+  CRC command did crash when completed.
+
+With Version 3.1:
+-----------------
+
+207) xdccxmlfile (inspired by Mutsumi, Galatea)
+  xdccxmlfile list groups info
+
+bugfix: connectionmethod ssl (reported by Radicand)
+  versions affected: 3.0
+  bot will crash when reconnect fails with timeout
+  before completing SSL handshake.
+
+bugfix: window resize (reported by dondieschotte)
+  versions affected: 3.0
+  under CYGWIN widow resize did not complete.
+
+bugfix: FETCH (reported by Misha-SU)
+  avoid to use files the are uploaded vie FETCH.
+
+bugfix: sentrecord (reported by SDoggy)
+  versions affected: 2.4 - 3.0
+  Stats where not updated.
+
+bugfix: http_search
+  Short search strings did not work.
+
+bugfix: http_search
+  German translation missing a parameter.
+
+With Version 3.0:
+-----------------
+
+bufix: ignore (reported by Misha-SU)
+  versions affected: 2.4 - 2.16
+  ignore was expiring to fast
+
+206) XDCC upload (inspired by Radicand)
+  detect when admin uploads the same file twice.
+
+205) mime_type
+  Define additional mime types for the html pages.
+  Example: mime_type torrent application/x-bittorrent
+
+204) send_listfile
+  Packnumber of xdcclistfile, enables XDCC SEND LIST.
+
+203) XDCC HELP
+  show help for users
+
+202) user_modes
+  you can set user_modes for each network differently.
+
+201) nogeoipcountry (inspired by Misha-SU)
+  disallow downloads only for users in the given countries.
+  this sets default access to allow and disables geoipcountry.
+
+200) getip_network
+  Get my own IP for the current Network from a different network.
+  You need this when the given network does not return your IP.
+
+bugfix: XDCC LIST GROUP
+  under load the bot did forget the given group.
+
+bugfix: MULTINET
+  no duplicate notify when max bandwidth is reached.
+
+199) http_search (inspired by chibi)
+  Enables search form in HTML page.
+
+bugfix: XDCC SEND
+  Handle '%' in pack description.
+
+198) DCC SEND, XDCC upload
+  Support for files >4GB
+
+197) xdccxmlfile (inspired by chibi)
+  if you want to export your packlist in XML define xdccxmlfile
+
+196) trashcan_dir (inspired by Thunder)
+  Instead of deleting files, they are moved to this directory.
+
+195) logfile_notices, logfile_messages (inspired by Tak0r)
+  If defined, iroffer will log notices and/or messages to the given logfile.
+
+194) upnp_router (inspired by TheDeath)
+  activate UPnP support
+
+  this needs libminiupnpc, activate with ./Configure -u
+
+193) local_vhost, usenatip (inspired by Cork)
+  you can set local_vhost for each network differently.
+
+bugfix: REHASH (reported by Cork)
+  graceful restart when network dropped
+
+192) nickserv_pass, user_nick (inspired by Tak0r, dondieschotte)
+  you can set nickserv_pass and user_nick for each network differently.
+
+191) weblist_info
+  Show additional information in the html page.
+  weblist_info uptime "Online"
+  weblist_info minspeed "Min speed"
+  weblist_info maxspeed "Max speed"
+  weblist_info cap "Max bandwidth"
+  weblist_info record "Record bandwidth"
+  weblist_info send "Record download"
+  weblist_info daily "Traffic today"
+  weblist_info weekly "Traffic this week"
+  weblist_info monthly "Traffic this month"
+
+190) window resize (inspired by Yasuo|Iwakura)
+  Changing window size will no longer delete screen.
+
+189) XDCC SEND LIST (inspired by Akropolis)
+  new user commands:
+  XDCC SEND LIST                  Downloads list of packages
+
+188) LISTUL (inspired by dondieschotte)
+  new admin command:
+  LISTUL <dir>                    Shows contents of upload subdirectory
+
+bugfix: MAXSPEED (reported by Lamarr)
+  transfer did still run with pack speed.
+
+187) ADDMATCH (inspired by Yasuo|Iwakura)
+  new admin command:
+  ADDMATCH <pattern>              Add new files matching this pattern
+
+   References TODO:
+Not going to happen anytime soon:
+   108 long ago Deferred wildcards in add pack
+
+186) DCC CHAT
+  Block remote host after a number of failed passwords.
+
+185) remove_dead_users
+  if the bot can't notify a nick:
+  if set not 0, further queued messages are dropped.
+  if set to 2, all this nicks queued packs are removed.
+  Default: 0, no action.
+
+Short Term Features:
+  164 02/03/01 Open remove dead users from queue
+
+bugfix: ANNOUNCE, SANNOUNCE, CANNOUNCE, MSG (bugfix: AUTOADD Misha-SU)
+  Handle '%' in Announce-text.
+
+184) local_vhost
+  supports binding to IPV6
+
+183) telnet_vhost
+  List of up to 2 local IP addresses for the Telnet server to run on.
+  Use "::" or "0.0.0.0" to allow any IP address.
+  Use "::1" or "127.0.0.1" to limit access to localhost only.
+
+182) http_vhost
+  List of up to 2 local IP addresses for the Webserver to run on.
+  Use "::" or "0.0.0.0" to allow any IP address.
+  Use "::1" or "127.0.0.1" to limit access to localhost only.
+
+181) telnet_port (inspired by anibi)
+  Port for the build-in Telnet server.
+
+   References TODO:
+Long Term Features:
+   118 long ago Open telnet admin
+
+180) JOIN, PART (inspired by SpiegelEiXXL)
+  new admin commands:
+  JOIN <channel>                  join channel till rehash
+  JOIN <channel> <net>            join channel till rehash
+  PART <channel>                  part channel till rehash
+  PART <channel> <net>            part channel till rehash
+
+bugfix; DCC SEND
+  Handle Quoted filesnames in upload via DCC
+
+bugfix; spaces_in_filenames (reported by Radicand)
+  Allow spaces in upload via DCC
+
+bugfix: AUTOADD (reported by chibi)
+  announe correct pack number with autoadd_sort
+
+179) AUTOGROUP
+  new admin command:
+  AUTOGROUP                       Create a group for each directory with packs
+
+178) passive_dcc
+  support passive DCC SEND and RESUME for downloads
+
+177) connectionmethod ssl
+  SSL connections to irc server.
+
+   References TODO:
+Long Term Features:
+   208 4/13/04 Open SSL connections to irc server
+
+  this needs OpenSSL or "GNU TLS" installed,
+  the latter activate with "./Configure -t".
+
+176) connectionmethod
+  you can set connectionmethod for each network differently.
+
+bugfix: CANNOUNCE (reported by Radicand)
+  Allow admin to send to a channel with "-noannounce" set.
+
+175) XDCC SEND, XDCC INFO
+  new user commands:
+  XDCC SEND <trigger>             detect trigger text as number of pack
+  XDCC INFO <trigger>             detect trigger text as number of pack
+
+174) CRC, MD5 (inspired by Takatoo)
+  new admin commands:
+  CRC <n> <m>                     Check CRC of pack <n> to <m>
+  MD5 <n> <m>                     Calculate MD5 and CRC sums of pack <n> to <m>
+
+173) BACKGROUND
+  new admin command:
+  BACKGROUND                      Switch to background on the fly
+
+   References TODO:
+Short Term Features:
+   205 2/12/04 Open switch to background on the fly
+
+172) group_seperator (inspired by TheDeath)
+  printed between group name and group description.
+
+171) IPV6 support
+   References TODO:
+Long Term Features:
+   195 12/09/03 Open IPv6 support
+
+170) CHDESC
+  new admin command:
+  CHDESC <n>                      Change description of pack <n> to thje filename
+
+removed: convertxdccfile
+
+169) http_dir
+  Defines directory for extra files handled out by the webserver.
+  For example: robots.txt favicon.ico
+
+168) http_admin (inspired by TheDeath, StoVoKor)
+  Defines admin login for the build-in webserver.
+
+167) http_port (inspired by TheDeath, StoVoKor)
+  Port for the build-in webserver.
+  (xddclistfile and weblist)
+
+166) DCC SEND
+  support passive DCC SEND and RESUME for uploads
+
+bugfix: DCC SEND, DCC CHAT
+  fix small memory leak if connection is aborted in listen state
+
+165) balanced_queue (inspired by Protected)
+  when a user is done using a slot, the next file retrieved from the
+  queue would NOT be a file queued by the same user.
+  This helps to distribute the bandwidth better in bots with few slots.
+
+bugfix: Notify message on Console/Chat (reported by TheDeath)
+  report Nick in Notify message on Console/Chat
+  versions affected: 2.16
+
+bugfix: Idle Queue
+  versions affected: 2.16
+  when moving a request vom Idle to Mainqueue,
+  try to start transfer if a slot is free.
+  choose user with no transfer from idle queue first.
+
+With Version mod 2.16:
+----------------------
+
+bugfix: set TOS on BSD
+
+164) autoadd_sort (inspired by chibi, unlogisch)
+  If defined, all added packs will be inserted in the giving order.
+  The existing packs must already be sorted in the same way.
+  You can define multiple fields to sort.
+
+163) RENUMBER (inspired by Skyw4lker, Protected)
+  new admin command:
+  RENUMBER <x> <y> <z>            Moves packs <x> to <y> to position <z>
+
+bugfix: hostmasks, adminpasswd
+  warn if spaces found in parameter
+
+162) tcprangelimit
+  limit the maximum port number used by the bot.
+
+bugfix: tcprangestart
+  allow 65530 as maximum start port
+
+bugfix: NEWDIR
+  allow NEWDIR be used without direct_file_access, same as CHFILE
+
+161) XDCC QUEUE
+  better computation of estimated download time
+
+160) Idle Queue (inspired by Protected)
+
+  Option: idlequeuesize
+  Idle Queue Size, set to 0 for no queue
+
+  Option: maxidlequeuedperperson
+  maximum number of times a user can be in the idle queue simultaneously
+
+  new admin commands:
+  RMIQ <position>                 Removes entry at <position> from idle queue
+  IQUEUE <nick> <n>               Queues pack <n> for <nick> into idle queue
+  IQUEUE <nick> <n> <net>         Queues pack <n> for <nick> in net <net> into idle queue
+  REIQUEUE <x> <y>                Moves idle queue entry from position <x> to <y>
+
+bugfix: fix small memory leaks
+
+With Version mod 2.15:
+----------------------
+
+159) MAXSPEED (inspired by Per Nielsen)
+  new admin command:
+  MAXSPEED <id> <x>               Set max bandwidth limit of <x> KB/s for transfer <id>
+
+bugfix: fix small memory leaks
+
+bugfix: CANNOUNCE (reported by drBeSt)
+  don't send pack number twice
+
+bugfix: REHASH
+  quit a deleted network
+
+158) HELP (inspired by TheDeath)
+  don't print out disabled commands
+
+157) autoadd_delay (inspired by dondieschotte)
+  Time in seconds that a files must been unchanged to be added.
+
+With Version mod 2.14:
+----------------------
+
+156) QSEND
+  new admin command:
+  QSEND <id>                      Start an extra transfer from queue entry with id <id>
+
+   References TODO:
+Short Term Features:
+   197 12/09/03 Open qsend with queue number
+
+155) channel -pformat full -pgroup name (inspired by Jippi)
+  post the full list, but only matching give group
+
+bugfix: REHASH with autosendpack
+  fix a small memory leak
+
+154) autosendpack
+  autosendpack with 2 parameters
+
+bugfix: Configure and make with gcc-4.2
+
+153) NOMD5 (inspired by StoVoKor)
+  new admin command:
+  NOMD5 <x>                       Disables MD5 and CRC calculation for next <x> minutes
+
+152) FIND
+  new admin command:
+  FIND <pattern>                  List packs that matches <pattern>
+
+151) XDTRIGGER (inspired by TheDeath)
+  new admin command:
+  XDTRIGGER                       Show all packs with dynamic triggers
+
+150) xdcclist_by_privmsg (inspired by Ang3lu5, dondieschotte)
+  send the result of XDCC LIST by privmsg instead of notice.
+
+149) MOVEGROUPDIR (inspired by Kurosaki)
+  new admin command:
+  MOVEGROUPDIR <g> <dir>          move any file in group <g> to dir <dir>
+
+bugfix: SERVQC (reported by chibi)
+  this will stop all queued announces too
+
+148) MD5 (inspired by dondieschotte)
+  new admin command:
+  MD5                             Show state of current MD5 computing
+  MD5 <n>                         Calculate MD5 and CRC sums of pack <n>
+
+With Version mod 2.13:
+----------------------
+
+bugfix: XDCC INFO (reported by dondieschotte)
+  report if pack is locked
+
+147) CHTRIGGER (inspired by conanmichi)
+  new admin commands:
+  CHTRIGGER <n>                    Remove trigger for pack <n>
+  CHTRIGGER <n> <msg>              Change trigger for pack <n> to <msg>
+
+146) CANNOUNCE (inspired by Skyw4lker)
+  new admin command:
+  CANNOUNCE <channnel> <n> <msg>   ANNOUNCE <msg> for pack n in <channel>
+
+145) BANNHOST, DROPNICK
+  new admin commands:
+  BANNHOST <x> <hostmask>          Stop transfers and ignore <hostmask> for <x> minutes
+  BANNNICK <nick>                  Stop transfers and remove <nick> from queue
+  BANNNICK <nick> <netz>           Stop transfers and remove <nick> from queue
+
+bugfix: ignoreduplicateip
+  fix a small memory leak
+
+bugfix: SORT (reported by dondieschotte)
+  downcase NAME was not detected
+  fix parsing of all arguments
+
+With Version mod 2.12:
+----------------------
+
+bugfix: DCC upload
+  bot can crash when no uploaddir is defined.
+  versions affected: all
+
+144) SORT
+  new admin commands:
+  SORT <field> <field> ...          Sort all Packs by given fields
+  SORT NAME                         Sort all Packs by filename
+  SORT DESC                         Sort all Packs by description
+  SORT GROUP                        Sort all Packs by group
+  SORT PATH                         Sort all Packs by directory
+  SORT SIZE                         Sort all Packs by size in bytes
+  SORT TIME                         Sort all Packs by file modification time
+  SORT -NAME                        Sort all Packs backwards by filename
+  SORT -DESC                        Sort all Packs backwards by description
+  SORT -GROUP                       Sort all Packs backwards by group
+  SORT -PATH                        Sort all Packs backwards by directory
+  SORT -SIZE                        Sort all Packs backwards by size in bytes
+  SORT -TIME                        Sort all Packs backwards by file modification time
+  SORT GROUP NAME                   Sort all Packs by Group and Filename
+  SORT GROUP TIME                   Sort all Packs by Group and Date
+
+143) IDENTIFY
+  if bot looses flags, send identify again.
+
+142) BOTINFO (inspired by StoVoKor)
+  show the current pack number when hashing is running
+
+extend debug and log information for DNS resolver
+
+bugfix: MSG, MSGNET, PSEND (reported by Cork)
+  versions affected: 2.10 - 2.11
+  could not send to channels
+
+With Version mod 2.11:
+----------------------
+
+141) German messages for users
+  activate with "./Lang de" after "Configure"
+  to switch back to English call "./Lang en"
+
+140) SORT (inspired by dondieschotte)
+  new admin commands:
+  SORT 1                            Sort all Packs by Description
+
+improve and make messages consistent
+
+bugfix: SORT (reported by dondieschotte)
+  fix sort order
+
+bugfix: spaces_in_filenames (reported by dondieschotte)
+  could not send such files to older iroffers < 2.9
+  now as option in config
+
+bugfix: autoaddann (reported by Thunder)
+  versions affected: 2.9 - 2.10
+  was ignored on ADDDIR, ADDNEW, AUTOADD
+
+With Version mod 2.10:
+----------------------
+
+bugfix: FILEREMOVE
+  when removing only one pack the file was not removed
+
+139) filedir (inspired by Tak0r, Kakashi)
+  filedir can now have multiple entries
+
+bugfix: xdccremovefile
+  bot could crash when deleting a file without group
+
+138) esacpe_quotes
+  Allow Admin handle files with spaces
+
+bugfix: NEWDIR
+  versions affected: 2.5 - 2.9
+  newdir did not change packs
+
+MULTINET: channel_join_raw
+  now separate for each network
+
+notice admin when sending a message to channels not joined.
+  (based on patch by dondieschotte)
+
+bugfix: removelostfiles (reported by dondieschotte)
+  versions affected: 2.9
+  iroffer does crash with no pack
+
+bugfix: adminhostmask (reported by dondieschotte)
+  versions affected: 2.9
+  Simple hostmasks for admin were not ignored as warning tells.
+
+With Version mod 2.9:
+---------------------
+
+137) monitor_files (inspired by Cheff)
+  check only given number of files per second for removal or update
+
+136) autoaddann_short (inspired by dsd)
+  When configured, each add will be announced on all channels with pack
+  Number and Filename.
+
+135) SANNOUNCE (inspired by dsd)
+
+  new admin command:
+  SANNOUNCE n                      Short ANNOUNCE <n> <name> in all joined channels
+
+134) ignore_volumeid
+  iroffer did recheck files when volume id has changed on start.
+  this did slow down windows and network file systems.
+
+133) xdccremovefile
+  export stats on removed packs for better statistics
+
+132) adminlevel, hadminlevel (inspired by StoVoKor, Thunder, dondieschotte)
+  adminlevel, hadminlevel
+  Limit remote admin commands to level:
+    1 = info and stats only
+    2 = lock and unlock
+    3 = add and change
+    4 = remove packs
+    5 = full, may rename or removes files on disk
+
+bugfix: IDENTIFY (reported by Thunder)
+  versions affected: 2.4 - 2.8
+  admin command IDENTIFY did not send password
+
+speedup reading config
+
+131) half admin (inspired by StoVoKor, Kozue-chan, Thunder)
+  hadminhost, hadminpass
+  if defined, give limited access to a second admin
+
+130) Better logging for QUEUED SEND (inspired by Alita-Chan)
+
+129) spaces_in_filenames (inspired by Cork)
+  support spaces in filenames for transfer and resume
+
+With Version mod 2.8:
+---------------------
+
+bugfix: need_level
+  need_level was never in effect
+
+128) NOCHANNEL
+
+  new admin command:
+  NOCHANNEL x <channel>            leave the channel <channel> for <x> minutes
+  NOCHANNEL x                      leave all channels for <x> minutes
+
+   References TODO:
+Long Term Features:
+   131 1/7/00 Open nochannel command, leave channels for x minutes
+
+bugfix: REHASH
+  versions affected: 1.20 to 2.7
+  fix a small memory leak
+
+127) channel -noannounce (inspired by TheDeath)
+  no extra announces on this channel
+
+bugfix: hidelockedpacks (reported by Alita-chan)
+  don't show locked packs in @find and XDCC SEARCH
+
+cleanup statefile write
+
+bugfix: XDCC STOP
+  versions affected: 1.18 to 2.7
+  fix a small memory leak
+
+bugfix: MULTINET (reported by vegetto)
+  iroffer could crash on bad config files
+
+With Version mod 2.7:
+---------------------
+
+bugfix: MULTINET
+  versions affected: 1.26 to 2.6
+  send notices abouts limit and queue status to matching network
+
+126) autocrc_exclude (inspired by fiberOptiC)
+  auto crc check will ignore files matching this patterns
+
+125) AUTOADD (inspired by dsd)
+
+  new admin command:
+  AUTOADD                          scan autoadd_dirs for new files now
+
+bugfix: get_network_msg (reported by dondieschotte)
+  versions affected: 2.4
+  unable to parse: QUEUE SEND PSEND JUMP
+
+With Version mod 2.6:
+---------------------
+
+124) HELP
+  rewrite and extend help
+
+123) MOVEFILE
+
+  new admin command:
+  MOVEFILE n <filename>            move the file of pack <n> on disk to <filename>
+
+122) NEWGROUP
+
+  new admin command:
+  NEWGROUP <g> <dir>               change any files in <dir> to group <g>
+
+121) FILEREMOVE (inspired by SpiegelEiXXL)
+
+  new admin command:
+  FILEREMOVE n [m]                 remove pack <n> or <n> to <m> and remove its file from disk
+
+bugfix: hidelockedpacks (inspired by Noxx)
+  don't show locked packs in xdcclistfile
+
+bugfix: MULTINET
+  cleanup logging of XDCC SEND, XDCC INFO
+
+120) FETCHCANCEL (inspired by SpiegelEiXXL)
+
+  new admin command:
+  FETCHCANCEL <nr>                  stop download of fetch with index <n>
+
+bugfix: IDENTIFY
+  avoid multiple identify on connect.
+
+With Version mod 2.5:
+---------------------
+
+119) NEWDIR (inspired by chibi)
+
+  new admin commands:
+  NEWDIR <dirname> <dirname>        rename pathnames of all matching packs
+
+118) debug
+  allow to set debug level in config file
+
+bugfix: admin_job_file
+  mass add or remove via admin_job_file will no longer stall the bot.
+
+117) DUMP
+
+  new admin commands:
+  DUMP                              Write a DUMP into the logfile
+
+bugfix: autoadd
+  versions affected: 2.4
+  iroffer could crash on free memory
+
+bugfix: MULTINET
+  extend debug and log information.
+
+With Version mod 2.4:
+---------------------
+
+bugfix: xdcclistfile
+  fix output for > 100 packs
+
+bugfix: MULTINET
+  fix member list for big channels
+
+bugfix: autoadd
+  fix a small memory leak
+  versions affected: 1.28 - 2.3
+
+bugfix: MULTINET
+  extend debug and log information.
+
+With Version mod 2.3:
+---------------------
+
+bugfix: ADDDIR (reported by TheDeath,conanmichi)
+  versions affected: 2.0 - 2.2
+  without a default group, files could not be added
+
+With Version mod 2.2:
+---------------------
+
+116: SORT (inspired by ThE_-_BliZZarD)
+
+  new admin commands:
+  SORT                              Sort all Packs by Filename
+
+bugfix: RENUMBER
+  keep group description on renumber.
+
+bugfix: autoadd_dir
+  versions affected: 2.1
+  iroffer crash when autoadd_dir is run.
+
+With Version mod 2.1:
+---------------------
+
+bugfix: ADDGROUP (reported by Kurosaki)
+versions affected: 2.0
+  iroffer might crash when addgroup runs via /MSG
+
+bugfix: QSEND (reported by Cork)
+  check for maxtransfersperperson.
+
+bugfix: MULTINET
+  extend debug and log information.
+
+With Version mod 2.0:
+---------------------
+
+115) REQUEUE
+
+   new admin commands:
+   REQUEUE <x> <y>                   Moves Queue Entry x to y
+
+   References TODO:
+Short Term Features:
+   144 12/21/00 Open reorder queue members
+
+114) DCL, DCLD (inspired by PiRaTe, TheDeath)
+  extend output for transfers started with FETCH
+
+bugfix: FETCH
+  show active uploads even when no other transfer is running.
+
+113) restrictsend_delay (inspired by Cork)
+  Time in seconds to wait after connect till restrictsend is enforced.
+
+bugfix: MULTINET
+  in rare situation a buffer from the server could be parsed twice.
+
+112) Log:
+  generate an extra line in logfile for statistics
+
+bugfix: network
+  set a default network name.
+
+bugfix: XDCC REMOVE, XDCC CANCEL
+  let user remove entries matching him.
+  remove only entries on the same network.
+
+bugfix: SHUTDOWN
+  do not try to reconnect on shutdown.
+
+bugfix: REHASH
+  clean up when networks are dropped.
+
+111) (patch by Cork)
+  extend info when user is added to main queue.
+
+110) respondtochannellistmsg (inspired by Cork)
+  text that is put int each response to !list in a channel.
+
+bugfix: restrictprivlist (reported by Cork)
+  in the response to !list is a channel, iroffer reported the
+  "trigger: xdcc list" even if it is disabled.
+
+bugfix: auto_crc_check (reported by Kurosaki)
+  auto_crc_check did not unlock the pack after file was repaired
+  better logging of lock/unlock by auto_crc_check
+
+109) geoipdatabase (inspired by TheDeath)
+  configure a custom database file.
+
+bugfix: GEOIP (reported by TheDeath)
+   fix crash when GEOIP can't find its data
+
+108) EXIT, LOGOUT (inspired by TheDeath)
+
+   new admin commands:
+   EXIT                              Close this DCC chat (alias to QUIT)
+   LOGOUT                            Close this DCC chat (alias to QUIT)
+
+107) QUL and DCL
+  list pack number with file.
+
+106) include_subdirs (inspired by anibi, Tass)
+  on ADDDIR, ADDNEW, ADDGROUP and REMOVDIR scan subdirectories too.
+  mass add or remove of packs will no longer stall the bot.
+
+105) max_find (inspired by Cork)
+   Limit matches to @find and XDCC SREACH commands.
+
+104) remove n m (inspired by Skyw4lker)
+
+   new admin commands:
+   REMOVE <n> <m>                    remove every pack from <n> to <m>
+
+103) XDCC #1
+  report unsupported commands to user
+
+   References TODO:
+Short Term Features
+?  145 12/21/00 Open option to respond to unknown command
+
+
+102) XDCC OWNER (inspired by Road)
+  report nick of owner, so someone can contact him in case of trouble.
+
+101) need_level (inspired by Tak0r)
+  Restrict list/send to only voiced/halfopped/opped users
+  restrictlist and restrictsend must be set yes.
+
+make MULTINET default
+  extend debug and log information.
+
+100) extern PSEND (inspired by TheDeath)
+  give an error when the chan is not found
+  or the bot is not joined to the channel.
+
+99) extend REHASH (inspired by TheDeath)
+  don't crash on duplicate channels
+
+97) lost files message (reported by Yasuo|Iwakura)
+  lost files will now be reported with pack nr.
+
+bugfix: -plist (reported by Yasuo|Iwakura)
+versions affected: 1.24 - 1.32
+  iroffer can crash when sending plist into to many channels at the same time
+
+With Version mod 1.32:
+----------------------
+
+96) max_upspeed
+  limit bandwidth for XDCC uploads.
+
+95) max_uploads
+  limit for concurrents XDCC uploads.
+
+94) auto_crc_check
+  automatic unlock if crc matches.
+
+93) CLEARGETS
+  new admin command:
+  CLEARGETS                          Clears download counters for each pack
+
+bugfix: -plist full (reported by Jippi)
+  support xdcclist_grouponly
+
+bugfix: MULITNET
+  regain nick on all networks
+  count flooding for each server
+
+bugfix: MULTINET (reported by TheDeath)
+  rare crash when first net is not connected
+
+bugfix: FETCH (reported by TheDeath)
+  crashes with bad urls
+  list active downloads in DCL and DCLD
+
+With Version mod 1.31:
+----------------------
+
+90) uploadminspace (inspired by TheDeath)
+  Check free space on disk and do not start uploads when disk gets full.
+  Specifies the minimum size in MB available before upload.
+
+91) AMSG
+
+  new admin command:
+  AMSG <msg>                          announce message in all channels
+
+92) extend_status_line
+  print out upload and download bandwidth in status line.
+
+bugfix: unlimitedhost
+  report all matching unlimited downloads in log
+
+bugfix: HOLDQUEUE
+  when HOLDQUEUE is off, start to deliver queue
+
+With Version mod 1.30:
+----------------------
+
+80) restrictsend_warning (inspired by Terra_Knight)
+  If set, it will try to warn the user when he leaves the channel.
+
+81) restrictsend_timeout (inspired by Terra_Knight)
+  Timeout in seconds to cancel transfer after user left channel.
+
+82) movegroup (inspired by Takatoo)
+
+  new admin command:
+  MOVEGROUP <n> <m> <group>           move all packs from n to m into a group
+
+83) SLOTSMAX (inspired by TheDeath)
+
+  new admin command:
+  SLOTSMAX                            shows current slotsmax
+  SLOTSMAX n                          temporary change slotsmax
+
+84) QUEUESIZE (inspired by TheDeath)
+
+  new admin command:
+  QUEUESIZE                            shows current queuesize
+  QUEUESIZE n                          temporary change queuesize
+
+85) FETCH (inspired by TheDeath)
+
+  new admin command:
+  FETCH <file> <url>                   download content of url as file
+                                       which is saved in uploadir
+
+  this needs libcurl, activate with ./Configure -c
+
+86) auto_path_group
+
+  When adding a new file, search for matching directories and aad the
+  new file to the same group.
+
+87) multiple autoadd_dir (inspired by Terra_Knight, Tak0r)
+  Multiple Directory for files that will be added without further interaction.
+
+88) send_statefile (inspired by Anime20o5)
+  Send statefile every hour via DCC to the specified nick.
+
+89) send_statefile_minute
+  Send statefile when a specific minute is reached
+
+bugfix: CRC (reported by conanmichi)
+  crc on 64bit Linux was wrong.
+
+bugfix: CRC
+  report "CRC missing" instead of "CRC failed" for a few more cases.
+
+bugfix: improve check for joined channel
+
+With Version mod 1.29:
+----------------------
+
+79) extend triggers for re-IDENTIFY with nickserv
+
+78) extend output for DCLD and BOTINFO for Multinet (inspired by TheDeath)
+
+77) remove # sign in xdcc commands
+   this avoids banning of users who cut & paste for spam
+
+bugfix: crashes with multinet and punishslowusers (reported by Thunder)
+versions affected: 1.26 - 1.28 Multinet
+
+With Version mod 1.28:
+----------------------
+
+74) xdlock (inspired by Thunder)
+
+   new admin command:
+   XDLOCK         Show all locked packs
+
+75) direct_file_access (inspired by TheDeath)
+   when set allows admin to change files.
+
+   new admin commands:
+   FILEMOVE <filename> <filename>      rename file on disk
+   FILEDEL <filename>                  remove file from disk
+   SHOWDIR <dir>                       list directory on disk
+
+   References TODO:
+Short Term Features
+132 3/20/00 Open rename/move a file in upload dir
+
+76) autoadd_dir (inspired by Terra_Knight, Tak0r)
+
+  autoadd_time:
+  Time in seconds when the bot checks for new files in autoadd_dir.
+  Default: 0 = disabled.
+
+  autoadd_dir:
+  Directory for files that will be added without further interaction.
+
+  autoadd_group:
+  Group for files added in autoadd_dir. Default "MAIN"
+
+bugfix: XDCC LIST (reported by Alita-Chan)
+versions affected: 1.27
+   report total stats with all gcc versions
+
+bugfix: CRC (reported by TheDeath)
+   report pack number with file
+
+bugfix: CRC (reported by TheDeath)
+   CRC fails only when a group of 8 digits is found
+
+With Version mod 1.27:
+----------------------
+
+69) iroffer parts from unwanted channels
+  this makes it easier to get unbanned in euirc.net
+
+70) noautorejoin
+  do not rejoin the channel when bot is kicked.
+
+71) auto_crc_check
+  compute crc32 for new files and  lock them when crc does not match
+  pattern in filename.
+
+72) nocrc32
+  disable crc32 calculation.
+
+73) CRC
+
+   new admin command:
+   CRC <n>     Test and Report CRC32
+
+bugfix: crashes with mutinet chats (reported by TheDeath)
+versions affected: 1.26 Multinet
+
+With Version mod 1.26:
+----------------------
+
+66) network (MULTINET)
+   support multiple irc networks with common queue and limits.
+   activate with ./Configure -m
+
+  New Admin Commands:
+  MSGNET <net> <nick> <message>  Send text <message> to user <nick>
+  RAWNET <net> <command>         Send <command> to server (RAW IRC)
+  SERVERS <net>                  Shows the server list
+  JUMP server <net>              Switches to a random server or server <server>
+  IDENTIFY <net>                 Send stored password again to nickserv
+
+   References TODO:
+Not going to happen anytime soon:
+191 12/09/03 Deferred connect to multiple servers/networks
+
+67) waitafterjoin
+   do not announce plist directly after joining a channel.
+
+68) nodownloadhost (inspired by Thunder)
+   specify who can not download from this bot.
+
+With Version mod 1.25:
+----------------------
+
+64) geoipexcludenick
+   allow downloads for this nicks, even if geoip entry differs.
+
+65) do not response on CPTP PING response (inspired by satmd)
+
+bugfix:
+    geoipcountry worked only when ignoreduplicateip was active.
+
+With Version mod 1.24:
+----------------------
+
+58) channel -delay (inspired by Horst, TheDeath)
+   delay messages to this channel by seconds.
+
+Sample:
+channel #chan04 -plist 14 -pformat summary -delay 60
+
+59) sync with iroffer1.4.b03 (from PMG)
+
+bugfix: XDCC SEARCH (reported by StoVoKor)
+   pathnames are now ignored in search.
+
+bugfix: ignoreduplicateip (reported by Chobits and TheDeath)
+   versions affected: 1.18 - 1.23
+   check was counting manual sends
+
+bugfix: queue (reported by TheDeath)
+   the same pack to multiple Nicks
+
+bugfix: send (reported by TheDeath)
+   allow multiple sends to the same Nick
+
+60) unlimitedhost (inspired by Chobits)
+
+   specify nicks and hostnames which are not limited in bandwidth
+
+   References TODO:
+Long Term Features:
+202 1/19/04 Open Define hosts that are exempt from bandwidth limits
+
+61) UNLIMITED
+
+   new admin command:
+   UNLIMITED <n>     Disables Bandwidth Limits For Transfer ID n
+
+62) Support for GeoIP Database lookups
+
+   Documentation at http://www.maxmind.com/geoip/
+   activate with ./Configure -g
+
+63) geoipcountry
+
+   allow downloads only for users in the given countries
+
+With Version mod 1.23:
+----------------------
+
+bugfix: fix memory leak (reported by TheDeath)
+
+56) CHLIMIT (inspired by TheDeath)
+
+   show limit on xdcc list
+
+57) autosendpack (inspired by Hikari)
+
+   autosendpack can now be used multiple times
+   Only the first matching trigger will start a send
+
+   References TODO:
+Not going to happen anytime soon:
+107 long ago Deferred multiple autosend words/packs
+
+With Version mod 1.22:
+----------------------
+
+URLs updated.
+
+54) atfind
+
+   if more than one word given, treat ' ' as '*'
+
+55) ANNOUNCE
+
+   slow ANNOUNCE, to avoid flooding
+
+bugfix: CHLIMIT (reported by TheDeath)
+   limit was reset to many times after 24 hours
+
+bugfix: CHLIMIT
+   versions affected: 1.17 - 1.21
+   saving statefile with chlimit will generate a bad tag
+   statefile is still readable with newer version
+
+With Version mod 1.21:
+----------------------
+
+bugfix: XDCC STOP
+   log more information
+   allow to stop even before first line has been send
+
+bugfix: HELP
+   improved text and syntax description
+
+51) atfind (from Porakin, taken from iroffer-lamm)
+
+   iroffer will respond to "@find pattern" requests sent a channel
+   with a pattern that contains at least <n> non wildcards chars
+   wild cards are:
+    * = 0 or more characters,  ? = 1 character,  # = any positive integer
+   default: 0 = no response at all
+   output delayed and stopable
+
+52) ANNOUNCE, ADDANN (from Porakin, taken from iroffer-lamm)
+
+   new admin commands:
+   ANNOUNCE n <msg>           ANNOUNCE <msg> for pack n in all joined channels
+   ADDANN <filename>          Add and Announce New Pack
+
+53) autoaddann (from Porakin, taken from iroffer-lamm)
+
+   When configured, each add will be announced on all channels with <msg>
+
+With Version mod 1.20:
+----------------------
+
+46) admin command: queue (inspired by TheDeath)
+
+   Pack will be added to queue, even if queue limits are reached
+
+47) hidelockedpacks
+
+   don't show locked packs on XDCC INFO and XDCC LIST for users
+
+bugfix: getipfromserver
+   versions affected: 1.3 - 1.19
+   on rehash the DCC IP was lost, transfers did not work until reconnect
+
+48) disablexdccinfo
+
+   disable command XDCC INFO for all
+
+   References TODO:
+Short Term Features:
+212 6/08/04 Open configurable to enable/disable xdcc info
+
+bugfix: admin command: queue
+   detect if user try to queue and manual queued pack
+
+bugfix: need_voice
+   solved a problem when users joined with voice set
+
+49) HOP (inspired by TheDeath)
+
+   new admin command:
+   HOP <channel>              leave and rejoin a channel to get status
+   HOP                        leave and rejoin all channels to get status
+
+50) generate md5 password hash per default (inspired by TheDeath)
+
+   use extended "crypt" for longer passwords
+   old passwords are not affected
+
+bugfix: XDCC LIST <group> (inspired by TheDeath)
+   versions affected: 1.15 - 1.19
+   send headline and creditline to user
+
+With Version mod 1.19:
+----------------------
+
+bugfix: ignoreduplicateip
+   versions affected: 1.18
+   did incorrectly detect all transfers as invalid
+
+With Version mod 1.18:
+----------------------
+
+38) identify
+
+   new admin commands:
+   IDENTIFY                   send stored password again to nickserv
+
+39) automatic IDENTIFY when nickserver is restarted
+
+bugfix: ignore spaces in groupname (inspired by Chobits)
+
+40) XDCC QUEUE
+
+   new user commands:
+   XDCC QUEUE                 poll current queue status
+
+41) XDCC CANCEL
+
+   new user commands:
+   XDCC CANCEL                abort pending DCC connection
+
+   References TODO:
+Short Term Features:
+174 12/09/03 Open user can cancel pending transfer
+
+42) ignoreduplicateip (inspired by Chobits)
+
+   detect fake hostmasks and abort multiple transfers to the same host
+
+43) LOCKGROUP, UNLOCKGROUP
+
+   new admin commands:
+   LOCKGROUP <g> <x>          Lock all packs in group <g> with password <x>
+   UNLOCKGROUP <g>            Unlock all packs in group <g>
+
+bugfix: addnew (inspired by StoVoKor)
+   check filestate instead of name in addnew and noduplicatefiles
+   duplicates are detected even when path is spelled differently
+
+44) XDCC STOP (inspired by StoVoKor)
+
+   new user commands:
+   XDCC STOP                  aborts long XDCC LISTS
+
+45) CLEARRECORDS (from PMG)
+
+   clear transfer limits too
+
+With Version mod 1.17:
+----------------------
+
+35) set groupname as default group description (inspired by Kyu)
+   for an invisible group you have to remove the description by hand.
+
+bugfix: channel -headline (inspired by Chobits)
+   send channel headline when plist in multiple channels.
+
+36) chlimit (inspired by TheDeath)
+
+   new admin commands:
+   CHLIMIT <pack> <x>         do not allow more than x downloads per day
+
+   References TODO:
+Long Term Features:
+   187 12/09/03 Open lock/busy-out packs from gets
+
+37) chlimitinfo (inspired by Chobits)
+
+   new admin commands:
+   CHLIMITINFO <pack> <text>  send text to use when he can download the pack
+
+With Version mod 1.16:
+----------------------
+
+bugfix: holdqueue
+   enforce holdqueue when new requests are coming in
+
+bugfix: GROUP <n> <g> (inspired by conanmichi)
+   save group description when the the first pack of a group leaves it.
+   move group description when joining as the first pack of a group.
+
+Fix online help. (inspired by conanmichi)
+
+bugfix: removelostfiles (inspired by TheDeath)
+   Iroffer could crash when removing the last file.
+
+With Version mod 1.15:
+----------------------
+
+30) logmessages (from PMG)
+
+   config option to log messages in the logfile
+
+31) fix ping response (from PMG)
+
+32) track usermodes in channels (from PMG)
+
+33) fix infinite loop if debug is set and meminfo grows (from PMG)
+
+bugfix: enforce queue limit.
+   don't count manual transfers
+
+34) need_voice redesign using usermodes
+
+bugfix: xdcclistfile (inspired by StoVoKor)
+   creditline and totals was not generated by default
+
+With Version mod 1.14:
+----------------------
+
+28) holdqueue
+
+   don't send from queue, let current transfers run out,
+   do the bot can shutdown cleanly.
+
+   new admin commands:
+   HOLDQUEUE               toggle holdqueue
+   HOLDQUEUE 1             holdqueue on, don't send more files
+   HOLDQUEUE 0             holdqueue off, send files from queue
+
+29) removelostfiles (inspired by Neo2001)
+
+   if a files is no longer accessible on the server, remove the pack.
+   use with care, if started in wrong dir it may delete all packs.
+
+With Version mod 1.13:
+----------------------
+
+bugfix: channel -headline (inspired by Chobits)
+   if channel headline is set, drop global headline
+
+27) REMOVEGROUP (inspired by Neo2001)
+
+   new admin commands:
+   REMOVEGROUP <group>     remove every file within <group>
+
+With Version mod 1.12:
+----------------------
+
+25) ignoreuploadbandwidth (inspired by [Faith]Athrun)
+   don't count uploads traffic into transferlimits.
+   Fast uploads will stop any downloads without this option.
+
+26) channel -headline (inspired by TheDeath)
+   text from this keyword to the end of the line is used as a
+   channel specific headline.
+
+   Sample:
+channel #chan04 -plist 14 -pformat summary -headline "moving soon"
+
+With Version mod 1.11:
+----------------------
+
+24) groupsincaps (inspired by [GFE]Lunix)
+   If set, all groups names changed will be folded to uppercase.
+
+bugfix: send <pack>  (inspired by TheDeath)
+   versions affected: 1.4 to 1.10
+   It is now possible to send password protected packs.
+
+bugfix: remove <pack>
+   versions affected: 1.10
+   bot could crash when removing a group with description.
+
+With Version mod 1.10:
+----------------------
+
+bugfix: remove
+   keep group description when first pack of a group is removed.
+
+bugfix: regroup (inspired by Takatoo, TheDeath)
+   versions affected: 1.1 to 1.9
+   bot could hang when entries without a group does exist.
+
+19) new admin commands:
+   REGROUP main <newname>  put all files without a group in the new group
+
+20) new user command alias: (inspired by [GFE]Lunix)
+   xdcc list group <group> ==> xdcc list <group>
+
+21) new user command:
+   xdcc list all
+
+22) restrictprivlistmain
+
+   If set, "xdcc list" without an option will be rejected.
+   This allows to list a single group only.
+
+23) restrictprivlistfull
+
+If set, "xdcc list all" will be rejected.
+
+With Version mod 1.9:
+---------------------
+
+17) failsave when server or link goes down
+   Don't send packs when we are no longer connected.
+   Queue will be hold till next join.
+
+18) enforce queue limit. (inspired by Kickaha)
+   When User is reconnecting with a new nickname while
+   his transfer has not timed out, he can add himself to the queue again.
+   After he regained his old Nickname, he has more than the allowed number
+   of requests in queue. Now the last entry is removed.
+
+With Version mod 1.8:
+---------------------
+
+15) queue (from Porakin, taken from iroffer-lamm)
+
+   new admin commands:
+   QUEUE <nick> <pack>       Queues Pack for given Nick
+
+   References TODO:
+Short Term Features:
+143 12/21/00 Open manually add someone to a queue
+
+16 ) start_of_month (inspired by Keichi)
+
+day of month when to reset the monthly traffic limit, default 1
+
+With Version mod 1.7:
+---------------------
+
+13) auto_default_group (inspired by Keichi)
+
+   when adding a file, search for a similar entry, and set the same group.
+
+14) ADDGROUP (inspired by Keichi)
+
+   new admin commands:
+   ADDGROUP <group> <dir>     import new files in this dir to given group
+
+With Version mod 1.6:
+---------------------
+
+10) hide_list_info
+
+    Don't print line with "/msg nick xdcc info #x"
+
+11) xdcclist_grouponly
+
+   Export your xdcc list with group and main information only.
+   Default output is all packs and no group information.
+
+12) admin_job_file
+
+   when defined, read this file for commands and execute them.
+   output will be written in <filename>.done
+
+With Version mod 1.5:
+---------------------
+
+9) need_voice (inspired by Tak0r)
+
+   Restrict list/send to only voiced/opped users
+   restrictlist and restrictsend must be set yes.
+
+   References TODO:
+Long Term Features:
+172     12/09/03        Open    restrict list/send to only voiced/opped users
+
+With Version mod 1.4:
+---------------------
+
+5) locking/password:
+
+   new admin commands:
+   LOCK <pack> <password>
+   UNLOCK <pack>
+
+   new user commands:
+   XDCC SEND #<pack> password
+
+   References TODO:
+Long Term Features:
+188     12/09/03        Open    password protect packs
+
+6) noduplicatefiles (inspired by Ddrulez)
+
+   When configured, add, adddir and addnew refuses to add a files that
+   already have been added. Full path is compared.
+
+7) adddir_exclude <pattern>
+
+   When configured, addir and adnew will skip all files that match this
+   patterns.
+
+8) enable_nick <nickname>
+
+   Watch this user.
+   No new "xdcc send" are accepted, when this user is not online.
+   Old queue entries are still send.
+
+With Version mod 1.3:
+---------------------
+
+4) getipfromserver
+
+   Automatic dcc ip translation
+   Get my own IP from the ircserver, and uses this as value for usenatip.
+   Set usenatip to a default value when using this option.
+
+   If iroffer runs behind nat, I recommend setting "getipfromserver"
+   in the config. This will update "natip" whenever the bot reconnects.
+   this obsoletes scripts like "dynip.sh" or other cronjobs.
+
+With Version mod 1.2:
+---------------------
+
+3) save queue
+   Save download queue on exit or crash.  And read it back on start.
+   I though about saving running transfers too, but decided against it.
+
+   References TODO:
+Long Term Features:
+128     12/21/00        Open    save current transfers and queue across a shutdown
+
+With Version mod 1.1:
+---------------------
+
+1) grouped lists (inspired by Splizzer, Rom)
+
+   add a GROUP feature, as seen in various split offs.
+   this is a clean reimplementation, groups are optional.
+   and can be mixed with normal packs.
+
+   new admin commands:
+   XDLFULL                    list all packs
+   XDLGROUP <group>           list packs with given group
+   GROUPDESC <group> <text>   set new description for group
+   GROUP <pack> <group>       set pack as a member of group
+   REGROUP <group> <newname>  rename group
+
+   new user commands:
+   XDCC LIST <group>          list packs with given group
+
+   changed user commands:
+   XDCC LIST                  list packs that have no group defined
+                              and list all groups that have a description.
+
+2) convertxdccfile
+
+   comandline option "-g" to import group definitions
+   from an XDCC file created with modBySplizzerv1.6, http://splizzer.de.ms
+
+   sample commandline:
+   convertxdccfile -g splizzer.xdcc mybot.state
+
