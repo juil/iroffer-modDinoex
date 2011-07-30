@@ -1,23 +1,25 @@
 ? 1
 ? 2
 ? 3
-? 4
 ? TODO.modDinoex
+? config.temp
+? config.temp.c
+? config.temp.p
 ? log
 Index: Configure
 ===================================================================
 RCS file: /usr/home/public/iroffer/Configure,v
 retrieving revision 1.220
-retrieving revision 1.227
-diff -u -r1.220 -r1.227
+retrieving revision 1.228
+diff -u -r1.220 -r1.228
 --- Configure	19 Feb 2011 19:39:47 -0000	1.220
-+++ Configure	13 Jul 2011 02:59:39 -0000	1.227
++++ Configure	30 Jul 2011 20:08:25 -0000	1.228
 @@ -1,10 +1,10 @@
  #!/bin/sh
  
  #
 -# $Id: Configure,v 1.220 2011/02/19 19:39:47 cvs Exp $
-+# $Id: Configure,v 1.227 2011/07/13 02:59:39 cvs Exp $
++# $Id: Configure,v 1.228 2011/07/30 20:08:25 cvs Exp $
  #
  
 -VERSION="3.26"
@@ -818,7 +820,7 @@ diff -u -r1.220 -r1.227
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_found}"
  else
-@@ -1593,26 +1337,14 @@
+@@ -1593,26 +1337,15 @@
  
  if [ "x$ostype" = "xLinux" ]; then
  ${msg} -n "${irt_checkfor} Linux-style sendfile()... "
@@ -849,11 +851,12 @@ diff -u -r1.220 -r1.227
 + size_t  count = 0;
 + ssize_t ret_val;
 + ret_val = sendfile(out_fd, in_fd, &offset, count);
++ ret_val++;
 +${main2}" > config.temp.c
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  echo "#define HAVE_LINUX_SENDFILE" >> src/iroffer_config.h
  ${msg} "${irt_found}"
-@@ -1623,30 +1355,18 @@
+@@ -1623,30 +1356,18 @@
  
  if [ "x$ostype" = "xFreeBSD" ]; then
  ${msg} -n "${irt_checkfor} FreeBSD-style sendfile()... "
@@ -896,7 +899,7 @@ diff -u -r1.220 -r1.227
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  echo "#define HAVE_FREEBSD_SENDFILE" >> src/iroffer_config.h
  ${msg} "${irt_found}"
-@@ -1656,22 +1376,10 @@
+@@ -1656,22 +1377,10 @@
  fi
  
  ${msg} -n "${irt_checkfor} mmap()/munmap()... "
@@ -923,7 +926,7 @@ diff -u -r1.220 -r1.227
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  echo "#define HAVE_MMAP" >> src/iroffer_config.h
  ${msg} "${irt_found}"
-@@ -1681,41 +1389,17 @@
+@@ -1681,41 +1390,17 @@
  
  
  ${msg} -n "${irt_checkfor} ${irt_fdlimit}... "
@@ -973,7 +976,7 @@ diff -u -r1.220 -r1.227
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  echo "RLIMIT_OFILE"
  echo "#define USE_OFILE" >> src/iroffer_config.h
-@@ -1726,26 +1410,14 @@
+@@ -1726,26 +1411,14 @@
  fi
  
  ${msg} -n "${irt_checkfor} siginfo_t/sa_sigaction... "
@@ -1008,7 +1011,7 @@ diff -u -r1.220 -r1.227
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_found}"
  else
-@@ -1754,42 +1426,31 @@
+@@ -1754,42 +1427,31 @@
  fi
  
  ${msg} -n "${irt_checkfor} 'si_code' ${irt_values}... "
@@ -1076,7 +1079,7 @@ diff -u -r1.220 -r1.227
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_found}"
  else
-@@ -1798,27 +1459,15 @@
+@@ -1798,27 +1460,15 @@
  fi
  
  ${msg} -n "${irt_checkfor} wait() status ${irt_values}... "
@@ -1113,7 +1116,7 @@ diff -u -r1.220 -r1.227
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_found}"
  else
-@@ -1828,22 +1477,11 @@
+@@ -1828,22 +1478,11 @@
  
  
  ${msg} -n "${irt_seeingif} ${irt_tos}... "
@@ -1141,7 +1144,7 @@ diff -u -r1.220 -r1.227
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_yes}"
  else
-@@ -1852,27 +1490,16 @@
+@@ -1852,27 +1491,16 @@
  fi
  
  ${msg} -n "${irt_checkfor} getaddrinfo()... "
@@ -1179,7 +1182,7 @@ diff -u -r1.220 -r1.227
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_found}"
  else
-@@ -1881,31 +1508,21 @@
+@@ -1881,31 +1509,21 @@
  fi
  
  ${msg} -n "${irt_checkfor} gethostbyname() error ${irt_values}... "
@@ -1224,7 +1227,7 @@ diff -u -r1.220 -r1.227
  }
  " > config.temp.c
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
-@@ -1916,21 +1533,11 @@
+@@ -1916,21 +1534,11 @@
  fi
  
  ${msg} -n "${irt_checkfor} res_init() ... "
@@ -1249,7 +1252,7 @@ diff -u -r1.220 -r1.227
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_found}"
  echo "#define WITH_RESINIT" >> src/iroffer_config.h
-@@ -1940,18 +1547,11 @@
+@@ -1940,18 +1548,11 @@
  
  if $OPT_GEOIP; then
   ${msg} -n "${irt_seeingif_lib} GeoIP ${irt_lib_exists}... "
@@ -1272,7 +1275,7 @@ diff -u -r1.220 -r1.227
   if $cctype -o config.temp -DUSE_GEOIP $WARNS $WERROR $CFLAGS "-I${LOCALBASE}/include" config.temp.c "-L${LOCALBASE}/lib" -lGeoIP $LDFLAGS $libs $LIBS; then
    ${msg} "${irt_found}"
    echo "#define USE_GEOIP" >> src/iroffer_config.h
-@@ -1960,18 +1560,11 @@
+@@ -1960,18 +1561,11 @@
    GEOINC="-I${LOCALBASE}/include"
    GEOLDF="-L${LOCALBASE}/lib"
    ${msg} -n "${irt_seeingif} ${irt_geoip6}... "
@@ -1295,7 +1298,7 @@ diff -u -r1.220 -r1.227
    if $cctype -o config.temp -DUSE_GEOIP6 $WARNS $WERROR $CFLAGS ${GEOINC} config.temp.c ${GEOLDF} ${GEOLIB} $LDFLAGS $libs $LIBS; then
     FEATURES="${FEATURES}6"
     ${msg} "${irt_found}"
-@@ -1988,20 +1581,13 @@
+@@ -1988,20 +1582,13 @@
  
  if $OPT_UPNP; then
   ${msg} -n "${irt_seeingif_lib} miniupnpc ${irt_lib_exists}... "
@@ -1320,7 +1323,7 @@ diff -u -r1.220 -r1.227
   if $cctype -o config.temp -DUSE_UPNP $WARNS $WERROR $CFLAGS "-I${LOCALBASE}/include" config.temp.c "-L${LOCALBASE}/lib" -lminiupnpc $LDFLAGS $libs $LIBS; then
    ${msg} "${irt_found}"
    echo "#define USE_UPNP" >> src/iroffer_config.h
-@@ -2017,18 +1603,11 @@
+@@ -2017,18 +1604,11 @@
  
  if $OPT_CURL; then
   ${msg} -n "${irt_seeingif_lib} libcurl ${irt_lib_exists} (${irt_for} FETCH-Command)... "
@@ -1343,7 +1346,7 @@ diff -u -r1.220 -r1.227
   if $cctype -o config.temp -DUSE_CURL $WARNS $CFLAGS `curl-config  --cflags` config.temp.c "-L${LOCALBASE}/lib" `curl-config  --libs` $LDFLAGS $libs $LIBS; then
    ${msg} "${irt_found}"
    echo "#define USE_CURL" >> src/iroffer_config.h
-@@ -2053,17 +1632,7 @@
+@@ -2053,17 +1633,7 @@
  
  if $OPT_SSL; then
   ${msg} -n "${irt_seeingif_lib} OpenSSL ${irt_lib_exists}... "
@@ -1362,7 +1365,7 @@ diff -u -r1.220 -r1.227
   if $cctype -o config.temp -DUSE_OPENSSL $WARNS $CFLAGS "-I${LOCALBASE}/include" config.temp.c "-L${LOCALBASE}/lib" -lssl -lcrypto $LDFLAGS $libs $LIBS; then
    ${msg} "${irt_found}"
    ${msg} "${irt_start} OpenSSL."
-@@ -2085,17 +1654,7 @@
+@@ -2085,17 +1655,7 @@
  
  if $OPT_TLS; then
   ${msg} -n "${irt_seeingif_lib} GNU TLS ${irt_lib_exists}... "
@@ -1381,7 +1384,7 @@ diff -u -r1.220 -r1.227
   if $cctype -o config.temp -DUSE_GNUTLS $WARNS $CFLAGS "-I${LOCALBASE}/include" config.temp.c "-L${LOCALBASE}/lib" -lgnutls $LDFLAGS $libs $LIBS; then
    ${msg} "${irt_found}"
    echo "#define USE_GNUTLS" >> src/iroffer_config.h
-@@ -2133,12 +1692,9 @@
+@@ -2133,12 +1693,9 @@
   ${msg} -n "${irt_seeingif_lib} libruby ${irt_lib_exists} (${irt_for} RUBY-Scripts)... "
   echo "
  #include \"ruby.h\"
@@ -1397,7 +1400,7 @@ diff -u -r1.220 -r1.227
   if $cctype -o config.temp -DUSE_RUBY $WARNS $CFLAGS ${incruby} config.temp.c ${libruby} $LDFLAGS $libs $LIBS; then
    ${msg} "${irt_found}"
    ${msg} "${irt_start} Ruby."
-@@ -2288,10 +1844,26 @@
+@@ -2288,10 +1845,26 @@
  clobber: clean
  	rm -rf src.* *.sed
  
@@ -1773,10 +1776,10 @@ Index: TODO
 ===================================================================
 RCS file: /usr/home/public/iroffer/TODO,v
 retrieving revision 1.191
-retrieving revision 1.204
-diff -u -r1.191 -r1.204
+retrieving revision 1.205
+diff -u -r1.191 -r1.205
 --- TODO	30 Jan 2011 08:10:28 -0000	1.191
-+++ TODO	7 Jul 2011 18:50:56 -0000	1.204
++++ TODO	21 Jul 2011 15:39:14 -0000	1.205
 @@ -2,6 +2,8 @@
  Feature #38 xdcc command to export the crc32/md5 as sumfile
  Feature #70 command for saving the "running" config
@@ -1814,7 +1817,7 @@ diff -u -r1.191 -r1.204
    1490  delay the responce to the !new command
    1500  force to send a pack to someone who downloaded a certain pack
    1521  hostmask or nick in exempt list for ignoreduplicate ip
-@@ -151,6 +147,16 @@
+@@ -151,6 +147,17 @@
    1526  variables in config file
    1529  XDCC-DELTA
    1530  summary after find.
@@ -1828,15 +1831,17 @@ diff -u -r1.191 -r1.204
 +  1558  suppress batch notices, suppress remove notices
 +  1563  Restrict group admin access to DCLD and others
 +  1567  Support netmap for line rate (14.88Mpps) on a 10GigE link 
++  1578  multiple(batch) files announce
  
  Not going to happen anytime soon:
    1001  need voice seperate for each channel
-@@ -215,4 +221,6 @@
+@@ -215,4 +222,7 @@
    1452  zeroconf/mdns/avahi-support
    1495  support for plowshare
    1525  user defined limits
 +  1543  native windows build with MINGW
 +  1565  lock packs on fixed posion while sorting the rest
++  1575  aspera transfer protocol
  
 Index: beispiel.config
 ===================================================================
@@ -4895,16 +4900,16 @@ Index: src/dinoex_config.c
 ===================================================================
 RCS file: /usr/home/public/iroffer/src/dinoex_config.c,v
 retrieving revision 1.197
-retrieving revision 1.218
-diff -u -r1.197 -r1.218
+retrieving revision 1.219
+diff -u -r1.197 -r1.219
 --- src/dinoex_config.c	10 Feb 2011 18:31:33 -0000	1.197
-+++ src/dinoex_config.c	21 Jul 2011 10:40:08 -0000	1.218
++++ src/dinoex_config.c	21 Jul 2011 10:43:01 -0000	1.219
 @@ -9,7 +9,7 @@
   * If you received this file without documentation, it can be
   * downloaded from http://iroffer.dinoex.net/
   *
 - * $Id: dinoex_config.c,v 1.197 2011/02/10 18:31:33 cvs Exp $
-+ * $Id: dinoex_config.c,v 1.218 2011/07/21 10:40:08 cvs Exp $
++ * $Id: dinoex_config.c,v 1.219 2011/07/21 10:43:01 cvs Exp $
   *
   */
  
@@ -4971,7 +4976,7 @@ diff -u -r1.197 -r1.218
    int bin_mid;
    int bin_low;
  
-+  if (bin_high == 0) 
++  if (bin_high == 0)
 +    return -1;
 +
 +  bin_high -= 1;

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-# $Id: Configure,v 1.227 2011/07/13 02:59:39 cvs Exp $
+# $Id: Configure,v 1.228 2011/07/30 20:08:25 cvs Exp $
 #
 
 VERSION="3.27"
@@ -10,7 +10,7 @@ RELEASE=0
 if [ $RELEASE -eq 1 ]; then
  VERSIONLONG="$VERSION"
 else
- VERSIONLONG="$VERSION Beta37"
+ VERSIONLONG="$VERSION Beta38"
 fi
 
 msg2()
@@ -1344,6 +1344,7 @@ echo "${irmain1}
  size_t  count = 0;
  ssize_t ret_val;
  ret_val = sendfile(out_fd, in_fd, &offset, count);
+ ret_val++;
 ${main2}" > config.temp.c
 if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
 echo "#define HAVE_LINUX_SENDFILE" >> src/iroffer_config.h

@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_config.c,v 1.218 2011/07/21 10:40:08 cvs Exp $
+ * $Id: dinoex_config.c,v 1.219 2011/07/21 10:43:01 cvs Exp $
  *
  */
 
@@ -242,7 +242,7 @@ static int config_find_typ(config_name_t config_name_f, const char *key, int bin
   int bin_mid;
   int bin_low;
 
-  if (bin_high == 0) 
+  if (bin_high == 0)
     return -1;
 
   bin_high -= 1;
