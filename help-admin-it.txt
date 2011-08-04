@@ -45,6 +45,7 @@
 **   REMOVE n [m]         : Rimuove il pack <n> o i pack da <n> a <m> (es. Remove 2 6)
 **   REMOVEDIR dir        : Rimuove tutti i packs per i files trovati nella <dir>
 **   REMOVEGROUP gruppo   : Rimuove tutti i packs del <gruppo>
+**   REMOVEMATCH pattern  : Remove every pack matching this pattern
 **   RENUMBER x [y] z     : Sposta i packs da <x> a <y> in posizione <z>
 **   SORT [field] [field] : Ordina tutti i packs secondo l'opzione scelta. Opzioni:NAME,DESC,GROUP,PATH,SIZE,TIME,ADDED
 **   ADD nomefile         : Aggiunge un nuovo pack con <nomefile>

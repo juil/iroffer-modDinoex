@@ -45,6 +45,7 @@
 **   REMOVE n [m]         : Entfernt Paket <n>, oder Paket <n> bis <m>
 **   REMOVEDIR dir        : Entfernt jedes Paket aus Verzeichnis <dir>
 **   REMOVEGROUP gruppe   : Entfernt jedes Paket aus der Gruppe <gruppe>
+**   REMOVEMATCH muster   : Entfernt Packs deren Dateien auf <muster> passen.
 **   RENUMBER x [y] z     : Verschiebe Pakete <x> bis <y> an Position <z>
 **   SORT [feld] [feld]   : Sortiere alle Pakete nach den Feldern
 **   ADD dateiname        : Fügt Datei <dateiname> als neues Paket hinzu

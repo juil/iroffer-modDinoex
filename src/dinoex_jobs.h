@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_jobs.h,v 1.44 2011/06/09 09:46:46 cvs Exp $
+ * $Id: dinoex_jobs.h,v 1.45 2011/08/01 20:28:42 cvs Exp $
  *
  */
 
@@ -69,6 +69,7 @@ void lag_message(void);
 void send_periodicmsg(void);
 
 void a_rehash_prepare(void);
+void a_quit_network(void);
 void a_rehash_needtojump(const userinput *u);
 void a_rehash_channels(void);
 void a_rehash_jump(void);

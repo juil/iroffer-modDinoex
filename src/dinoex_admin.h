@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_admin.h,v 1.133 2011/06/08 05:06:46 cvs Exp $
+ * $Id: dinoex_admin.h,v 1.134 2011/08/02 20:42:02 cvs Exp $
  *
  */
 
@@ -58,6 +58,7 @@ void a_reiqueue(const userinput * const u);
 void a_remove(const userinput * const u);
 void a_removedir(const userinput * const u);
 void a_removegroup(const userinput * const u);
+void a_removematch(const userinput * const u);
 void a_renumber3(const userinput * const u);
 void a_sort(const userinput * const u);
 int a_open_file(char **file, int mode);

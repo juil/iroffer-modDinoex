@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_admin.c,v 1.431 2011/07/12 19:17:53 cvs Exp $
+ * $Id: dinoex_admin.c,v 1.434 2011/08/02 20:59:29 cvs Exp $
  *
  */
 
@@ -2011,7 +2011,7 @@ static int a_readdir_sub(const userinput * const u, const char *thedir, DIR *dir
   return rc;
 }
 
-static void a_removedir_sub(const userinput * const u, const char *thedir, DIR *d)
+static void a_removedir_sub(const userinput * const u, const char *thedir, DIR *d, const char *match)
 {
   struct dirent f2;
   struct dirent *f;
@@ -2051,13 +2051,20 @@ static void a_removedir_sub(const userinput * const u, const char *thedir, DIR *
         continue;
       }
       if (gdata.include_subdirs != 0)
-        a_removedir_sub(u, tempstr, NULL);
+        a_removedir_sub(u, tempstr, NULL, match);
       mydelete(tempstr);
       continue;
     }
     if (!S_ISREG(st.st_mode)) {
       mydelete(tempstr);
       continue;
+    }
+
+    if (match != NULL) {
+      if (fnmatch(match, f->d_name, FNM_CASEFOLD)) {
+        mydelete(tempstr);
+        continue;
+      }
     }
 
     u2 = irlist_add_delayed(u, "REMOVE"); /* NOTRANSLATE */
@@ -2150,7 +2157,7 @@ void a_removedir(const userinput * const u)
     return;
   }
 
-  a_removedir_sub(u, thedir, d);
+  a_removedir_sub(u, thedir, d, NULL);
   mydelete(thedir);
   return;
 }
@@ -2181,6 +2188,37 @@ void a_removegroup(const userinput * const u)
     }
     xd = irlist_get_next(xd);
   }
+}
+
+void a_removematch(const userinput * const u)
+{
+  DIR *d;
+  char *thedir;
+  char *end;
+
+  updatecontext();
+
+  if (invalid_dir(u, u->arg1) != 0)
+    return;
+
+  thedir = mystrdup(u->arg1);
+  end = strrchr(thedir, '/' );
+  if (end == NULL) {
+    a_respond(u, "Try Specifying a Directory");
+    mydelete(thedir);
+    return;
+  }
+
+  *(end++) = 0;
+  d = a_open_dir(&thedir);
+  if (!d) {
+    a_respond(u, "Can't Access Directory: %s %s", u->arg1, strerror(errno));
+    mydelete(thedir);
+    return;
+  }
+
+  a_removedir_sub(u, thedir, d, end);
+  mydelete(thedir);
 }
 
 static void a_renumber1(const userinput * const u, unsigned int oldp, unsigned int newp)
@@ -2387,11 +2425,6 @@ static void a_adddir_sub(const userinput * const u, const char *thedir, DIR *d, 
       continue;
     }
 
-    if (match != NULL) {
-      if (fnmatch(match, f->d_name, FNM_CASEFOLD))
-        continue;
-    }
-
     tempstr = mystrjoin(thedir, f->d_name, '/');
 
     if (stat(tempstr, &st) < 0) {
@@ -2429,6 +2462,13 @@ static void a_adddir_sub(const userinput * const u, const char *thedir, DIR *d, 
       mydelete(tempstr);
       continue;
     }
+    if (match != NULL) {
+      if (fnmatch(match, f->d_name, FNM_CASEFOLD)) {
+        mydelete(tempstr);
+        continue;
+      }
+    }
+
     if (check_bad_filename(f->d_name)) {
       a_respond(u, "  Ignoring bad filename: %s", tempstr);
       mydelete(tempstr);
@@ -4896,7 +4936,7 @@ static void a_offline_net(unsigned int net)
 
   backup = gnetwork;
   gnetwork = &(gdata.networks[net]);
-  quit_server();
+  a_quit_network();
   gnetwork->offline = 1;
   gnetwork = backup;
 }

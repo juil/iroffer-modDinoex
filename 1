@@ -2,9 +2,7 @@
 ? 2
 ? 3
 ? TODO.modDinoex
-? config.temp
-? config.temp.c
-? config.temp.p
+? blueprint.png
 ? log
 Index: Configure
 ===================================================================
@@ -1449,15 +1447,23 @@ Index: LIESMICH.modDinoex
 ===================================================================
 RCS file: /usr/home/public/iroffer/LIESMICH.modDinoex,v
 retrieving revision 1.575
-retrieving revision 1.606
-diff -u -r1.575 -r1.606
+retrieving revision 1.608
+diff -u -r1.575 -r1.608
 --- LIESMICH.modDinoex	10 Feb 2011 18:31:33 -0000	1.575
-+++ LIESMICH.modDinoex	17 Jul 2011 20:14:43 -0000	1.606
-@@ -1,5 +1,114 @@
++++ LIESMICH.modDinoex	2 Aug 2011 20:42:02 -0000	1.608
+@@ -1,5 +1,122 @@
  Aktuelle Version auf: http://iroffer.dinoex.net/
  
 +Ab Version 3.27:
 +----------------
++
++382) REMOVEMATCH
++  
++  Neues Admin Kommando:
++  REMOVEMATCH <muster>               Entfernt Packs deren Dateien auf <muster> passen.
++
++bugfix: Configure
++  Erkennung von sendfile unter Linux funktioniert jetzt auch mit gcc46.
 +
 +bugfix: XDCC SEND
 +  Wenn ein Benutzer schon Pakete in der 2. Warteschlange hat,
@@ -1572,15 +1578,23 @@ Index: README.modDinoex
 ===================================================================
 RCS file: /usr/home/public/iroffer/README.modDinoex,v
 retrieving revision 1.833
-retrieving revision 1.868
-diff -u -r1.833 -r1.868
+retrieving revision 1.870
+diff -u -r1.833 -r1.870
 --- README.modDinoex	10 Feb 2011 18:31:33 -0000	1.833
-+++ README.modDinoex	17 Jul 2011 20:14:43 -0000	1.868
-@@ -1,5 +1,112 @@
++++ README.modDinoex	2 Aug 2011 20:42:02 -0000	1.870
+@@ -1,5 +1,120 @@
  Aktuelle Version auf: http://iroffer.dinoex.net/
  
 +With Version 3.27:
 +------------------
++
++382) REMOVEMATCH
++  
++  new admin command:
++  REMOVEMATCH <pattern>              Remove every pack matching this pattern
++
++bugfix: Configure (reported by OmegaPhil)
++  Ensure detection of sendfile on Linux works with gcc46.
 +
 +bugfix: XDCC SEND
 +  If user has already packs in the idlequeue, do not add new packs from him to the mainqueue.
@@ -1689,7 +1703,7 @@ diff -u -r1.833 -r1.868
  With Version 3.26:
  ------------------
  
-@@ -27,7 +134,7 @@
+@@ -27,7 +142,7 @@
    Disable connecting to this network.
  
  bugfix: CLOSEC (reported by unlogisch)
@@ -1698,7 +1712,7 @@ diff -u -r1.833 -r1.868
    versions affected: 3.25
  
  bugfix: getip_network (reported by Gotanius)
-@@ -627,7 +734,7 @@
+@@ -627,7 +742,7 @@
    Set version 2 in the "statefile".
    Fix error messages while parsing.
  
@@ -1711,10 +1725,10 @@ Index: THANKS
 ===================================================================
 RCS file: /usr/home/public/iroffer/THANKS,v
 retrieving revision 1.368
-retrieving revision 1.379
-diff -u -r1.368 -r1.379
+retrieving revision 1.380
+diff -u -r1.368 -r1.380
 --- THANKS	27 Jan 2011 20:56:32 -0000	1.368
-+++ THANKS	10 Jun 2011 06:27:29 -0000	1.379
++++ THANKS	31 Jul 2011 04:58:02 -0000	1.380
 @@ -101,6 +101,8 @@
  	suggesting HTTP 403 response
  	option "http_forbidden"
@@ -1724,7 +1738,15 @@ diff -u -r1.368 -r1.379
  
  [GFE]Lunix
  	alias xdcc list group <group>
-@@ -555,6 +557,9 @@
+@@ -477,6 +479,7 @@
+ OmegaPhil
+ 	reporting CONFIG bug
+ 	suggesting status_time_dcc_chat
++	reporting Configure bug
+ 
+ Bohnenstange
+ 	reporting curl 7.10.x bug
+@@ -555,6 +558,9 @@
  	reporting "CHCOLOR" bug
  	suggesting "CHMAXS" with range
  	suggesting "NEWANN" with params
@@ -1734,7 +1756,7 @@ diff -u -r1.368 -r1.379
  
  [M]-V
  	reporting ADDDIR spaces bug
-@@ -574,6 +579,8 @@
+@@ -574,6 +580,8 @@
  	reporting "autaaddann" text problem
  	suggesting "announce_suffix_color"
  	reporting "XDCC BATCH" bug
@@ -1743,7 +1765,7 @@ diff -u -r1.368 -r1.379
  
  SellKony
  	reporting CONFIG crash
-@@ -619,6 +626,7 @@
+@@ -619,6 +627,7 @@
  
  isengaurd
  	reporting "linux-sendfile" bug
@@ -1751,7 +1773,7 @@ diff -u -r1.368 -r1.379
  
  PastisD
  	suggesting "xdccxmlfile" with nicknames
-@@ -696,6 +704,7 @@
+@@ -696,6 +705,7 @@
  
  nanashiRei
  	reporting "xdccxmlfile" spelling of bandwidth
@@ -1759,7 +1781,7 @@ diff -u -r1.368 -r1.379
  
  paulhamm
  	reporting "getip_network" bug
-@@ -721,3 +730,12 @@
+@@ -721,3 +731,12 @@
  Gotanius
  	reporting "getip_network" bug
  
@@ -2129,10 +2151,10 @@ Index: de.txt
 ===================================================================
 RCS file: /usr/home/public/iroffer/de.txt,v
 retrieving revision 1.376
-retrieving revision 1.396
-diff -u -r1.376 -r1.396
+retrieving revision 1.397
+diff -u -r1.376 -r1.397
 --- de.txt	9 Feb 2011 06:20:04 -0000	1.376
-+++ de.txt	21 Jul 2011 10:40:07 -0000	1.396
++++ de.txt	2 Aug 2011 20:42:02 -0000	1.397
 @@ -241,9 +241,6 @@
  243 ","
  244 "** Kein Befehl eingegeben, versuche es noch einmal"
@@ -2348,7 +2370,7 @@ diff -u -r1.376 -r1.396
  2699 "Announced %s%s%s%s%s"
  2700 "\2%u\2%s%s"
  2701 "Announced %u%s%s"
-@@ -1869,3 +1842,33 @@
+@@ -1869,3 +1842,35 @@
  2774 ", File %s"
  2775 "Upload: Nick %s"
  2776 "Couldn't Set TCP_NODELAY"
@@ -2382,6 +2404,8 @@ diff -u -r1.376 -r1.396
 +2804 "  ^- [%s country=%s]"
 +2805 "\2%s\2%s%s%s%s"
 +2806 "%s:%ld %s is not encrypted!"
++2807 "REMOVEMATCH"
++2808 "Entfernt Packs deren Dateien auf <muster> passen."
 Index: dynip.sh
 ===================================================================
 RCS file: /usr/home/public/iroffer/dynip.sh,v
@@ -2407,10 +2431,10 @@ Index: en.txt
 ===================================================================
 RCS file: /usr/home/public/iroffer/en.txt,v
 retrieving revision 1.466
-retrieving revision 1.486
-diff -u -r1.466 -r1.486
+retrieving revision 1.487
+diff -u -r1.466 -r1.487
 --- en.txt	9 Feb 2011 06:20:05 -0000	1.466
-+++ en.txt	21 Jul 2011 10:40:07 -0000	1.486
++++ en.txt	2 Aug 2011 20:42:02 -0000	1.487
 @@ -49,7 +49,7 @@
  49 "channel style [net]"
  50 "Sends <style> (full|minimal|summary) XDCC LIST to <channel>"
@@ -2635,7 +2659,7 @@ diff -u -r1.466 -r1.486
  2699 "Announced %s%s%s%s%s"
  2700 "\2%u\2%s%s"
  2701 "Announced %u%s%s"
-@@ -1869,3 +1842,33 @@
+@@ -1869,3 +1842,35 @@
  2774 ", File %s"
  2775 "Upload: Nick %s"
  2776 "Couldn't Set TCP_NODELAY"
@@ -2669,6 +2693,8 @@ diff -u -r1.466 -r1.486
 +2804 "  ^- [%s country=%s]"
 +2805 "\2%s\2%s%s%s%s"
 +2806 "%s:%ld %s is not encrypted!"
++2807 "REMOVEMATCH"
++2808 "Remove every pack matching this pattern"
 Index: exemple.config
 ===================================================================
 RCS file: /usr/home/public/iroffer/exemple.config,v
@@ -2981,10 +3007,10 @@ Index: fr.txt
 ===================================================================
 RCS file: /usr/home/public/iroffer/fr.txt,v
 retrieving revision 1.33
-retrieving revision 1.53
-diff -u -r1.33 -r1.53
+retrieving revision 1.54
+diff -u -r1.33 -r1.54
 --- fr.txt	9 Feb 2011 06:20:05 -0000	1.33
-+++ fr.txt	21 Jul 2011 10:40:08 -0000	1.53
++++ fr.txt	2 Aug 2011 20:42:02 -0000	1.54
 @@ -241,9 +241,6 @@
  243 ","
  244 "** Commande absente, essayez encore ! **"
@@ -3200,7 +3226,7 @@ diff -u -r1.33 -r1.53
  2699 "Announced %s%s%s%s%s"
  2700 "\2%u\2%s%s"
  2701 "Announced %u%s%s"
-@@ -1869,3 +1842,33 @@
+@@ -1869,3 +1842,35 @@
  2774 ", Fichier %s"
  2775 "Upload: Nick %s"
  2776 "Couldn't Set TCP_NODELAY"
@@ -3234,6 +3260,8 @@ diff -u -r1.33 -r1.53
 +2804 "  ^- [%s country=%s]"
 +2805 "\2%s\2%s%s%s%s"
 +2806 "%s:%ld %s is not encrypted !"
++2807 "REMOVEMATCH"
++2808 "Remove every pack matching this pattern"
 Index: header.html
 ===================================================================
 RCS file: /usr/home/public/iroffer/header.html,v
@@ -3255,10 +3283,10 @@ Index: it.txt
 ===================================================================
 RCS file: /usr/home/public/iroffer/it.txt,v
 retrieving revision 1.236
-retrieving revision 1.260
-diff -u -r1.236 -r1.260
+retrieving revision 1.261
+diff -u -r1.236 -r1.261
 --- it.txt	9 Feb 2011 06:20:05 -0000	1.236
-+++ it.txt	21 Jul 2011 10:40:08 -0000	1.260
++++ it.txt	2 Aug 2011 20:42:02 -0000	1.261
 @@ -241,9 +241,6 @@
  243 ","
  244 "** Comando perso, riprova"
@@ -3510,7 +3538,7 @@ diff -u -r1.236 -r1.260
  2760 "n [channel] [net]"
  2766 "RUBY %s"
  2767 "%s "
-@@ -1868,4 +1841,34 @@
+@@ -1868,4 +1841,36 @@
  2773 ", Recv %"
  2774 ", File %s"
  2775 "Upload: Nick %s"
@@ -3546,6 +3574,8 @@ diff -u -r1.236 -r1.260
 +2804 "  ^- [%s country=%s]"
 +2805 "\2%s\2%s%s%s%s"
 +2806 "%s:%ld %s la password non è criptata!"
++2807 "REMOVEMATCH"
++2808 "Remove every pack matching this pattern"
 Index: ruby-sample.rb
 ===================================================================
 RCS file: /usr/home/public/iroffer/ruby-sample.rb,v
@@ -4154,16 +4184,16 @@ Index: src/dinoex_admin.c
 ===================================================================
 RCS file: /usr/home/public/iroffer/src/dinoex_admin.c,v
 retrieving revision 1.413
-retrieving revision 1.431
-diff -u -r1.413 -r1.431
+retrieving revision 1.434
+diff -u -r1.413 -r1.434
 --- src/dinoex_admin.c	6 Feb 2011 01:28:12 -0000	1.413
-+++ src/dinoex_admin.c	12 Jul 2011 19:17:53 -0000	1.431
++++ src/dinoex_admin.c	2 Aug 2011 20:59:29 -0000	1.434
 @@ -9,7 +9,7 @@
   * If you received this file without documentation, it can be
   * downloaded from http://iroffer.dinoex.net/
   *
 - * $Id: dinoex_admin.c,v 1.413 2011/02/06 01:28:12 cvs Exp $
-+ * $Id: dinoex_admin.c,v 1.431 2011/07/12 19:17:53 cvs Exp $
++ * $Id: dinoex_admin.c,v 1.434 2011/08/02 20:59:29 cvs Exp $
   *
   */
  
@@ -4358,7 +4388,25 @@ diff -u -r1.413 -r1.431
  static unsigned int is_system_dir(const char *name)
  {
    if (strcmp(name, ".") == 0) /* NOTRANSLATE */
-@@ -1992,21 +2060,11 @@
+@@ -1943,7 +2011,7 @@
+   return rc;
+ }
+ 
+-static void a_removedir_sub(const userinput * const u, const char *thedir, DIR *d)
++static void a_removedir_sub(const userinput * const u, const char *thedir, DIR *d, const char *match)
+ {
+   struct dirent f2;
+   struct dirent *f;
+@@ -1983,7 +2051,7 @@
+         continue;
+       }
+       if (gdata.include_subdirs != 0)
+-        a_removedir_sub(u, tempstr, NULL);
++        a_removedir_sub(u, tempstr, NULL, match);
+       mydelete(tempstr);
+       continue;
+     }
+@@ -1992,21 +2060,18 @@
        continue;
      }
  
@@ -4369,6 +4417,13 @@ diff -u -r1.413 -r1.431
 -    u2->cmd = mystrdup( "REMOVE" ); /* NOTRANSLATE */
 -    u2->net = gnetwork->net;
 -    u2->level = u->level;
++    if (match != NULL) {
++      if (fnmatch(match, f->d_name, FNM_CASEFOLD)) {
++        mydelete(tempstr);
++        continue;
++      }
++    }
++
 +    u2 = irlist_add_delayed(u, "REMOVE"); /* NOTRANSLATE */
  
      u2->arg1 = tempstr;
@@ -4381,7 +4436,54 @@ diff -u -r1.413 -r1.431
      u2->arg2 = mycalloc(sizeof(struct stat));
      memcpy(u2->arg2, &st, sizeof(struct stat));
    }
-@@ -2210,6 +2268,7 @@
+@@ -2092,7 +2157,7 @@
+     return;
+   }
+ 
+-  a_removedir_sub(u, thedir, d);
++  a_removedir_sub(u, thedir, d, NULL);
+   mydelete(thedir);
+   return;
+ }
+@@ -2125,6 +2190,37 @@
+   }
+ }
+ 
++void a_removematch(const userinput * const u)
++{
++  DIR *d;
++  char *thedir;
++  char *end;
++
++  updatecontext();
++
++  if (invalid_dir(u, u->arg1) != 0)
++    return;
++
++  thedir = mystrdup(u->arg1);
++  end = strrchr(thedir, '/' );
++  if (end == NULL) {
++    a_respond(u, "Try Specifying a Directory");
++    mydelete(thedir);
++    return;
++  }
++
++  *(end++) = 0;
++  d = a_open_dir(&thedir);
++  if (!d) {
++    a_respond(u, "Can't Access Directory: %s %s", u->arg1, strerror(errno));
++    mydelete(thedir);
++    return;
++  }
++
++  a_removedir_sub(u, thedir, d, end);
++  mydelete(thedir);
++}
++
+ static void a_renumber1(const userinput * const u, unsigned int oldp, unsigned int newp)
+ {
+   xdcc *xdo;
+@@ -2210,6 +2306,7 @@
    /* clean start */
    gdata.xdccs.size = 0;
    gdata.xdccs.head = NULL;
@@ -4389,7 +4491,7 @@ diff -u -r1.413 -r1.431
  
    while (irlist_size(&old_list) > 0) {
      xdo = irlist_get_head(&old_list);
-@@ -2298,7 +2357,7 @@
+@@ -2298,7 +2395,7 @@
    struct stat st;
    struct stat *sta;
    char *thefile, *tempstr;
@@ -4398,7 +4500,19 @@ diff -u -r1.413 -r1.431
  
    updatecontext();
  
-@@ -2350,7 +2409,18 @@
+@@ -2328,11 +2425,6 @@
+       continue;
+     }
+ 
+-    if (match != NULL) {
+-      if (fnmatch(match, f->d_name, FNM_CASEFOLD))
+-        continue;
+-    }
+-
+     tempstr = mystrjoin(thedir, f->d_name, '/');
+ 
+     if (stat(tempstr, &st) < 0) {
+@@ -2350,7 +2442,18 @@
          if (gdata.debug > 0)
            a_respond(u, "  Ignoring directory: %s", tempstr);
        } else {
@@ -4418,7 +4532,21 @@ diff -u -r1.413 -r1.431
        }
        mydelete(tempstr);
        continue;
-@@ -2394,7 +2464,7 @@
+@@ -2359,6 +2462,13 @@
+       mydelete(tempstr);
+       continue;
+     }
++    if (match != NULL) {
++      if (fnmatch(match, f->d_name, FNM_CASEFOLD)) {
++        mydelete(tempstr);
++        continue;
++      }
++    }
++
+     if (check_bad_filename(f->d_name)) {
+       a_respond(u, "  Ignoring bad filename: %s", tempstr);
+       mydelete(tempstr);
+@@ -2394,7 +2504,7 @@
             xd = irlist_get_next(xd)) {
          if ((xd->st_dev == st.st_dev) &&
              (xd->st_ino == st.st_ino)) {
@@ -4427,7 +4555,7 @@ diff -u -r1.413 -r1.431
            if (check_for_renamed_file(u, xd, &st, tempstr)) {
              tempstr = NULL;
              break;
-@@ -2414,7 +2484,7 @@
+@@ -2414,7 +2524,7 @@
          if ((strcmp(u2->cmd, "ADD") == 0) &&
              (sta->st_dev == st.st_dev) &&
              (sta->st_ino == st.st_ino)) {
@@ -4436,7 +4564,7 @@ diff -u -r1.413 -r1.431
            a_respond(u, "  Ignoring queued file: %s", tempstr);
            break;
          }
-@@ -2446,17 +2516,7 @@
+@@ -2446,17 +2556,7 @@
  
    thefile = irlist_get_head(&dirlist);
    while (thefile) {
@@ -4455,7 +4583,7 @@ diff -u -r1.413 -r1.431
  
      u2->arg1 = mystrdup(thefile);
  
-@@ -4301,7 +4361,7 @@
+@@ -4301,7 +4401,7 @@
      qu->q_time = gdata.curtime;
      a_respond(u, "GET %s started for %s on %s",
                qu->q_pack, qu->q_nick, gdata.networks[ qu->q_net ].name);
@@ -4464,7 +4592,7 @@ diff -u -r1.413 -r1.431
      start_qupload();
      return;
    }
-@@ -4585,8 +4645,8 @@
+@@ -4585,8 +4685,8 @@
    ch = irlist_add(&(gnetwork->channels), sizeof(channel_t));
    caps(u->arg1);
    ch->name = mystrdup(u->arg1);
@@ -4475,7 +4603,7 @@ diff -u -r1.413 -r1.431
    ch->nextjoin = gdata.curtime;
    if (u->arg3)
      ch->key = mystrdup(u->arg3);
-@@ -4720,11 +4780,10 @@
+@@ -4720,11 +4820,10 @@
  {
    if (chat == u->chat) {
      a_respond(u, "Disconnecting yourself.");
@@ -4488,7 +4616,7 @@ diff -u -r1.413 -r1.431
  }
  
  void a_closec(const userinput * const u)
-@@ -4831,6 +4890,65 @@
+@@ -4831,6 +4930,65 @@
    start_sends();
  }
  
@@ -4498,7 +4626,7 @@ diff -u -r1.413 -r1.431
 +
 +  backup = gnetwork;
 +  gnetwork = &(gdata.networks[net]);
-+  quit_server();
++  a_quit_network();
 +  gnetwork->offline = 1;
 +  gnetwork = backup;
 +}
@@ -4554,7 +4682,7 @@ diff -u -r1.413 -r1.431
  void a_dump(const userinput * const u)
  {
    dumpgdata();
-@@ -4849,7 +4967,7 @@
+@@ -4849,7 +5007,7 @@
    tostdout_disable_buffering();
    uninitscreen();
  
@@ -4563,7 +4691,7 @@ diff -u -r1.413 -r1.431
    gobackground();
  
    if (gdata.pidfile)
-@@ -5029,8 +5147,11 @@
+@@ -5029,8 +5187,11 @@
  
    updatecontext();
  
@@ -4576,7 +4704,7 @@ diff -u -r1.413 -r1.431
  
    if (a_queue_found(u, xd, num))
      return 1;
-@@ -5165,10 +5286,11 @@
+@@ -5165,10 +5326,11 @@
    char *prefix;
    char *colordesc;
    char *datestr;
@@ -4589,7 +4717,7 @@ diff -u -r1.413 -r1.431
    unsigned int ss;
    unsigned int color;
  
-@@ -5182,22 +5304,25 @@
+@@ -5182,22 +5344,25 @@
    prefix = mymalloc(maxtextlength);
    suffix = mymalloc(maxtextlength);
    colordesc = xd_color_description(xd);
@@ -4625,7 +4753,7 @@ diff -u -r1.413 -r1.431
    message = mymalloc(maxtextlength);
    color = a_get_color(gdata.announce_suffix_color);
  
-@@ -5210,17 +5335,16 @@
+@@ -5210,17 +5375,16 @@
      snprintf(suffix, maxtextlength - 2, "/MSG %s XDCC SEND %u",
               get_user_nick(), num);
      color_suffix = color_text(suffix, color);
@@ -4646,7 +4774,7 @@ diff -u -r1.413 -r1.431
    if (colordesc != xd->desc)
      mydelete(colordesc);
    mydelete(suffix);
-@@ -5413,7 +5537,7 @@
+@@ -5413,7 +5577,7 @@
    if (xd == NULL)
      return;
  
@@ -4655,7 +4783,7 @@ diff -u -r1.413 -r1.431
  }
  
  void a_noannounce(const userinput * const u)
-@@ -5429,8 +5553,8 @@
+@@ -5429,8 +5593,8 @@
  
  void a_restart(const userinput * const UNUSED(u))
  {
@@ -4670,16 +4798,16 @@ Index: src/dinoex_admin.h
 ===================================================================
 RCS file: /usr/home/public/iroffer/src/dinoex_admin.h,v
 retrieving revision 1.129
-retrieving revision 1.133
-diff -u -r1.129 -r1.133
+retrieving revision 1.134
+diff -u -r1.129 -r1.134
 --- src/dinoex_admin.h	22 Jan 2011 07:10:11 -0000	1.129
-+++ src/dinoex_admin.h	8 Jun 2011 05:06:46 -0000	1.133
++++ src/dinoex_admin.h	2 Aug 2011 20:42:02 -0000	1.134
 @@ -9,7 +9,7 @@
   * If you received this file without documentation, it can be
   * downloaded from http://iroffer.dinoex.net/
   *
 - * $Id: dinoex_admin.h,v 1.129 2011/01/22 07:10:11 cvs Exp $
-+ * $Id: dinoex_admin.h,v 1.133 2011/06/08 05:06:46 cvs Exp $
++ * $Id: dinoex_admin.h,v 1.134 2011/08/02 20:42:02 cvs Exp $
   *
   */
  
@@ -4700,7 +4828,15 @@ diff -u -r1.129 -r1.133
  void a_slotsmax(const userinput * const u);
  void a_queuesize(const userinput * const u);
  void a_requeue(const userinput * const u);
-@@ -137,6 +140,11 @@
+@@ -55,6 +58,7 @@
+ void a_remove(const userinput * const u);
+ void a_removedir(const userinput * const u);
+ void a_removegroup(const userinput * const u);
++void a_removematch(const userinput * const u);
+ void a_renumber3(const userinput * const u);
+ void a_sort(const userinput * const u);
+ int a_open_file(char **file, int mode);
+@@ -137,6 +141,11 @@
  void a_print(const userinput * const u);
  void a_identify(const userinput * const u);
  void a_holdqueue(const userinput * const u);
@@ -7519,16 +7655,16 @@ Index: src/dinoex_jobs.c
 ===================================================================
 RCS file: /usr/home/public/iroffer/src/dinoex_jobs.c,v
 retrieving revision 1.167
-retrieving revision 1.177
-diff -u -r1.167 -r1.177
+retrieving revision 1.178
+diff -u -r1.167 -r1.178
 --- src/dinoex_jobs.c	6 Feb 2011 01:28:12 -0000	1.167
-+++ src/dinoex_jobs.c	12 Jul 2011 19:17:54 -0000	1.177
++++ src/dinoex_jobs.c	1 Aug 2011 20:28:42 -0000	1.178
 @@ -9,7 +9,7 @@
   * If you received this file without documentation, it can be
   * downloaded from http://iroffer.dinoex.net/
   *
 - * $Id: dinoex_jobs.c,v 1.167 2011/02/06 01:28:12 cvs Exp $
-+ * $Id: dinoex_jobs.c,v 1.177 2011/07/12 19:17:54 cvs Exp $
++ * $Id: dinoex_jobs.c,v 1.178 2011/08/01 20:28:42 cvs Exp $
   *
   */
  
@@ -7696,7 +7832,54 @@ diff -u -r1.167 -r1.177
  }
  
  void a_rehash_prepare(void)
-@@ -1989,29 +2027,22 @@
+@@ -1821,12 +1859,27 @@
+   }
+ }
+ 
++void a_quit_network(void)
++{
++  channel_t *ch;
++
++  quit_server();
++  for (ch = irlist_get_head(&(gnetwork->channels));
++       ch;
++       ch = irlist_delete(&(gnetwork->channels), ch)) {
++    clearmemberlist(ch);
++    free_channel_data(ch);
++  }
++  mydelete(gnetwork->user_nick);
++  mydelete(gnetwork->caps_nick);
++  mydelete(gnetwork->name);
++}
++
+ void a_rehash_needtojump(const userinput *u)
+ {
+   char *new_vhost;
+   char *old_vhost;
+   gnetwork_t *backup;
+-  channel_t *ch;
+   unsigned int ss;
+ 
+   updatecontext();
+@@ -1861,16 +1914,7 @@
+     backup = gnetwork;
+     for (ss=gdata.networks_online; ss<gdata.r_networks_online; ++ss) {
+       gnetwork = &(gdata.networks[ss]);
+-      quit_server();
+-      for (ch = irlist_get_head(&(gnetwork->channels));
+-           ch;
+-           ch = irlist_delete(&(gnetwork->channels), ch)) {
+-        clearmemberlist(ch);
+-        free_channel_data(ch);
+-      }
+-      mydelete(gnetwork->user_nick);
+-      mydelete(gnetwork->caps_nick);
+-      mydelete(gnetwork->name);
++      a_quit_network();
+     }
+     gnetwork = backup;
+   }
+@@ -1989,29 +2033,22 @@
  
    if (!gdata.config_nick) {
      a_respond(u, "user_nick missing! keeping old nick!");
@@ -7740,7 +7923,7 @@ diff -u -r1.167 -r1.177
    mydelete(r_local_vhost);
    if (gdata.xdcclist_grouponly != gdata.r_xdcclist_grouponly)
      write_files();
-@@ -2241,6 +2272,48 @@
+@@ -2241,6 +2278,48 @@
    return 1;
  }
  
@@ -7789,7 +7972,7 @@ diff -u -r1.167 -r1.177
  static magic_crc_t magic_crc_table[] = {
    { 0x24, 7, { 0x52, 0x61, 0x72, 0x21, 0x1a, 0x07, 0x00, 0} },
    { 0x0E, 4, { 0x50, 0x4b, 0x03, 0x04, 0, 0, 0, 0 } },
-@@ -2276,7 +2349,7 @@
+@@ -2276,7 +2355,7 @@
    ir_uint32 zipcrc32;
    unsigned int i;
  
@@ -7802,16 +7985,16 @@ Index: src/dinoex_jobs.h
 ===================================================================
 RCS file: /usr/home/public/iroffer/src/dinoex_jobs.h,v
 retrieving revision 1.41
-retrieving revision 1.44
-diff -u -r1.41 -r1.44
+retrieving revision 1.45
+diff -u -r1.41 -r1.45
 --- src/dinoex_jobs.h	5 Feb 2011 11:05:54 -0000	1.41
-+++ src/dinoex_jobs.h	9 Jun 2011 09:46:46 -0000	1.44
++++ src/dinoex_jobs.h	1 Aug 2011 20:28:42 -0000	1.45
 @@ -9,7 +9,7 @@
   * If you received this file without documentation, it can be
   * downloaded from http://iroffer.dinoex.net/
   *
 - * $Id: dinoex_jobs.h,v 1.41 2011/02/05 11:05:54 cvs Exp $
-+ * $Id: dinoex_jobs.h,v 1.44 2011/06/09 09:46:46 cvs Exp $
++ * $Id: dinoex_jobs.h,v 1.45 2011/08/01 20:28:42 cvs Exp $
   *
   */
  
@@ -7824,15 +8007,18 @@ diff -u -r1.41 -r1.44
  void autotrigger_add(xdcc *xd);
  void autotrigger_rebuild(void);
  void start_md5_hash(xdcc *xd, unsigned int packnum);
-@@ -66,6 +66,7 @@
+@@ -66,8 +66,10 @@
  void start_qupload(void);
  int close_qupload(unsigned int net, const char *nick);
  void lag_message(void);
 +void send_periodicmsg(void);
  
  void a_rehash_prepare(void);
++void a_quit_network(void);
  void a_rehash_needtojump(const userinput *u);
-@@ -77,6 +78,7 @@
+ void a_rehash_channels(void);
+ void a_rehash_jump(void);
+@@ -77,6 +79,7 @@
  char *new_logfilename(const char *logfile);
  void expire_logfiles(const char *logfile);
  int rotatelog(const char *logfile);
@@ -9583,10 +9769,10 @@ Index: src/iroffer_admin.c
 ===================================================================
 RCS file: /usr/home/public/iroffer/src/iroffer_admin.c,v
 retrieving revision 1.373
-retrieving revision 1.384
-diff -u -r1.373 -r1.384
+retrieving revision 1.385
+diff -u -r1.373 -r1.385
 --- src/iroffer_admin.c	9 Feb 2011 05:53:27 -0000	1.373
-+++ src/iroffer_admin.c	12 Jul 2011 19:17:54 -0000	1.384
++++ src/iroffer_admin.c	2 Aug 2011 20:42:02 -0000	1.385
 @@ -50,7 +50,6 @@
  static void u_msgread(const userinput * const u);
  static void u_msgdel(const userinput * const u);
@@ -9605,7 +9791,15 @@ diff -u -r1.373 -r1.384
  {2,5,method_allow_all,a_slotsmax,      "SLOTSMAX","[slots]","temporary change slotsmax to <slots>"},
  {2,5,method_allow_all,a_queuesize,     "QUEUESIZE","[slots]","temporary change queuesize to <slots>"},
  {2,5,method_allow_all,a_requeue,       "REQUEUE","x y","Moves main queue entry from position <x> to <y>"},
-@@ -220,6 +220,11 @@
+@@ -119,6 +119,7 @@
+ {3,4,method_allow_all,a_remove,        "REMOVE","n [m]","Removes pack <n> or <n> to <m>"},
+ {3,4,method_allow_all,a_removedir,     "REMOVEDIR","dir","Remove every pack found in <dir>"},
+ {3,4,method_allow_all,a_removegroup,   "REMOVEGROUP","group","Remove every pack found in <group>"},
++{3,4,method_allow_all,a_removematch,   "REMOVEMATCH","pattern","Remove every pack matching this pattern"},
+ {3,3,method_allow_all,a_renumber3,     "RENUMBER","x [y] z","Moves packs <x> to <y> to position <z>"},
+ {3,3,method_allow_all,a_sort,          "SORT","[field] [field]","Sort all packs by fields"},
+ {3,3,method_allow_all,a_add,           "ADD","filename","Add new pack with <filename>"},
+@@ -220,6 +221,11 @@
  {6,5,method_allow_all,a_print,         "PRINT","key","Print config variable <key>"},
  {6,1,method_allow_all,a_identify,      "IDENTIFY","[net]","Send stored password again to nickserv"},
  {6,2,method_allow_all,a_holdqueue,     "HOLDQUEUE","[x]","Change holdqueue flag, x=1 set, x=0 reset"},
@@ -9617,7 +9811,7 @@ diff -u -r1.373 -r1.384
  {6,5,method_allow_all,u_shutdown,      "SHUTDOWN","act","Shutdown iroffer, <act> is \"now\", \"delayed\", or \"cancel\""},
  {6,5,method_console,  a_backgroud,     "BACKGROUND",NULL,"Switch to background mode"},
  {6,5,method_allow_all,a_dump,          "DUMP",NULL,"Write a dump into the logfile"},
-@@ -264,76 +269,79 @@
+@@ -264,76 +270,79 @@
    
    updatecontext();
    
@@ -9747,7 +9941,7 @@ diff -u -r1.373 -r1.384
     u_fillwith_clean(u);
     gnetwork = backup;
     
-@@ -897,6 +905,7 @@
+@@ -897,6 +906,7 @@
                      (tr->nomin || (tr->xpack->minspeed == 0.0)) ? "no" : tempstr2 ,
                      (tr->nomax || (tr->maxspeed == 0.0)) ? "no" : tempstr4 ,
                      tr->startresume ? tempstr3 : "no");
@@ -9755,7 +9949,7 @@ diff -u -r1.373 -r1.384
          }
        else
          {
-@@ -1443,7 +1452,7 @@
+@@ -1443,7 +1453,7 @@
         a_respond(u, "network: %u: %s", ss + 1, gdata.networks[ss].name);
         msg = mymalloc(maxtextlength);
         my_dcc_ip_show(msg, maxtextlength - 1, &(gdata.networks[ss].myip), ss);
@@ -9764,7 +9958,7 @@ diff -u -r1.373 -r1.384
         mydelete(msg);
         
         backup = gnetwork;
-@@ -1651,6 +1660,9 @@
+@@ -1651,6 +1661,9 @@
        u_respond(u,"NOTICE: Delayed shutdown activated, iroffer will shutdown once there are no active transfers");
        u_respond(u,"NOTICE: To cancel the delayed shutdown, issue \"SHUTDOWN CANCEL\"");
        }
@@ -9774,7 +9968,7 @@ diff -u -r1.373 -r1.384
     
     mydelete(tempstr);
     }
-@@ -1952,30 +1964,6 @@
+@@ -1952,30 +1965,6 @@
      }
  }
  
@@ -9805,7 +9999,7 @@ diff -u -r1.373 -r1.384
  static void u_shutdown(const userinput * const u) {
     updatecontext();
     
-@@ -1990,7 +1978,7 @@
+@@ -1990,7 +1979,7 @@
        }
     
     if (!strcmp(u->arg1,"NOW")) {
@@ -9814,7 +10008,7 @@ diff -u -r1.373 -r1.384
        }
     else if (!strcmp(u->arg1,"DELAYED")) {
        u_respond(u,"Delayed shutdown activated, iroffer will shutdown once there are no active transfers");
-@@ -2181,7 +2169,7 @@
+@@ -2181,7 +2170,7 @@
    DIR *d;
    struct dirent *f;
    char *thefile, *tempstr;
