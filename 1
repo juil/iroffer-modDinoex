@@ -2,22 +2,21 @@
 ? 2
 ? 3
 ? TODO.modDinoex
-? blueprint.png
 ? log
 Index: Configure
 ===================================================================
 RCS file: /usr/home/public/iroffer/Configure,v
 retrieving revision 1.220
-retrieving revision 1.228
-diff -u -r1.220 -r1.228
+retrieving revision 1.229
+diff -u -r1.220 -r1.229
 --- Configure	19 Feb 2011 19:39:47 -0000	1.220
-+++ Configure	30 Jul 2011 20:08:25 -0000	1.228
++++ Configure	7 Aug 2011 13:56:47 -0000	1.229
 @@ -1,10 +1,10 @@
  #!/bin/sh
  
  #
 -# $Id: Configure,v 1.220 2011/02/19 19:39:47 cvs Exp $
-+# $Id: Configure,v 1.228 2011/07/30 20:08:25 cvs Exp $
++# $Id: Configure,v 1.229 2011/08/07 13:56:47 cvs Exp $
  #
  
 -VERSION="3.26"
@@ -25,7 +24,47 @@ diff -u -r1.220 -r1.228
  RELEASE=1
  
  if [ $RELEASE -eq 1 ]; then
-@@ -691,7 +691,6 @@
+@@ -49,6 +49,7 @@
+    -no-telnet   Compiler sans Telnet server
+    -no-memsave  Compiler sans protection de mémoire
+    -no-libs     Compiler un binaire static
++   TRANSLATION=	Set custom translations
+    PREFIX=      Définit le chemin d'installation (/usr/local)
+    LOCALBASE=   Définit le chemin des includes et libs (/usr/local)
+    CC=gcc       Définit le Compiler (gcc)
+@@ -76,6 +77,7 @@
+    -no-telnet   Baue ohne Telnet Server
+    -no-memsave  Baue ohne Speicherschutz
+    -no-libs     Baue ein statische Programm
++   TRANSLATION=	Setze weitere Übersetzungen
+    PREFIX=      Setze Installations-Pfad  (/usr/local)
+    LOCALBASE=   Setze Pfad für Include-Dateien und Bibliotheken (/usr/local)
+    CC=gcc       Setze Compiler (gcc)
+@@ -103,6 +105,7 @@
+    -no-telnet   Compile without Telnet server
+    -no-memsave  Compile without memory protection
+    -no-libs     Compile an static binary
++   TRANSLATION=	Set custom translations
+    PREFIX=      Set installation prefix (/usr/local)
+    LOCALBASE=   Set prefix for includes and libs (/usr/local)
+    CC=gcc       Set Compiler (gcc)
+@@ -460,6 +463,7 @@
+ ruby="ruby"
+ PREFIX="/usr/local"
+ LOCALBASE="/usr/local"
++TRANSLATION="de it fr"
+ 
+ while test "${1}" != ""
+ do
+@@ -473,6 +477,7 @@
+  PREFIX=*) PREFIX="${1#PREFIX=}" ;;
+  RUBY=*) ruby="${1#RUBY=}" ;;
+  WARN=*) OPT_WARN2="${1#WARN=}" ;;
++ TRANSLATION=*) TRANSLATION="${TRANSLATION} ${1##TRANSLATION=}" ;;
+  -e*) OPT_ERRORS=true ;;
+  -d*) OPT_DEBUG=true ;;
+  -w*) OPT_WARN=true ;;
+@@ -691,7 +696,6 @@
  -Wformat-nonliteral
  -Wformat=2
  -Wfloat-equal
@@ -33,7 +72,7 @@ diff -u -r1.220 -r1.228
  -Wpacked
  -Wpadded
  -Wswitch-default
-@@ -706,7 +705,6 @@
+@@ -706,7 +710,6 @@
  -Wformat-nonliteral
  -Wformat=2
  -Wfloat-equal
@@ -41,7 +80,7 @@ diff -u -r1.220 -r1.228
  -Wpacked
  -Wpadded
  -Wswitch-default
-@@ -770,17 +768,19 @@
+@@ -770,17 +773,19 @@
  fi
  
  ${msg} -n "${irt_checkfor} make... "
@@ -65,7 +104,7 @@ diff -u -r1.220 -r1.228
    ${msg} "${irt_found} $maketype"
   else
    ${msg} "${irt_found} $maketype. ${irt_error} ${irt_noexec} $maketype"
-@@ -817,15 +817,26 @@
+@@ -817,15 +822,26 @@
   fi
  fi
  
@@ -97,7 +136,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   ${msg} "${irt_yes}"
  else
-@@ -836,12 +847,7 @@
+@@ -836,12 +852,7 @@
  ${msg} -n "${irt_seeingif} $cctype ${irt_accepts} '-Wall'... "
  echo "
  #include <stdlib.h>
@@ -111,7 +150,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp -Wall $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   ${msg} "${irt_yes}"
   WARNS="-Wall $WARNS"
-@@ -852,12 +858,7 @@
+@@ -852,12 +863,7 @@
  ${msg} -n "${irt_seeingif} $cctype ${irt_accepts} '-Werror'... "
  echo "
  #include <stdlib.h>
@@ -125,7 +164,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp -Werror $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   ${msg} "${irt_yes}"
   WERROR="-Werror"
-@@ -870,15 +871,9 @@
+@@ -870,15 +876,9 @@
  echo "
  #include <stdlib.h>
  #include <stdio.h>
@@ -143,7 +182,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp -DC_IR_INT16="short" $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS && [ "`./config.temp`" = "2" ]; then
   echo "short"
   echo "typedef short ir_int16;" >> src/iroffer_config.h
-@@ -897,15 +892,9 @@
+@@ -897,15 +897,9 @@
  echo "
  #include <stdlib.h>
  #include <stdio.h>
@@ -161,7 +200,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp -DC_IR_INT32="int" $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS && [ "`./config.temp`" = "4" ]; then
   echo "int"
   echo "typedef int ir_int32;" >> src/iroffer_config.h
-@@ -931,15 +920,9 @@
+@@ -931,15 +925,9 @@
  echo "
  #include <stdlib.h>
  #include <stdio.h>
@@ -179,7 +218,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp -DC_IR_INT64="long" $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS && [ "`./config.temp`" = "8" ]; then
   echo "long"
   echo "typedef long ir_int64;" >> src/iroffer_config.h
-@@ -967,15 +950,9 @@
+@@ -967,15 +955,9 @@
  #include <stdlib.h>
  #include <stdio.h>
  #include <sys/socket.h>
@@ -197,7 +236,7 @@ diff -u -r1.220 -r1.228
   if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
    ${msg} "${irt_yes}"
   else
-@@ -985,19 +962,20 @@
+@@ -985,19 +967,20 @@
   fi
  fi
  
@@ -227,7 +266,7 @@ diff -u -r1.220 -r1.228
   ${msg} "${irt_yes}"
  else
   ${msg} " ${irt_error} ${irt_nocompiling}."
-@@ -1006,14 +984,10 @@
+@@ -1006,14 +989,10 @@
  
  
  ${msg} -n "${irt_seeinghow} ${irt_large} FD_SETSIZE ${irt_is}... "
@@ -244,7 +283,7 @@ diff -u -r1.220 -r1.228
   setsize=`tail -2 config.temp.p |grep -v "config.temp"`
   setsize="${setsize%U}"
   echo -n " $setsize"
-@@ -1030,20 +1004,9 @@
+@@ -1030,20 +1009,9 @@
  fi
  
  ${msg} -n "${irt_endianness}... "
@@ -267,7 +306,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS && [ "`./config.temp`" = "big" ]; then
   ${msg} "${irt_endianbig}"
   echo "#define IR_ENDIAN_BIG" >> src/iroffer_config.h
-@@ -1057,24 +1020,13 @@
+@@ -1057,24 +1025,13 @@
  
  
  ${msg} -n "${irt_seeingif} ${irt_largefile} ${irt_works}... "
@@ -294,7 +333,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   ${msg} "${irt_yes}"
   echo "#define _FILE_OFFSET_BITS 64" >> src/iroffer_config.h
-@@ -1084,21 +1036,10 @@
+@@ -1084,21 +1041,10 @@
  fi
  
  ${msg} -n "${irt_signedness} 'addrlen'... "
@@ -318,7 +357,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp -DSIGNEDSOCK=signed $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   echo "signed"
   echo "#define SIGNEDSOCK signed" >> src/iroffer_config.h
-@@ -1113,32 +1054,20 @@
+@@ -1113,32 +1059,20 @@
  
  
  ${msg} -n "${irt_seeinghow} ${irt_display_int64} printf... "
@@ -359,7 +398,7 @@ diff -u -r1.220 -r1.228
  else
   ${msg} "${irt_unknown}. ${irt_error} ${irt_neither1} 'll', 'l', ${irt_neither2} 'L' ${irt_neither3}."
   echo "#define LLPRINTFMT \"L\"" >> src/iroffer_config.h
-@@ -1147,32 +1076,20 @@
+@@ -1147,32 +1081,20 @@
  
  
  ${msg} -n "${irt_seeinghow} ${irt_display_time} printf... "
@@ -400,7 +439,7 @@ diff -u -r1.220 -r1.228
  elif $cctype -o config.temp -DTTPRINTFMT=\"i\" $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS && [ "`./config.temp`" = "10000000000" -o "`./config.temp`" = "1410065408" ]; then
   echo "i"
   echo "#define TTPRINTFMT \"i\"" >> src/iroffer_config.h
-@@ -1184,17 +1101,9 @@
+@@ -1184,17 +1106,9 @@
  
  
  ${msg} -n "${irt_checkfor} snprintf()... "
@@ -421,7 +460,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   ${msg} "${irt_found}"
  else
-@@ -1203,17 +1112,9 @@
+@@ -1203,17 +1117,9 @@
  fi
  
  ${msg} -n "${irt_checkfor} strcasecmp()... "
@@ -442,7 +481,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   ${msg} "${irt_found}"
  else
-@@ -1222,17 +1123,9 @@
+@@ -1222,17 +1128,9 @@
  fi
  
  ${msg} -n "${irt_checkfor} strcasestr()... "
@@ -463,7 +502,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   ${msg} "${irt_found}"
  else
-@@ -1242,17 +1135,9 @@
+@@ -1242,17 +1140,9 @@
  fi
  
  ${msg} -n "${irt_checkfor} strsignal()... "
@@ -484,7 +523,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   ${msg} "${irt_found}"
  else
-@@ -1261,17 +1146,7 @@
+@@ -1261,17 +1151,7 @@
  fi
  
  ${msg} -n "${irt_seeingif} 'sys/mman.h' ${irt_exists}... "
@@ -503,7 +542,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp.o -c -DHAS_SYS_MMAN_H $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   echo "#define HAS_SYS_MMAN_H" >> src/iroffer_config.h
   ${msg} "${irt_found}"
-@@ -1280,17 +1155,7 @@
+@@ -1280,17 +1160,7 @@
  fi
  
  ${msg} -n "${irt_seeingif} 'sys/sendfile.h' ${irt_exists}... "
@@ -522,7 +561,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp.o -c -DHAS_SYS_SENDFILE_H $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   echo "#define HAS_SYS_SENDFILE_H" >> src/iroffer_config.h
   ${msg} "${irt_found}"
-@@ -1299,17 +1164,7 @@
+@@ -1299,17 +1169,7 @@
  fi
  
  ${msg} -n "${irt_seeingif} 'sys/vfs.h' ${irt_exists}... "
@@ -541,7 +580,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp.o -c -DHAS_SYS_VFS_H $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   echo "#define HAS_SYS_VFS_H" >> src/iroffer_config.h
   ${msg} "${irt_found}"
-@@ -1318,17 +1173,7 @@
+@@ -1318,17 +1178,7 @@
  fi
  
  ${msg} -n "${irt_seeingif} 'sys/statfs.h' ${irt_exists}... "
@@ -560,7 +599,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp.o -c -DHAS_SYS_STATFS_H $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   echo "#define HAS_SYS_STATFS_H" >> src/iroffer_config.h
   ${msg} "${irt_found}"
-@@ -1337,17 +1182,7 @@
+@@ -1337,17 +1187,7 @@
  fi
  
  ${msg} -n "${irt_seeingif} 'sys/param.h' ${irt_exists}... "
@@ -579,7 +618,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp.o -c -DHAS_SYS_PARAM_H $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   echo "#define HAS_SYS_PARAM_H" >> src/iroffer_config.h
   ${msg} "${irt_found}"
-@@ -1356,17 +1191,7 @@
+@@ -1356,17 +1196,7 @@
  fi
  
  ${msg} -n "${irt_seeingif} 'sys/mount.h' ${irt_exists}... "
@@ -598,7 +637,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp.o -c -DHAS_SYS_MOUNT_H $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   echo "#define HAS_SYS_MOUNT_H" >> src/iroffer_config.h
   ${msg} "${irt_found}"
-@@ -1375,17 +1200,7 @@
+@@ -1375,17 +1205,7 @@
  fi
  
  ${msg} -n "${irt_seeingif} 'sys/statvfs.h' ${irt_exists}... "
@@ -617,7 +656,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp.o -c -DHAS_SYS_STATVFS_H $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   echo "#define HAS_SYS_STATVFS_H" >> src/iroffer_config.h
   ${msg} "${irt_found}"
-@@ -1394,17 +1209,9 @@
+@@ -1394,17 +1214,9 @@
  fi
  
  ${msg} -n "${irt_checkfor} statvfs()... "
@@ -638,7 +677,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   ${msg} "${irt_found}"
  else
-@@ -1413,17 +1220,9 @@
+@@ -1413,17 +1225,9 @@
  fi
  
  ${msg} -n "${irt_checkfor} statfs()... "
@@ -659,7 +698,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   ${msg} "${irt_found}"
  else
-@@ -1432,17 +1231,9 @@
+@@ -1432,17 +1236,9 @@
  fi
  
  ${msg} -n "${irt_seeingif} 'crypt.h' ${irt_isneeded}... "
@@ -680,7 +719,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp.o -c $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
   ${msg} "${irt_notneeded}"
  elif $cctype -o config.temp.o -c -DHAS_CRYPT_H $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
-@@ -1474,37 +1265,24 @@
+@@ -1474,58 +1270,37 @@
  fi
  
  ${msg} -n "${irt_seeingif} crypt() ${irt_works} ${irt_asexpected}... "
@@ -735,11 +774,14 @@ diff -u -r1.220 -r1.228
 +}
  " > config.temp.c
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS && ./config.temp; then
-  ${msg} "${irt_yes}"
-@@ -1515,17 +1293,9 @@
- 
- 
- ${msg} -n "${irt_checkfor} chroot()... "
+- ${msg} "${irt_yes}"
+-else
+- ${msg} "${irt_no}, ${irt_nopassword}."
+- echo "#define NO_CRYPT" >> src/iroffer_config.h
+-fi
+-
+-
+-${msg} -n "${irt_checkfor} chroot()... "
 -echo "
 -#include \"src/iroffer_config.h\"
 -#include \"src/iroffer_defines.h\"
@@ -751,13 +793,21 @@ diff -u -r1.220 -r1.228
 -#endif
 -main (int argc, char **argv) {chroot(\".\"); exit(0);}
 -" > config.temp.c
++ ${msg} "${irt_yes}"
++else
++ ${msg} "${irt_no}, ${irt_nopassword}."
++ echo "#define NO_CRYPT" >> src/iroffer_config.h
++fi
++
++
++${msg} -n "${irt_checkfor} chroot()... "
 +echo "${irmain1}
 + chroot(\".\");
 +${main2}" > config.temp.c
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_found}"
  else
-@@ -1534,17 +1304,7 @@
+@@ -1534,17 +1309,7 @@
  fi
  
  ${msg} -n "${irt_seeingif_lib} NSS ${irt_lib_exists} (${irt_for} chroot)... "
@@ -776,7 +826,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS -lnss_files -lnss_dns $libs $LIBS; then
  NSSLIBS="-lnss_files -lnss_dns"
  ${msg} "${irt_found}"
-@@ -1554,17 +1314,9 @@
+@@ -1554,17 +1319,9 @@
  fi
  
  ${msg} -n "${irt_checkfor} setuid()... "
@@ -797,7 +847,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_found}"
  else
-@@ -1573,17 +1325,9 @@
+@@ -1573,17 +1330,9 @@
  fi
  
  ${msg} -n "${irt_checkfor} getgrouplist()... "
@@ -818,7 +868,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_found}"
  else
-@@ -1593,26 +1337,15 @@
+@@ -1593,26 +1342,15 @@
  
  if [ "x$ostype" = "xLinux" ]; then
  ${msg} -n "${irt_checkfor} Linux-style sendfile()... "
@@ -854,7 +904,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  echo "#define HAVE_LINUX_SENDFILE" >> src/iroffer_config.h
  ${msg} "${irt_found}"
-@@ -1623,30 +1356,18 @@
+@@ -1623,30 +1361,18 @@
  
  if [ "x$ostype" = "xFreeBSD" ]; then
  ${msg} -n "${irt_checkfor} FreeBSD-style sendfile()... "
@@ -897,7 +947,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  echo "#define HAVE_FREEBSD_SENDFILE" >> src/iroffer_config.h
  ${msg} "${irt_found}"
-@@ -1656,22 +1377,10 @@
+@@ -1656,22 +1382,10 @@
  fi
  
  ${msg} -n "${irt_checkfor} mmap()/munmap()... "
@@ -924,7 +974,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  echo "#define HAVE_MMAP" >> src/iroffer_config.h
  ${msg} "${irt_found}"
-@@ -1681,41 +1390,17 @@
+@@ -1681,41 +1395,17 @@
  
  
  ${msg} -n "${irt_checkfor} ${irt_fdlimit}... "
@@ -974,7 +1024,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  echo "RLIMIT_OFILE"
  echo "#define USE_OFILE" >> src/iroffer_config.h
-@@ -1726,26 +1411,14 @@
+@@ -1726,26 +1416,14 @@
  fi
  
  ${msg} -n "${irt_checkfor} siginfo_t/sa_sigaction... "
@@ -1009,7 +1059,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_found}"
  else
-@@ -1754,42 +1427,31 @@
+@@ -1754,42 +1432,31 @@
  fi
  
  ${msg} -n "${irt_checkfor} 'si_code' ${irt_values}... "
@@ -1077,7 +1127,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_found}"
  else
-@@ -1798,27 +1460,15 @@
+@@ -1798,27 +1465,15 @@
  fi
  
  ${msg} -n "${irt_checkfor} wait() status ${irt_values}... "
@@ -1114,7 +1164,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_found}"
  else
-@@ -1828,22 +1478,11 @@
+@@ -1828,22 +1483,11 @@
  
  
  ${msg} -n "${irt_seeingif} ${irt_tos}... "
@@ -1142,7 +1192,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_yes}"
  else
-@@ -1852,27 +1491,16 @@
+@@ -1852,27 +1496,16 @@
  fi
  
  ${msg} -n "${irt_checkfor} getaddrinfo()... "
@@ -1180,7 +1230,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_found}"
  else
-@@ -1881,31 +1509,21 @@
+@@ -1881,31 +1514,21 @@
  fi
  
  ${msg} -n "${irt_checkfor} gethostbyname() error ${irt_values}... "
@@ -1225,7 +1275,7 @@ diff -u -r1.220 -r1.228
  }
  " > config.temp.c
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
-@@ -1916,21 +1534,11 @@
+@@ -1916,21 +1539,11 @@
  fi
  
  ${msg} -n "${irt_checkfor} res_init() ... "
@@ -1250,7 +1300,7 @@ diff -u -r1.220 -r1.228
  if $cctype -o config.temp $WARNS $WERROR $CFLAGS config.temp.c $LDFLAGS $libs $LIBS; then
  ${msg} "${irt_found}"
  echo "#define WITH_RESINIT" >> src/iroffer_config.h
-@@ -1940,18 +1548,11 @@
+@@ -1940,18 +1553,11 @@
  
  if $OPT_GEOIP; then
   ${msg} -n "${irt_seeingif_lib} GeoIP ${irt_lib_exists}... "
@@ -1273,7 +1323,7 @@ diff -u -r1.220 -r1.228
   if $cctype -o config.temp -DUSE_GEOIP $WARNS $WERROR $CFLAGS "-I${LOCALBASE}/include" config.temp.c "-L${LOCALBASE}/lib" -lGeoIP $LDFLAGS $libs $LIBS; then
    ${msg} "${irt_found}"
    echo "#define USE_GEOIP" >> src/iroffer_config.h
-@@ -1960,18 +1561,11 @@
+@@ -1960,18 +1566,11 @@
    GEOINC="-I${LOCALBASE}/include"
    GEOLDF="-L${LOCALBASE}/lib"
    ${msg} -n "${irt_seeingif} ${irt_geoip6}... "
@@ -1296,7 +1346,7 @@ diff -u -r1.220 -r1.228
    if $cctype -o config.temp -DUSE_GEOIP6 $WARNS $WERROR $CFLAGS ${GEOINC} config.temp.c ${GEOLDF} ${GEOLIB} $LDFLAGS $libs $LIBS; then
     FEATURES="${FEATURES}6"
     ${msg} "${irt_found}"
-@@ -1988,20 +1582,13 @@
+@@ -1988,20 +1587,13 @@
  
  if $OPT_UPNP; then
   ${msg} -n "${irt_seeingif_lib} miniupnpc ${irt_lib_exists}... "
@@ -1321,7 +1371,7 @@ diff -u -r1.220 -r1.228
   if $cctype -o config.temp -DUSE_UPNP $WARNS $WERROR $CFLAGS "-I${LOCALBASE}/include" config.temp.c "-L${LOCALBASE}/lib" -lminiupnpc $LDFLAGS $libs $LIBS; then
    ${msg} "${irt_found}"
    echo "#define USE_UPNP" >> src/iroffer_config.h
-@@ -2017,18 +1604,11 @@
+@@ -2017,18 +1609,11 @@
  
  if $OPT_CURL; then
   ${msg} -n "${irt_seeingif_lib} libcurl ${irt_lib_exists} (${irt_for} FETCH-Command)... "
@@ -1344,7 +1394,7 @@ diff -u -r1.220 -r1.228
   if $cctype -o config.temp -DUSE_CURL $WARNS $CFLAGS `curl-config  --cflags` config.temp.c "-L${LOCALBASE}/lib" `curl-config  --libs` $LDFLAGS $libs $LIBS; then
    ${msg} "${irt_found}"
    echo "#define USE_CURL" >> src/iroffer_config.h
-@@ -2053,17 +1633,7 @@
+@@ -2053,17 +1638,7 @@
  
  if $OPT_SSL; then
   ${msg} -n "${irt_seeingif_lib} OpenSSL ${irt_lib_exists}... "
@@ -1363,7 +1413,7 @@ diff -u -r1.220 -r1.228
   if $cctype -o config.temp -DUSE_OPENSSL $WARNS $CFLAGS "-I${LOCALBASE}/include" config.temp.c "-L${LOCALBASE}/lib" -lssl -lcrypto $LDFLAGS $libs $LIBS; then
    ${msg} "${irt_found}"
    ${msg} "${irt_start} OpenSSL."
-@@ -2085,17 +1655,7 @@
+@@ -2085,17 +1660,7 @@
  
  if $OPT_TLS; then
   ${msg} -n "${irt_seeingif_lib} GNU TLS ${irt_lib_exists}... "
@@ -1382,7 +1432,7 @@ diff -u -r1.220 -r1.228
   if $cctype -o config.temp -DUSE_GNUTLS $WARNS $CFLAGS "-I${LOCALBASE}/include" config.temp.c "-L${LOCALBASE}/lib" -lgnutls $LDFLAGS $libs $LIBS; then
    ${msg} "${irt_found}"
    echo "#define USE_GNUTLS" >> src/iroffer_config.h
-@@ -2133,12 +1693,9 @@
+@@ -2133,12 +1698,9 @@
   ${msg} -n "${irt_seeingif_lib} libruby ${irt_lib_exists} (${irt_for} RUBY-Scripts)... "
   echo "
  #include \"ruby.h\"
@@ -1398,7 +1448,7 @@ diff -u -r1.220 -r1.228
   if $cctype -o config.temp -DUSE_RUBY $WARNS $CFLAGS ${incruby} config.temp.c ${libruby} $LDFLAGS $libs $LIBS; then
    ${msg} "${irt_found}"
    ${msg} "${irt_start} Ruby."
-@@ -2288,10 +1845,26 @@
+@@ -2288,10 +1850,26 @@
  clobber: clean
  	rm -rf src.* *.sed
  
@@ -1426,6 +1476,37 @@ diff -u -r1.220 -r1.228
  
  doc/iroffer.1.html: iroffer.1
  	groff -t -e -mandoc -Thtml iroffer.1 > doc/iroffer.1.html
+@@ -2316,8 +1894,12 @@
+ install-en: install
+ 
+ '
+- for l in de it fr
++ allbuild="en"
++ allinstall="install-en"
++ for l in ${TRANSLATION}
+  do
++  allbuild="${allbuild} ${l}"
++  allinstall="${allinstall} install-${l}"
+   echo "${l}:"
+   echo "	./Lang ${l}"
+   echo "	\$(MAKE) IRLANG=${l} IRSRC=src.${l} IRNAME=iroffer-${l} all"
+@@ -2326,12 +1908,12 @@
+   echo "	\$(MAKE) IRLANG=${l} IRSRC=src.${l} IRNAME=iroffer-${l} install"
+   echo
+  done
+- echo '
+-all-lang:	en de it fr
++ echo "
++all-lang:	${allbuild}
+ 
+-install-all-lang: install-en install-de install-fr install-it
++install-all-lang: ${allinstall}
+ 
+-# end'
++# end"
+ }
+ 
+ make_makefile > Makefile
 Index: LICENSE
 ===================================================================
 RCS file: /usr/home/public/iroffer/LICENSE,v
@@ -1447,15 +1528,18 @@ Index: LIESMICH.modDinoex
 ===================================================================
 RCS file: /usr/home/public/iroffer/LIESMICH.modDinoex,v
 retrieving revision 1.575
-retrieving revision 1.608
-diff -u -r1.575 -r1.608
+retrieving revision 1.609
+diff -u -r1.575 -r1.609
 --- LIESMICH.modDinoex	10 Feb 2011 18:31:33 -0000	1.575
-+++ LIESMICH.modDinoex	2 Aug 2011 20:42:02 -0000	1.608
-@@ -1,5 +1,122 @@
++++ LIESMICH.modDinoex	7 Aug 2011 13:56:47 -0000	1.609
+@@ -1,5 +1,125 @@
  Aktuelle Version auf: http://iroffer.dinoex.net/
  
 +Ab Version 3.27:
 +----------------
++
++Configure TRANSLATION= 
++  Erweitere das Makefile um weitere Übersetzungen
 +
 +382) REMOVEMATCH
 +  
@@ -1574,19 +1658,62 @@ diff -u -r1.575 -r1.608
  Ab Version 3.26:
  ----------------
  
+Index: Lang
+===================================================================
+RCS file: /usr/home/public/iroffer/Lang,v
+retrieving revision 1.14
+retrieving revision 1.15
+diff -u -r1.14 -r1.15
+--- Lang	21 Jan 2011 10:05:28 -0000	1.14
++++ Lang	7 Aug 2011 14:10:47 -0000	1.15
+@@ -10,7 +10,7 @@
+ # If you received this file without documentation, it can be
+ # downloaded from http://iroffer.dinoex.net/
+ #
+-# $Id: Lang,v 1.14 2011/01/21 10:05:28 cvs Exp $
++# $Id: Lang,v 1.15 2011/08/07 14:10:47 cvs Exp $
+ #
+ lang="${1-de}"
+ lang="${lang%.txt}"
+@@ -27,6 +27,7 @@
+ 	done
+ 	exit 0
+ fi
++utf8="cat"
+ if test -n "${2}"
+ then
+ 	charset="${2}"
+@@ -44,8 +45,12 @@
+ utf8="cat"
+ case "${charset}" in
+ u*)
+-	echo "utf-8 enabled ..."
+-	utf8="iconv -f latin1 -t utf-8"
++	case "${lang}" in
++	de|fr|it)
++		echo "utf-8 conversion ..."
++		utf8="iconv -f latin1 -t utf-8"
++		;;
++	esac
+ 	;;
+ esac
+ echo -n "parsing ... "
 Index: README.modDinoex
 ===================================================================
 RCS file: /usr/home/public/iroffer/README.modDinoex,v
 retrieving revision 1.833
-retrieving revision 1.870
-diff -u -r1.833 -r1.870
+retrieving revision 1.871
+diff -u -r1.833 -r1.871
 --- README.modDinoex	10 Feb 2011 18:31:33 -0000	1.833
-+++ README.modDinoex	2 Aug 2011 20:42:02 -0000	1.870
-@@ -1,5 +1,120 @@
++++ README.modDinoex	7 Aug 2011 13:56:47 -0000	1.871
+@@ -1,5 +1,123 @@
  Aktuelle Version auf: http://iroffer.dinoex.net/
  
 +With Version 3.27:
 +------------------
++
++Configure TRANSLATION=
++  Extend the Makefile with custom translations
 +
 +382) REMOVEMATCH
 +  
@@ -1703,7 +1830,7 @@ diff -u -r1.833 -r1.870
  With Version 3.26:
  ------------------
  
-@@ -27,7 +142,7 @@
+@@ -27,7 +145,7 @@
    Disable connecting to this network.
  
  bugfix: CLOSEC (reported by unlogisch)
@@ -1712,7 +1839,7 @@ diff -u -r1.833 -r1.870
    versions affected: 3.25
  
  bugfix: getip_network (reported by Gotanius)
-@@ -627,7 +742,7 @@
+@@ -627,7 +745,7 @@
    Set version 2 in the "statefile".
    Fix error messages while parsing.
  
@@ -2151,10 +2278,10 @@ Index: de.txt
 ===================================================================
 RCS file: /usr/home/public/iroffer/de.txt,v
 retrieving revision 1.376
-retrieving revision 1.397
-diff -u -r1.376 -r1.397
+retrieving revision 1.398
+diff -u -r1.376 -r1.398
 --- de.txt	9 Feb 2011 06:20:04 -0000	1.376
-+++ de.txt	2 Aug 2011 20:42:02 -0000	1.397
++++ de.txt	7 Aug 2011 10:43:04 -0000	1.398
 @@ -241,9 +241,6 @@
  243 ","
  244 "** Kein Befehl eingegeben, versuche es noch einmal"
@@ -2227,7 +2354,17 @@ diff -u -r1.376 -r1.397
  769 "[CTCP] %s on %s: VERSION"
  773 "[CTCP] %s on %s: UPTIME"
  777 "[CTCP] %s on %s: STATUS"
-@@ -797,7 +790,6 @@
+@@ -723,9 +716,7 @@
+ 783 "d )"
+ 785 "XDCC [%02i:%s on %s]: Resumed at %"
+ 786 "Couldn't find transfer that %s on %s tried to resume!"
+-789 "DCC CHAT attempt authorized from %s on %s"
+ 790 "DCC Chat denied from %s"
+-791 "DCC CHAT attempt denied from %s on %s"
+ 792 "DCC Send verboten, dein Rechner %s ist nicht erlaubt"
+ 793 "DCC Send Denied from %s on %s"
+ 794 "deine Datei ist zu groß"
+@@ -797,7 +788,6 @@
  892 "requested"
  893 "** Sende dir jetzt die Datei #%u (\"%s\")"
  894 "%s, die Größe ist %sB. (Resume wird unterstützt)"
@@ -2235,7 +2372,7 @@ diff -u -r1.376 -r1.397
  898 "unlimitedhost found: %s (%s on %s)"
  899 "** XDCC INFO denied, disabled by configuration"
  905 "Denied (queue/dup)"
-@@ -808,7 +800,7 @@
+@@ -808,7 +798,7 @@
  910 "abgewiesen, die Warteschlange ist voll, max. %u Dateien, Versuche es später nochmal"
  911 "Queued (slot)"
  912 "Du bist jetzt in der Warteschlange für Datei %u (\"%s\") in Position %u. Wenn Du später Abbrechen "
@@ -2244,7 +2381,7 @@ diff -u -r1.376 -r1.397
  914 " (low bandwidth)"
  915 " (manual)"
  916 "QUEUED SEND%s: %s (%s on %s), Pack #%u"
-@@ -1070,13 +1062,12 @@
+@@ -1070,13 +1060,12 @@
  1385 "(%li Sekunden bis zum Abbruch)"
  1386 "Dein Download ist mit %2.1fK/sec ist zu langsam, mindestens %2.1fK/sec erforderlich"
  1387 "Du wirst wegen zu langsamen Download bestratft"
@@ -2259,7 +2396,7 @@ diff -u -r1.376 -r1.397
  1396 "Cant Access Upload File '%s': %s"
  1397 "Couldn't Bind Virtual Host, Sorry"
  1398 "Couldn't Connect"
-@@ -1130,7 +1121,6 @@
+@@ -1130,7 +1119,6 @@
  1485 "Pointer 0x%8.8lX not found in meminfo database while trying to free!!"
  1486 "Please report this error to Dinoex dinoex@dinoex.net"
  1488 "Aborting Program! (core file should be generated)"
@@ -2267,7 +2404,7 @@ diff -u -r1.376 -r1.397
  1490 "Trace %3i  %-20s %-16s:%5i  %lu.%06lu"
  1491 "UNKNOWN"
  1492 "<undef>"
-@@ -1143,7 +1133,6 @@
+@@ -1143,7 +1131,6 @@
  1499 "[%d]: %s"
  1500 "="
  1501 "=%s"
@@ -2275,7 +2412,16 @@ diff -u -r1.376 -r1.397
  1503 "  : %s"
  1504 "  "
  1505 "GDATA DUMP BEGIN"
-@@ -1474,7 +1463,6 @@
+@@ -1271,7 +1258,7 @@
+ 1651 "ip=%s\n"
+ 1652 "usenatip of %s looks wrong, this is probably not what you want to do"
+ 1653 "PRVMSG-CHAN: Output too large, ignoring!"
+-1654 "XDCC STOP from (%s %s on %s) stopped %u"
++1654 "XDCC STOP from %s (%s on %s) stopped %u"
+ 1656 "Notifying Queued status to %s on %s"
+ 1658 "Resetting download limit of pack %u, used %u"
+ 1660 "GeoIP [%02i:%s on %s]: Info %s -> %s)"
+@@ -1474,7 +1461,6 @@
  1954 "<a class=\"credits\" href=\""
  1955 "Quellcode"
  1956 "footer.html"
@@ -2283,7 +2429,7 @@ diff -u -r1.376 -r1.397
  1958 "help-admin-de.txt"
  1959 "  : left=%ld"
  1965 "host=%s port=%s"
-@@ -1497,7 +1485,6 @@
+@@ -1497,7 +1483,6 @@
  1985 "(mehr)"
  1986 "<th class=\"right\">%.1f</th>\n"
  1988 "<td class=\"right\">%.1f</td>\n"
@@ -2291,7 +2437,7 @@ diff -u -r1.376 -r1.397
  1993 " (ssl)"
  1994 "SSL Error %ld:%s"
  1995 "Cant Create SSL context"
-@@ -1545,11 +1532,7 @@
+@@ -1545,11 +1530,7 @@
  2090 "rget"
  2091 "size"
  2092 "tvol"
@@ -2303,7 +2449,7 @@ diff -u -r1.376 -r1.397
  2098 "\">%s</a>"
  2099 " class=\"head\""
  2100 "sortieren nach Paket-Nr."
-@@ -1558,17 +1541,13 @@
+@@ -1558,17 +1539,13 @@
  2103 "sortieren nach nach Göße der Files"
  2104 "sortieren nach übertragusngsvolumen"
  2105 "sortieren nach Gruppe"
@@ -2322,7 +2468,7 @@ diff -u -r1.376 -r1.397
  2126 "\2**\2 Liste der Pakete anzeigen:     \"/MSG %s XDCC LIST\" \2**\2"
  2127 "\2**\2 Liste der Pakete anzeigen:     \"/MSG %s XDCC LIST gruppe\" \2**\2"
  2128 "\2**\2 Liste abbrechen:               \"/MSG %s XDCC STOP\" \2**\2"
-@@ -1586,7 +1565,6 @@
+@@ -1586,7 +1563,6 @@
  2154 "Du bist jetzt in der 2. Warteschlange für Datei %u (\"%s\") in Position %u. Wenn Du später Abbrechen "
  2155 "Upload still running"
  2166 "%d.%m.%Y %H:%M"
@@ -2330,7 +2476,27 @@ diff -u -r1.376 -r1.397
  2168 "RELOCK"
  2169 "altes-passwort passwort"
  2170 "Ändert alle Pakete mit <altes-password> zu <passwort>"
-@@ -1732,7 +1710,6 @@
+@@ -1704,7 +1680,7 @@
+ 2409 "ruby: %s"
+ 2420 "BATCH"
+ 2422 "\2**\2 Download batch:    \"/MSG %s XDCC BATCH group\" \2**\2"
+-2424 "XDCC BATCH %s: %u packs (%s %s on %s)"
++2424 "XDCC BATCH %s: %u packs %s (%s on %s)"
+ 2426 "dMB"
+ 2427 "d"
+ 2428 "\">%s</a>\n"
+@@ -1713,8 +1689,8 @@
+ 2431 "Zeige den Wert der Variable <key>"
+ 2432 "CONFIG %s is set to \"%s\""
+ 2435 "%s: %u"
+-2449 "XDCC %s (%s %s on %s)"
+-2450 "XDCC %s %s (%s %s on %s)"
++2449 "XDCC %s %s (%s on %s)"
++2450 "XDCC %s %s %s (%s on %s)"
+ 2451 "unsupported"
+ 2452 "MAKEDIR"
+ 2453 "Das Verzeichnis auf der Festplatte anlegen"
+@@ -1732,7 +1708,6 @@
  2479 "NEWANN"
  2480 "ANNOUNCE für die letzen <n> Pakete in allen Channels"
  2483 "IP From UPnP = %s"
@@ -2338,7 +2504,7 @@ diff -u -r1.376 -r1.397
  2526 "DEBUG: |%d| %s"
  2537 "CHCOLOR"
  2538 "n [m] x[,b][,s]"
-@@ -1799,13 +1776,12 @@
+@@ -1799,17 +1774,16 @@
  2602 "  Ignoring added file: %s"
  2603 "  Ignoring queued file: %s"
  2604 "Configured for %s but running on %s?!?"
@@ -2353,7 +2519,12 @@ diff -u -r1.376 -r1.397
  2623 "DCC passive Chat blockiert, benutze stattdessen \"/MSG %s ADMIN password CHATME\"."
  2630 "Forced quit on %s: %s"
  2631 "** %s: %s\n"
-@@ -1820,8 +1796,6 @@
+-2632 "XDCC %s %s%s%s (%s %s on %s)"
++2632 "XDCC %s %s%s%s %s (%s on %s)"
+ 2633 "        -w dir    Chdir to dir as working directory.\n"
+ 2645 "AUTH send to %s on %s."
+ 2647 "LOGIN send to %s on %s."
+@@ -1820,8 +1794,6 @@
  2654 "Breche den Upload von Bot <nick> ab"
  2655 "DELTRIGGER"
  2656 "Entferne die Trigger von Paket <n> bis <m>"
@@ -2362,7 +2533,7 @@ diff -u -r1.376 -r1.397
  2662 "%s - - [%s] \"%s\" %u %ld\n"
  2663 "DISKFREE"
  2664 "Freien Paltz im Uploadverzeichnis anzeigen"
-@@ -1832,7 +1806,6 @@
+@@ -1832,7 +1804,6 @@
  2694 "DCC Send abgewiesen, %s"
  2695 "DCC Send Denied (%s) from %s on %s"
  2696 "no uploaddir"
@@ -2370,7 +2541,7 @@ diff -u -r1.376 -r1.397
  2699 "Announced %s%s%s%s%s"
  2700 "\2%u\2%s%s"
  2701 "Announced %u%s%s"
-@@ -1869,3 +1842,35 @@
+@@ -1869,3 +1840,37 @@
  2774 ", File %s"
  2775 "Upload: Nick %s"
  2776 "Couldn't Set TCP_NODELAY"
@@ -2406,6 +2577,8 @@ diff -u -r1.376 -r1.397
 +2806 "%s:%ld %s is not encrypted!"
 +2807 "REMOVEMATCH"
 +2808 "Entfernt Packs deren Dateien auf <muster> passen."
++2809 "DCC CHAT attempt authorized from %s (%s on %s)"
++2810 "DCC CHAT attempt denied from %s (%s on %s)"
 Index: dynip.sh
 ===================================================================
 RCS file: /usr/home/public/iroffer/dynip.sh,v
@@ -2431,10 +2604,10 @@ Index: en.txt
 ===================================================================
 RCS file: /usr/home/public/iroffer/en.txt,v
 retrieving revision 1.466
-retrieving revision 1.487
-diff -u -r1.466 -r1.487
+retrieving revision 1.488
+diff -u -r1.466 -r1.488
 --- en.txt	9 Feb 2011 06:20:05 -0000	1.466
-+++ en.txt	2 Aug 2011 20:42:02 -0000	1.487
++++ en.txt	7 Aug 2011 10:43:04 -0000	1.488
 @@ -49,7 +49,7 @@
  49 "channel style [net]"
  50 "Sends <style> (full|minimal|summary) XDCC LIST to <channel>"
@@ -2516,7 +2689,17 @@ diff -u -r1.466 -r1.487
  769 "[CTCP] %s on %s: VERSION"
  773 "[CTCP] %s on %s: UPTIME"
  777 "[CTCP] %s on %s: STATUS"
-@@ -797,7 +790,6 @@
+@@ -723,9 +716,7 @@
+ 783 "d )"
+ 785 "XDCC [%02i:%s on %s]: Resumed at %"
+ 786 "Couldn't find transfer that %s on %s tried to resume!"
+-789 "DCC CHAT attempt authorized from %s on %s"
+ 790 "DCC Chat denied from %s"
+-791 "DCC CHAT attempt denied from %s on %s"
+ 792 "DCC Send Denied, I don't accept transfers from %s"
+ 793 "DCC Send Denied from %s on %s"
+ 794 "I don't accept transfers that big"
+@@ -797,7 +788,6 @@
  892 "requested"
  893 "** Sending you pack #%u (\"%s\")"
  894 "%s, which is %sB. (resume supported)"
@@ -2524,7 +2707,7 @@ diff -u -r1.466 -r1.487
  898 "unlimitedhost found: %s (%s on %s)"
  899 "** XDCC INFO denied, disabled by configuration"
  905 "Denied (queue/dup)"
-@@ -808,7 +800,7 @@
+@@ -808,7 +798,7 @@
  910 "Main queue of size %u is Full, Try Again Later"
  911 "Queued (slot)"
  912 "Added you to the main queue for pack %u (\"%s\") in position %u. To Remove yourself at "
@@ -2533,7 +2716,7 @@ diff -u -r1.466 -r1.487
  914 " (low bandwidth)"
  915 " (manual)"
  916 "QUEUED SEND%s: %s (%s on %s), Pack #%u"
-@@ -1070,13 +1062,12 @@
+@@ -1070,13 +1060,12 @@
  1385 "(%li seconds remaining until timeout)"
  1386 "Under Min Speed Requirement, %2.1fK/sec is less than %2.1fK/sec"
  1387 "You are being punished for your slowness"
@@ -2548,7 +2731,7 @@ diff -u -r1.466 -r1.487
  1396 "Cant Access Upload File '%s': %s"
  1397 "Couldn't Bind Virtual Host, Sorry"
  1398 "Couldn't Connect"
-@@ -1130,7 +1121,6 @@
+@@ -1130,7 +1119,6 @@
  1485 "Pointer 0x%8.8lX not found in meminfo database while trying to free!!"
  1486 "Please report this error to Dinoex dinoex@dinoex.net"
  1488 "Aborting Program! (core file should be generated)"
@@ -2556,7 +2739,7 @@ diff -u -r1.466 -r1.487
  1490 "Trace %3i  %-20s %-16s:%5i  %lu.%06lu"
  1491 "UNKNOWN"
  1492 "<undef>"
-@@ -1143,7 +1133,6 @@
+@@ -1143,7 +1131,6 @@
  1499 "[%d]: %s"
  1500 "="
  1501 "=%s"
@@ -2564,7 +2747,16 @@ diff -u -r1.466 -r1.487
  1503 "  : %s"
  1504 "  "
  1505 "GDATA DUMP BEGIN"
-@@ -1474,7 +1463,6 @@
+@@ -1271,7 +1258,7 @@
+ 1651 "ip=%s\n"
+ 1652 "usenatip of %s looks wrong, this is probably not what you want to do"
+ 1653 "PRVMSG-CHAN: Output too large, ignoring!"
+-1654 "XDCC STOP from (%s %s on %s) stopped %u"
++1654 "XDCC STOP from %s (%s on %s) stopped %u"
+ 1656 "Notifying Queued status to %s on %s"
+ 1658 "Resetting download limit of pack %u, used %u"
+ 1660 "GeoIP [%02i:%s on %s]: Info %s -> %s)"
+@@ -1474,7 +1461,6 @@
  1954 "<a class=\"credits\" href=\""
  1955 "Sourcecode"
  1956 "footer.html"
@@ -2572,7 +2764,7 @@ diff -u -r1.466 -r1.487
  1958 "help-admin-en.txt"
  1959 "  : left=%ld"
  1965 "host=%s port=%s"
-@@ -1497,7 +1485,6 @@
+@@ -1497,7 +1483,6 @@
  1985 "(more)"
  1986 "<th class=\"right\">%.1f</th>\n"
  1988 "<td class=\"right\">%.1f</td>\n"
@@ -2580,7 +2772,7 @@ diff -u -r1.466 -r1.487
  1993 " (ssl)"
  1994 "SSL Error %ld:%s"
  1995 "Cant Create SSL context"
-@@ -1545,11 +1532,7 @@
+@@ -1545,11 +1530,7 @@
  2090 "rget"
  2091 "size"
  2092 "tvol"
@@ -2592,7 +2784,7 @@ diff -u -r1.466 -r1.487
  2098 "\">%s</a>"
  2099 " class=\"head\""
  2100 "sort by pack-Nr."
-@@ -1558,17 +1541,13 @@
+@@ -1558,17 +1539,13 @@
  2103 "sort by size of file"
  2104 "sort by traffic"
  2105 "sort by group"
@@ -2611,7 +2803,7 @@ diff -u -r1.466 -r1.487
  2126 "\2**\2 Request listing:   \"/MSG %s XDCC LIST\" \2**\2"
  2127 "\2**\2 Request listing:   \"/MSG %s XDCC LIST group\" \2**\2"
  2128 "\2**\2 Stop listing:      \"/MSG %s XDCC STOP\" \2**\2"
-@@ -1586,7 +1565,6 @@
+@@ -1586,7 +1563,6 @@
  2154 "Added you to the idle queue for pack %u (\"%s\") in position %u. To Remove yourself at "
  2155 "Upload still running"
  2166 "%Y-%m-%d %H:%M"
@@ -2619,7 +2811,27 @@ diff -u -r1.466 -r1.487
  2168 "RELOCK"
  2169 "old-password password"
  2170 "Lock all packs with <old-password> with <password>"
-@@ -1732,7 +1710,6 @@
+@@ -1704,7 +1680,7 @@
+ 2409 "ruby: %s"
+ 2420 "BATCH"
+ 2422 "\2**\2 Download batch:    \"/MSG %s XDCC BATCH group\" \2**\2"
+-2424 "XDCC BATCH %s: %u packs (%s %s on %s)"
++2424 "XDCC BATCH %s: %u packs %s (%s on %s)"
+ 2426 "dMB"
+ 2427 "d"
+ 2428 "\">%s</a>\n"
+@@ -1713,8 +1689,8 @@
+ 2431 "Print config variable <key>"
+ 2432 "CONFIG %s is set to \"%s\""
+ 2435 "%s: %u"
+-2449 "XDCC %s (%s %s on %s)"
+-2450 "XDCC %s %s (%s %s on %s)"
++2449 "XDCC %s %s (%s on %s)"
++2450 "XDCC %s %s %s (%s on %s)"
+ 2451 "unsupported"
+ 2452 "MAKEDIR"
+ 2453 "create a new directory on disk"
+@@ -1732,7 +1708,6 @@
  2479 "NEWANN"
  2480 "ANNOUNCE for the last <n> packs in all joined channels"
  2483 "IP From UPnP = %s"
@@ -2627,7 +2839,7 @@ diff -u -r1.466 -r1.487
  2526 "DEBUG: |%d| %s"
  2537 "CHCOLOR"
  2538 "n [m] x[,b][,s]"
-@@ -1799,13 +1776,12 @@
+@@ -1799,17 +1774,16 @@
  2602 "  Ignoring added file: %s"
  2603 "  Ignoring queued file: %s"
  2604 "Configured for %s but running on %s?!?"
@@ -2642,7 +2854,12 @@ diff -u -r1.466 -r1.487
  2623 "DCC passive Chat denied, use \"/MSG %s ADMIN password CHATME\" instead."
  2630 "Forced quit on %s: %s"
  2631 "** %s: %s\n"
-@@ -1820,8 +1796,6 @@
+-2632 "XDCC %s %s%s%s (%s %s on %s)"
++2632 "XDCC %s %s%s%s %s (%s on %s)"
+ 2633 "        -w dir    Chdir to dir as working directory.\n"
+ 2645 "AUTH send to %s on %s."
+ 2647 "LOGIN send to %s on %s."
+@@ -1820,8 +1794,6 @@
  2654 "Cancel Request for bot <nick>"
  2655 "DELTRIGGER"
  2656 "Delete trigger for pack <n> to <m>"
@@ -2651,7 +2868,7 @@ diff -u -r1.466 -r1.487
  2662 "%s - - [%s] \"%s\" %u %ld\n"
  2663 "DISKFREE"
  2664 "Shows free space in upload directory"
-@@ -1832,7 +1806,6 @@
+@@ -1832,7 +1804,6 @@
  2694 "DCC Send Denied, %s"
  2695 "DCC Send Denied (%s) from %s on %s"
  2696 "no uploaddir"
@@ -2659,7 +2876,7 @@ diff -u -r1.466 -r1.487
  2699 "Announced %s%s%s%s%s"
  2700 "\2%u\2%s%s"
  2701 "Announced %u%s%s"
-@@ -1869,3 +1842,35 @@
+@@ -1869,3 +1840,37 @@
  2774 ", File %s"
  2775 "Upload: Nick %s"
  2776 "Couldn't Set TCP_NODELAY"
@@ -2695,6 +2912,8 @@ diff -u -r1.466 -r1.487
 +2806 "%s:%ld %s is not encrypted!"
 +2807 "REMOVEMATCH"
 +2808 "Remove every pack matching this pattern"
++2809 "DCC CHAT attempt authorized from %s (%s on %s)"
++2810 "DCC CHAT attempt denied from %s (%s on %s)"
 Index: exemple.config
 ===================================================================
 RCS file: /usr/home/public/iroffer/exemple.config,v
@@ -3007,10 +3226,10 @@ Index: fr.txt
 ===================================================================
 RCS file: /usr/home/public/iroffer/fr.txt,v
 retrieving revision 1.33
-retrieving revision 1.54
-diff -u -r1.33 -r1.54
+retrieving revision 1.55
+diff -u -r1.33 -r1.55
 --- fr.txt	9 Feb 2011 06:20:05 -0000	1.33
-+++ fr.txt	2 Aug 2011 20:42:02 -0000	1.54
++++ fr.txt	7 Aug 2011 10:43:04 -0000	1.55
 @@ -241,9 +241,6 @@
  243 ","
  244 "** Commande absente, essayez encore ! **"
@@ -3083,7 +3302,17 @@ diff -u -r1.33 -r1.54
  769 "[CTCP] %s sur %s : VERSION"
  773 "[CTCP] %s sur %s : UPTIME"
  777 "[CTCP] %s sur %s : STATUS"
-@@ -797,7 +790,6 @@
+@@ -723,9 +716,7 @@
+ 783 "d )"
+ 785 "XDCC [%02i:%s sur %s] : Résumé à %"
+ 786 "Impossible de trouver le transfert %s sur %s qui essaye de résumer !"
+-789 "DCC CHAT tentative autorisée à partir de %s sur %s"
+ 790 "DCC Chat Refusé de %s"
+-791 "DCC CHAT tentative refusée de %s sur %s"
+ 792 "DCC Send Refusé, Je n'accepte pas les transferts de %s"
+ 793 "DCC Send Refusé de %s sur %s"
+ 794 "DCC Send Refusé, Je n'accepte pas les transferts trop gros"
+@@ -797,7 +788,6 @@
  892 " demandé"
  893 "** Envoi du pack #%u (\"%s\")"
  894 "%s, sa taille est de %sB. (Résume supporté)"
@@ -3091,7 +3320,7 @@ diff -u -r1.33 -r1.54
  898 "unlimitedhost trouvé : %s (%s sur %s)"
  899 "** XDCC INFO interdit, désactivé dans la configuration **"
  905 "Interdit (queue/doublon) : "
-@@ -808,7 +800,7 @@
+@@ -808,7 +798,7 @@
  910 "La file d'attente de %u items est pleine, Réessayez plus tard"
  911 "Mis en Attente (slot)"
  912 "Ajouté à la file d'attente pour le pack %u (\"%s\") en position %u. Pour annuler "
@@ -3100,7 +3329,7 @@ diff -u -r1.33 -r1.54
  914 " (Bande passante faible)"
  915 " (manuel)"
  916 "QUEUED SEND%s : %s (%s sur %s), Pack #%u"
-@@ -1070,13 +1062,12 @@
+@@ -1070,13 +1060,12 @@
  1385 "(%li secondes restantes jusqu'au TIMEOUT)"
  1386 "En dessous de la vitesse mini requise, %2.1fK/sec est inférieur à %2.1fK/sec"
  1387 "Vous allez être punis pour votre lenteur"
@@ -3115,7 +3344,7 @@ diff -u -r1.33 -r1.54
  1396 "Cant Access Upload File '%s': %s"
  1397 "Couldn't Bind Virtual Host, Sorry"
  1398 "Couldn't Connect"
-@@ -1130,7 +1121,6 @@
+@@ -1130,7 +1119,6 @@
  1485 "Pointer 0x%8.8lX not found in meminfo database while trying to free !!"
  1486 "Please report this error to Dinoex dinoex@dinoex.net"
  1488 "Aborting Program ! (core file should be generated)"
@@ -3123,7 +3352,7 @@ diff -u -r1.33 -r1.54
  1490 "Trace %3i  %-20s %-16s:%5i  %lu.%06lu"
  1491 "UNKNOWN"
  1492 "<undef>"
-@@ -1143,7 +1133,6 @@
+@@ -1143,7 +1131,6 @@
  1499 "[%d]: %s"
  1500 "="
  1501 "=%s"
@@ -3131,7 +3360,16 @@ diff -u -r1.33 -r1.54
  1503 "  : %s"
  1504 "  "
  1505 "GDATA DUMP BEGIN"
-@@ -1474,7 +1463,6 @@
+@@ -1271,7 +1258,7 @@
+ 1651 "ip=%s\n"
+ 1652 "usenatip of %s looks wrong, this is probably not what you want to do"
+ 1653 "PRVMSG-CHAN: Output too large, ignoring !"
+-1654 "XDCC STOP from (%s %s on %s) stopped %u"
++1654 "XDCC STOP from %s (%s on %s) stopped %u"
+ 1656 "Notifying Queued status to %s on %s"
+ 1658 "Resetting download limit of pack %u, used %u"
+ 1660 "GeoIP [%02i :%s sur %s] : Info %s -> %s)"
+@@ -1474,7 +1461,6 @@
  1954 "<a class=\"credits\" href=\""
  1955 "Sourcecode"
  1956 "footer.html"
@@ -3139,7 +3377,7 @@ diff -u -r1.33 -r1.54
  1958 "help-admin-fr.txt"
  1959 "  : left=%ld"
  1965 "host=%s port=%s"
-@@ -1497,7 +1485,6 @@
+@@ -1497,7 +1483,6 @@
  1985 "(more)"
  1986 "<th class=\"right\">%.1f</th>\n"
  1988 "<td class=\"right\">%.1f</td>\n"
@@ -3147,7 +3385,7 @@ diff -u -r1.33 -r1.54
  1993 " (ssl)"
  1994 "Erreur SSL %ld :%s"
  1995 "Impossible de Créer un contexte SSL"
-@@ -1545,11 +1532,7 @@
+@@ -1545,11 +1530,7 @@
  2090 "rget"
  2091 "size"
  2092 "tvol"
@@ -3159,7 +3397,7 @@ diff -u -r1.33 -r1.54
  2098 "\">%s</a>"
  2099 " class=\"head\""
  2100 "Trié par numéro de pack."
-@@ -1558,17 +1541,13 @@
+@@ -1558,17 +1539,13 @@
  2103 "Trié par taille de fichier"
  2104 "Trié par trafic"
  2105 "Trié par groupe"
@@ -3178,7 +3416,7 @@ diff -u -r1.33 -r1.54
  2126 "\2**\2 Demander le Listing :       \"/MSG %s XDCC LIST\" \2**\2"
  2127 "\2**\2 Demander le Listing :       \"/MSG %s XDCC LIST group\" \2**\2"
  2128 "\2**\2 Arrêté le Listing :         \"/MSG %s XDCC STOP\" \2**\2"
-@@ -1586,7 +1565,6 @@
+@@ -1586,7 +1563,6 @@
  2154 "Ajouté à la file d'attente d'inactivité du Pack %u (\"%s\") en position %u. Pour vous retirer à "
  2155 "Upload toujours en cours"
  2166 "%d-%m-%Y - %H:%M - Pack"
@@ -3186,7 +3424,27 @@ diff -u -r1.33 -r1.54
  2168 "RELOCK"
  2169 "ancien_password password"
  2170 "Bloque tous les packs avec <ancien_password> par <password>"
-@@ -1732,7 +1710,6 @@
+@@ -1704,7 +1680,7 @@
+ 2409 "ruby : %s"
+ 2420 "BATCH"
+ 2422 "\2**\2 Download batch : \"/MSG %s XDCC BATCH group\" \2**\2"
+-2424 "XDCC BATCH %s: %u packs (%s %s on %s)"
++2424 "XDCC BATCH %s: %u packs %s (%s on %s)"
+ 2426 "dMB"
+ 2427 "d"
+ 2428 "\">%s</a>\n"
+@@ -1713,8 +1689,8 @@
+ 2431 "Affiche la variable de config <key>"
+ 2432 "CONFIG %s est définit sur \"%s\""
+ 2435 "%s: %u"
+-2449 "XDCC %s (%s %s sur %s)"
+-2450 "XDCC %s %s (%s %s sur %s)"
++2449 "XDCC %s %s (%s sur %s)"
++2450 "XDCC %s %s %s (%s sur %s)"
+ 2451 "Non supporté"
+ 2452 "MAKEDIR"
+ 2453 "Créer un nouveau répertoire sur le disque"
+@@ -1732,7 +1708,6 @@
  2479 "NEWANN"
  2480 "ANNONCE le(s) dernier(s) <n> packs dans tous les chans joint"
  2483 "IP From UPnP = %s"
@@ -3194,7 +3452,7 @@ diff -u -r1.33 -r1.54
  2526 "DEBUG: |%d| %s"
  2537 "CHCOLOR"
  2538 "n [m] x[,b][,s]"
-@@ -1799,13 +1776,12 @@
+@@ -1799,17 +1774,16 @@
  2602 "  Ignore ajout fichier : %s"
  2603 "  Ignore fichier en queue : %s"
  2604 "Configuré pour %s mais tourne sur %s ?!?"
@@ -3209,7 +3467,12 @@ diff -u -r1.33 -r1.54
  2623 "DCC Chat passif interdit, utilisez \"/MSG %s ADMIN password CHATME\" à la place."
  2630 "Forcer le quit sur %s: %s"
  2631 "** %s: %s\n"
-@@ -1820,8 +1796,6 @@
+-2632 "XDCC %s %s%s%s (%s %s on %s)"
++2632 "XDCC %s %s%s%s %s (%s on %s)"
+ 2633 "        -w dir    Chdir to dir as working directory.\n"
+ 2645 "AUTH send to %s on %s."
+ 2647 "LOGIN send to %s on %s."
+@@ -1820,8 +1794,6 @@
  2654 "Annule la demande pour le bot <nick>"
  2655 "DELTRIGGER"
  2656 "Efface le trigger du pack <n> à <m>"
@@ -3218,7 +3481,7 @@ diff -u -r1.33 -r1.54
  2662 "%s - - [%s] \"%s\" %u %ld\n"
  2663 "DISKFREE"
  2664 "Voir l'espace libre du répertoire d'upload"
-@@ -1832,7 +1806,6 @@
+@@ -1832,7 +1804,6 @@
  2694 "DCC Send Refusé, %s"
  2695 "DCC Send Refusé (%s) de %s sur %s"
  2696 "no uploaddir"
@@ -3226,7 +3489,7 @@ diff -u -r1.33 -r1.54
  2699 "Announced %s%s%s%s%s"
  2700 "\2%u\2%s%s"
  2701 "Announced %u%s%s"
-@@ -1869,3 +1842,35 @@
+@@ -1869,3 +1840,37 @@
  2774 ", Fichier %s"
  2775 "Upload: Nick %s"
  2776 "Couldn't Set TCP_NODELAY"
@@ -3262,6 +3525,8 @@ diff -u -r1.33 -r1.54
 +2806 "%s:%ld %s is not encrypted !"
 +2807 "REMOVEMATCH"
 +2808 "Remove every pack matching this pattern"
++2809 "DCC CHAT tentative autorisée à partir de %s (%s sur %s)"
++2810 "DCC CHAT tentative refusée de %s (%s sur %s)"
 Index: header.html
 ===================================================================
 RCS file: /usr/home/public/iroffer/header.html,v
@@ -3283,10 +3548,10 @@ Index: it.txt
 ===================================================================
 RCS file: /usr/home/public/iroffer/it.txt,v
 retrieving revision 1.236
-retrieving revision 1.261
-diff -u -r1.236 -r1.261
+retrieving revision 1.262
+diff -u -r1.236 -r1.262
 --- it.txt	9 Feb 2011 06:20:05 -0000	1.236
-+++ it.txt	2 Aug 2011 20:42:02 -0000	1.261
++++ it.txt	7 Aug 2011 10:43:04 -0000	1.262
 @@ -241,9 +241,6 @@
  243 ","
  244 "** Comando perso, riprova"
@@ -3368,7 +3633,17 @@ diff -u -r1.236 -r1.261
  769 "[CTCP] %s on %s: VERSION"
  773 "[CTCP] %s on %s: UPTIME"
  777 "[CTCP] %s on %s: STATUS"
-@@ -748,8 +741,8 @@
+@@ -723,9 +716,7 @@
+ 783 "d )"
+ 785 "XDCC [%02i:%s on %s]: Ripreso da %"
+ 786 "Impossibile avviare il trasferimento che %s su %s ha provato a riprendere!"
+-789 "DCC CHAT accettata da %s su %s"
+ 790 "DCC Chat negata da %s"
+-791 "DCC CHAT negata da %s on %s"
+ 792 "DCC SEND negato. Non accetto trasferimenti da %s"
+ 793 "DCC SEND negato da %s su %s"
+ 794 "Non accetto trasferimenti così grandi"
+@@ -748,8 +739,8 @@
  815 "ADMIN: %s non è abilitato ad usare comandi da ADMIN"
  816 "Hostname ADMIN sbagliato (%s on %s)"
  822 "** XDCC LIST negata. %s"
@@ -3379,7 +3654,7 @@ diff -u -r1.236 -r1.261
  827 "ALL"
  829 "XDLGROUP %s"
  831 "ignorato"
-@@ -797,7 +790,6 @@
+@@ -797,7 +788,6 @@
  892 "richiesto"
  893 "** Ti sto inviando il pack #%u (\"%s\")"
  894 "%s, che ha grandezza %sB. (ripresa download supportata)"
@@ -3387,7 +3662,7 @@ diff -u -r1.236 -r1.261
  898 "trovato host illimitato: %s (%s on %s)"
  899 "** XDCC INFO negato, disabilitato nella configurazione"
  905 "Negato (coda/doppio)"
-@@ -808,7 +800,7 @@
+@@ -808,7 +798,7 @@
  910 "La coda principale di grandezza %u è piena. Riprova dopo"
  911 "Accodato (slot)"
  912 "Aggiunto alla coda principale per il pack %u (\"%s\") in posizione %u. Per rimuoverti dalla coda "
@@ -3396,7 +3671,7 @@ diff -u -r1.236 -r1.261
  914 " (low bandwidth)"
  915 " (manual)"
  916 "QUEUED SEND%s: %s (%s on %s), Pack #%u"
-@@ -1070,13 +1062,12 @@
+@@ -1070,13 +1060,12 @@
  1385 "(%li secondi rimanenti prima del timeout)"
  1386 "Sei al di sotto della Velocità Minima Richiesta, %2.1fK/sec è minore di %2.1fK/sec"
  1387 "Sei stato punito per la tua lentezza"
@@ -3411,7 +3686,7 @@ diff -u -r1.236 -r1.261
  1396 "Impossibile Accedere al file di Upload '%s': %s"
  1397 "Impossibile impegnare il Virtual Host, Mi Dispiace"
  1398 "Impossibile Connettersi"
-@@ -1130,7 +1121,6 @@
+@@ -1130,7 +1119,6 @@
  1485 "Puntatore 0x%8.8lX non trovato nel database meminfo mentre si tentava di liberare!!"
  1486 "Perfavore riporta questo errore all'amministratore"
  1488 "Chiusura Programma! (il core file dovrebbe essere generato)"
@@ -3419,7 +3694,7 @@ diff -u -r1.236 -r1.261
  1490 "Trace %3i  %-20s %-16s:%5i  %lu.%06lu"
  1491 "UNKNOWN"
  1492 "<undef>"
-@@ -1143,7 +1133,6 @@
+@@ -1143,7 +1131,6 @@
  1499 "[%d]: %s"
  1500 "="
  1501 "=%s"
@@ -3427,7 +3702,16 @@ diff -u -r1.236 -r1.261
  1503 "  : %s"
  1504 "  "
  1505 "GDATA DUMP BEGIN"
-@@ -1474,7 +1463,6 @@
+@@ -1271,7 +1258,7 @@
+ 1651 "ip=%s\n"
+ 1652 "L'usenatip di %s sembra sbagliato, questo probabilmente non è quello che vorresti fare"
+ 1653 "PRVMSG-CHAN: Output troppo grande, ignorato!"
+-1654 "XDCC STOP da (%s %s a %s) fermato %u"
++1654 "XDCC STOP da %s (%s a %s) fermato %u"
+ 1656 "Notifica dello stato di coda a %s in %s"
+ 1658 "Sto resettando i limiti downloads per il pack %u, usato %u"
+ 1660 "GeoIP [%02i:%s on %s]: Info %s -> %s)"
+@@ -1474,7 +1461,6 @@
  1954 "<a class=\"credits\" href=\""
  1955 "Sourcecode"
  1956 "footer.html"
@@ -3435,7 +3719,7 @@ diff -u -r1.236 -r1.261
  1958 "help-admin-it.txt"
  1959 "  : left=%ld"
  1965 "host=%s porta=%s"
-@@ -1497,7 +1485,6 @@
+@@ -1497,7 +1483,6 @@
  1985 "(more)"
  1986 "<th class=\"right\">%.1f</th>\n"
  1988 "<td class=\"right\">%.1f</td>\n"
@@ -3443,7 +3727,7 @@ diff -u -r1.236 -r1.261
  1993 " (ssl)"
  1994 "SSL Error %ld:%s"
  1995 "Non posso creare il contesto SSL"
-@@ -1545,11 +1532,7 @@
+@@ -1545,11 +1530,7 @@
  2090 "rget"
  2091 "size"
  2092 "tvol"
@@ -3455,7 +3739,7 @@ diff -u -r1.236 -r1.261
  2098 "\">%s</a>"
  2099 " class=\"head\""
  2100 "Ordina per numero pack"
-@@ -1558,17 +1541,13 @@
+@@ -1558,17 +1539,13 @@
  2103 "Ordina per grandezza file"
  2104 "Ordina per traffico"
  2105 "Ordina per guuppo"
@@ -3474,7 +3758,7 @@ diff -u -r1.236 -r1.261
  2126 "\2**\2 Per richiedere la lista:    \"/MSG %s XDCC LIST\" \2**\2"
  2127 "\2**\2 Per richiedere la lista di un gruppo:    \"/MSG %s XDCC LIST gruppo\" \2**\2"
  2128 "\2**\2 Per richiedere lo stop del Listing: \"/MSG %s XDCC STOP\" \2**\2"
-@@ -1586,7 +1565,6 @@
+@@ -1586,7 +1563,6 @@
  2154 "Sei stato aggiunto alla coda per il pack %u (\"%s\") in posizione %u. Per rimuoverti "
  2155 "Upload ancora in corso"
  2166 "%Y-%m-%d %H:%M"
@@ -3482,7 +3766,27 @@ diff -u -r1.236 -r1.261
  2168 "RELOCK"
  2169 "vecchia-password password"
  2170 "Riblocca tutti i packs con la <vecchia-password>, con la nuova <password>"
-@@ -1732,7 +1710,6 @@
+@@ -1704,7 +1680,7 @@
+ 2409 "ruby: %s"
+ 2420 "BATCH"
+ 2422 "\2**\2 Download batch:    \"/MSG %s XDCC BATCH gruppo\" \2**\2"
+-2424 "XDCC BATCH %s: %u packs (%s %s on %s)"
++2424 "XDCC BATCH %s: %u packs %s (%s on %s)"
+ 2426 "dMB"
+ 2427 "d"
+ 2428 "\">%s</a>\n"
+@@ -1713,8 +1689,8 @@
+ 2431 "Legge un <campo> dal file config ed indica il relativo valore"
+ 2432 "Il valore %s nel file config è: \"%s\""
+ 2435 "%s: %u"
+-2449 "XDCC %s (%s %s on %s)"
+-2450 "XDCC %s %s (%s %s on %s)"
++2449 "XDCC %s %s (%s on %s)"
++2450 "XDCC %s %s %s (%s on %s)"
+ 2451 "non supportato"
+ 2452 "MAKEDIR"
+ 2453 "Crea una nuova directory sul disco"
+@@ -1732,7 +1708,6 @@
  2479 "NEWANN"
  2480 "Annuncia gli ultimi <n> pacchi in tutti i canali"
  2483 "IP Da UPnP = %s"
@@ -3490,7 +3794,7 @@ diff -u -r1.236 -r1.261
  2526 "DEBUG: |%d| %s"
  2537 "CHCOLOR"
  2538 "n [m] x[,b][,s]"
-@@ -1799,13 +1776,12 @@
+@@ -1799,17 +1774,16 @@
  2602 "  Ignoro il file aggiunto: %s"
  2603 "  Ignoro il file in coda: %s"
  2604 "Configurato per %s ma non si sta utilizzando %s?!?"
@@ -3505,7 +3809,12 @@ diff -u -r1.236 -r1.261
  2623 "DCC passive Chat negata, usa il comando \"/MSG %s ADMIN password CHATME \"."
  2630 "Uscita forzata su %s: %s"
  2631 "** %s: %s\n"
-@@ -1820,8 +1796,6 @@
+-2632 "XDCC %s %s%s%s (%s %s on %s)"
++2632 "XDCC %s %s%s%s %s (%s on %s)"
+ 2633 "        -w dir    Cambio la cartella come cartella attiva.\n"
+ 2645 "Invio un AUTH a %s su %s."
+ 2647 "Eseguo il LOGIN a %s su %s."
+@@ -1820,8 +1794,6 @@
  2654 "Cancella le richieste al bot dal <Nick>"
  2655 "DELTRIGGER"
  2656 "Cancella il trigger per i pacchi da <n> a <m>"
@@ -3514,7 +3823,7 @@ diff -u -r1.236 -r1.261
  2662 "%s - - [%s] \"%s\" %u %ld\n"
  2663 "DISKFREE"
  2664 "Mostra lo spazio libero nella cartella upload"
-@@ -1832,7 +1806,6 @@
+@@ -1832,7 +1804,6 @@
  2694 "DCC SEND negato, %s"
  2695 "DCC SEND negato (%s) da %s su %s"
  2696 "no uploaddir"
@@ -3522,7 +3831,7 @@ diff -u -r1.236 -r1.261
  2699 "Annunciato %s%s%s%s%s"
  2700 "\2%u\2%s%s"
  2701 "Annunciato %u%s%s"
-@@ -1850,13 +1823,13 @@
+@@ -1850,13 +1821,13 @@
  2747 "Disabilita AUTOADD per i prossimi <x> minuti"
  2749 "** %s disabilitati per i prossimi %u %s"
  2751 "Access Log"
@@ -3538,7 +3847,7 @@ diff -u -r1.236 -r1.261
  2760 "n [channel] [net]"
  2766 "RUBY %s"
  2767 "%s "
-@@ -1868,4 +1841,36 @@
+@@ -1868,4 +1839,38 @@
  2773 ", Recv %"
  2774 ", File %s"
  2775 "Upload: Nick %s"
@@ -3576,6 +3885,8 @@ diff -u -r1.236 -r1.261
 +2806 "%s:%ld %s la password non è criptata!"
 +2807 "REMOVEMATCH"
 +2808 "Remove every pack matching this pattern"
++2809 "DCC CHAT accettata da %s (%s su %s)"
++2810 "DCC CHAT negata da %s (%s su %s)"
 Index: ruby-sample.rb
 ===================================================================
 RCS file: /usr/home/public/iroffer/ruby-sample.rb,v
@@ -9380,16 +9691,16 @@ Index: src/dinoex_user.c
 ===================================================================
 RCS file: /usr/home/public/iroffer/src/dinoex_user.c,v
 retrieving revision 1.60
-retrieving revision 1.63
-diff -u -r1.60 -r1.63
+retrieving revision 1.64
+diff -u -r1.60 -r1.64
 --- src/dinoex_user.c	7 Feb 2011 22:31:39 -0000	1.60
-+++ src/dinoex_user.c	1 Jul 2011 04:31:31 -0000	1.63
++++ src/dinoex_user.c	7 Aug 2011 10:43:04 -0000	1.64
 @@ -9,7 +9,7 @@
   * If you received this file without documentation, it can be
   * downloaded from http://iroffer.dinoex.net/
   *
 - * $Id: dinoex_user.c,v 1.60 2011/02/07 22:31:39 cvs Exp $
-+ * $Id: dinoex_user.c,v 1.63 2011/07/01 04:31:31 cvs Exp $
++ * $Id: dinoex_user.c,v 1.64 2011/08/07 10:43:04 cvs Exp $
   *
   */
  
@@ -9448,7 +9759,82 @@ diff -u -r1.60 -r1.63
      return;
    }
  }
-@@ -521,6 +521,7 @@
+@@ -131,6 +131,13 @@
+   return 0;
+ }
+ 
++static void log_chat_attempt(privmsginput *pi)
++{
++  ioutput(OUT_S|OUT_L|OUT_D, COLOR_MAGENTA,
++         "DCC CHAT attempt authorized from %s (%s on %s)",
++          pi->nick, pi->hostmask, gnetwork->name);
++}
++
+ static void command_dcc(privmsginput *pi)
+ {
+   if (strcmp(pi->msg2, "RESUME") == 0) { /* NOTRANSLATE */
+@@ -145,30 +152,24 @@
+ 
+   if (strcmp(pi->msg2, "CHAT") == 0) { /* NOTRANSLATE */
+     if (verifyshell(&gdata.adminhost, pi->hostmask)) {
+-      ioutput(OUT_S|OUT_L|OUT_D, COLOR_MAGENTA,
+-              "DCC CHAT attempt authorized from %s on %s",
+-              pi->hostmask, gnetwork->name);
++      log_chat_attempt(pi);
+       setupdccchat(pi->nick, pi->hostmask, pi->line);
+       return;
+     }
+     if (verifyshell(&gdata.hadminhost, pi->hostmask)) {
+-      ioutput(OUT_S|OUT_L|OUT_D, COLOR_MAGENTA,
+-              "DCC CHAT attempt authorized from %s on %s",
+-              pi->hostmask, gnetwork->name);
++      log_chat_attempt(pi);
+       setupdccchat(pi->nick, pi->hostmask, pi->line);
+       return;
+     }
+     if (verifyhost_group(pi->hostmask)) {
+-      ioutput(OUT_S|OUT_L|OUT_D, COLOR_MAGENTA,
+-              "DCC CHAT attempt authorized from %s on %s",
+-              pi->hostmask, gnetwork->name);
++      log_chat_attempt(pi);
+       setupdccchat(pi->nick, pi->hostmask, pi->line);
+       return;
+     }
+     notice(pi->nick, "DCC Chat denied from %s", pi->hostmask);
+     ioutput(OUT_S|OUT_L|OUT_D, COLOR_MAGENTA,
+-            "DCC CHAT attempt denied from %s on %s",
+-            pi->hostmask, gnetwork->name);
++            "DCC CHAT attempt denied from %s (%s on %s)",
++            pi->nick, pi->hostmask, gnetwork->name);
+     return;
+   }
+ 
+@@ -496,7 +497,7 @@
+   }
+   mydelete(copy);
+   ioutput(OUT_S|OUT_L|OUT_D, COLOR_YELLOW,
+-          "XDCC BATCH %s: %u packs (%s %s on %s)",
++          "XDCC BATCH %s: %u packs %s (%s on %s)",
+           what, found, pi->nick, pi->hostmask, gnetwork->name);
+   if (found != 0)
+     return;
+@@ -507,20 +508,21 @@
+ static void log_xdcc_request1(privmsginput *pi)
+ {
+   ioutput(OUT_S|OUT_L|OUT_D, COLOR_YELLOW,
+-          "XDCC %s (%s %s on %s)",
++          "XDCC %s %s (%s on %s)",
+           pi->msg2, pi->nick, pi->hostmask, gnetwork->name);
+ }
+ 
+ static void log_xdcc_request2(const char *msg, const char *arg, privmsginput *pi)
+ {
+   ioutput(OUT_S|OUT_L|OUT_D, COLOR_YELLOW,
+-          "XDCC %s %s (%s %s on %s)",
++          "XDCC %s %s %s (%s on %s)",
+           msg, arg, pi->nick, pi->hostmask, gnetwork->name);
+ }
+ 
  static void log_xdcc_request3(privmsginput *pi, const char *msg)
  {
    const char *sep;
@@ -9456,7 +9842,7 @@ diff -u -r1.60 -r1.63
  
    if (msg == NULL) {
      msg = "";
-@@ -528,6 +529,9 @@
+@@ -528,8 +530,11 @@
    } else {
      sep = ": ";
    }
@@ -9464,9 +9850,21 @@ diff -u -r1.60 -r1.63
 +  if (part3 == NULL)
 +    part3 = "";
    ioutput(OUT_S|OUT_L|OUT_D, COLOR_YELLOW,
-           "XDCC %s %s%s%s (%s %s on %s)",
+-          "XDCC %s %s%s%s (%s %s on %s)",
++          "XDCC %s %s%s%s %s (%s on %s)",
            pi->msg2, pi->msg3, sep, msg, pi->nick, pi->hostmask, gnetwork->name);
-@@ -1071,7 +1075,7 @@
+ }
+ 
+@@ -811,7 +816,7 @@
+ 
+   stopped = stoplist(pi->nick);
+   ioutput(OUT_S|OUT_L|OUT_D, COLOR_YELLOW,
+-          "XDCC STOP from (%s %s on %s) stopped %u",
++          "XDCC STOP from %s (%s on %s) stopped %u",
+            pi->nick, pi->hostmask, gnetwork->name, stopped);
+   notice(pi->nick, "LIST stopped (%u lines deleted)", stopped);
+ }
+@@ -1071,7 +1076,7 @@
    char *tempstr2;
  
    /*----- CLIENTINFO ----- */
@@ -9475,7 +9873,7 @@ diff -u -r1.60 -r1.63
      if (check_ignore(pi->nick, pi->hostmask))
        return 0;
      send_clientinfo(pi->nick, pi->msg2);
-@@ -1079,12 +1083,12 @@
+@@ -1079,12 +1084,12 @@
    }
    if (type != 0) {
      /*----- PING ----- */
@@ -9490,7 +9888,7 @@ diff -u -r1.60 -r1.63
               pi->msg2 ? " " : "", /* NOTRANSLATE */
               pi->msg2 ? pi->msg2 : "",
               pi->msg3 ? " " : "", /* NOTRANSLATE */
-@@ -1096,10 +1100,10 @@
+@@ -1096,10 +1101,10 @@
      }
    }
   /*----- VERSION ----- */
@@ -9503,7 +9901,7 @@ diff -u -r1.60 -r1.63
             gdata.hideos ? "" : " - ", /* NOTRANSLATE */
             gdata.hideos ? "" : gdata.osstring);
      ioutput(OUT_S|OUT_L|OUT_D, COLOR_YELLOW,
-@@ -1108,12 +1112,12 @@
+@@ -1108,12 +1113,12 @@
      return 0;
    }
   /*----- UPTIME ----- */
@@ -9518,7 +9916,7 @@ diff -u -r1.60 -r1.63
      ioutput(OUT_S|OUT_L|OUT_D, COLOR_YELLOW,
              "[CTCP] %s on %s: UPTIME",
               pi->nick, gnetwork->name);
-@@ -1121,12 +1125,12 @@
+@@ -1121,12 +1126,12 @@
      return 0;
    }
    /*----- STATUS ----- */
@@ -9533,7 +9931,7 @@ diff -u -r1.60 -r1.63
      ioutput(OUT_S|OUT_L|OUT_D, COLOR_YELLOW,
                 "[CTCP] %s on %s: STATUS",
                 pi->nick, gnetwork->name);
-@@ -1138,7 +1142,7 @@
+@@ -1138,7 +1143,7 @@
      return 1;
  
    /*----- DCC SEND/CHAT/RESUME ----- */
@@ -9542,7 +9940,7 @@ diff -u -r1.60 -r1.63
      if (pi->msg2 == NULL)
        return 0; /* ignore */
      if (check_ignore(pi->nick, pi->hostmask))
-@@ -1456,6 +1460,18 @@
+@@ -1456,6 +1461,18 @@
    write_statefile();
  }
  
@@ -9561,7 +9959,7 @@ diff -u -r1.60 -r1.63
  static void privmsgparse2(int type, int decoded, privmsginput *pi)
  {
    char *begin;
-@@ -1478,10 +1494,10 @@
+@@ -1478,10 +1495,10 @@
    caps(pi->hostmask);
    /*----- XDCC ----- */
    if ((strcmp(pi->msg1, "XDCC") == 0) || /* NOTRANSLATE */
@@ -9575,7 +9973,7 @@ diff -u -r1.60 -r1.63
        if (not_for_me(pi->dest))
          return; /* ignore */
      }
-@@ -1495,12 +1511,12 @@
+@@ -1495,12 +1512,12 @@
    }
  
    /*----- !LIST ----- */
@@ -10021,10 +10419,10 @@ Index: src/iroffer_dccchat.c
 ===================================================================
 RCS file: /usr/home/public/iroffer/src/iroffer_dccchat.c,v
 retrieving revision 1.51
-retrieving revision 1.54
-diff -u -r1.51 -r1.54
+retrieving revision 1.55
+diff -u -r1.51 -r1.55
 --- src/iroffer_dccchat.c	23 Nov 2010 06:42:04 -0000	1.51
-+++ src/iroffer_dccchat.c	1 Jul 2011 09:52:28 -0000	1.54
++++ src/iroffer_dccchat.c	7 Aug 2011 10:43:04 -0000	1.55
 @@ -56,9 +56,9 @@
    
    msg = setup_dcc_local(&(chat->con.local));
@@ -10037,6 +10435,17 @@ diff -u -r1.51 -r1.54
    }
    my_getnameinfo(msg, maxtextlength -1, &(chat->con.local.sa));
    chat->con.localaddr = mystrdup(msg);
+@@ -178,8 +178,8 @@
+         {
+           notice(nick, "DCC passive Chat denied, use \"/MSG %s ADMIN password CHATME\" instead.", get_user_nick());
+           ioutput(OUT_S|OUT_L|OUT_D, COLOR_MAGENTA,
+-                  "DCC CHAT attempt denied from %s on %s",
+-                  hostmask, gnetwork->name);
++                  "DCC CHAT attempt denied from %s (%s on %s)",
++                  nick, hostmask, gnetwork->name);
+         }
+       return 1;
+     }
 @@ -391,7 +391,7 @@
    
    len = vsnprintf(tempstr, maxtextlength, format, ap);
