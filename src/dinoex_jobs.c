@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_jobs.c,v 1.178 2011/08/01 20:28:42 cvs Exp $
+ * $Id: dinoex_jobs.c,v 1.179 2011/08/23 04:23:40 cvs Exp $
  *
  */
 
@@ -1872,7 +1872,6 @@ void a_quit_network(void)
   }
   mydelete(gnetwork->user_nick);
   mydelete(gnetwork->caps_nick);
-  mydelete(gnetwork->name);
 }
 
 void a_rehash_needtojump(const userinput *u)
@@ -1915,6 +1914,7 @@ void a_rehash_needtojump(const userinput *u)
     for (ss=gdata.networks_online; ss<gdata.r_networks_online; ++ss) {
       gnetwork = &(gdata.networks[ss]);
       a_quit_network();
+      mydelete(gnetwork->name);
     }
     gnetwork = backup;
   }

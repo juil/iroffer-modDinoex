@@ -5,7 +5,7 @@
 **   XDL                  : Liste les fichiers par groupes et les fichiers sans groupe
 **   XDLOCK               : Voir tous les packs bloqués
 **   XDTRIGGER            : Voir tous les packs avec des déclencheurs dynamiques
-**   FIND pattern         : Liste des packs qui correspond à <pattern>
+**   FIND pattern         : Liste des packs qui correspond à <modèle>
 **   XDS                  : Sauvegarde du fichier statistiques
 **   DCL                  : Liste les transferts en cours
 **   DCLD                 : Liste les transferts en cours avec détails
@@ -20,22 +20,22 @@
 **   CLOSE [id]           : Coupe le transfert <id>
 **   CLOSEU [id]          : Coupe l'upload <id>
 **   ACCEPTU min [hostmask] : Accepte les uploads de <hostmask> pour <x> minutes
-**   GET net nick n [password] : Pack <n> demandé par le bot <nick>
-**   CLOSEGET net nick    : Annule la demande pour le bot <nick>
+**   GET net nick n [password] : Demander le pack <n> du bot <pseudo>
+**   CLOSEGET net nick    : Annule la demande de pack pour le bot <pseudo>
 **   RMQ [position]       : Supprime l'entrée <position> de la file d'attente
 **   RMIQ [position]      : Supprime l'entrée <position> de la file d'attente d'inactivité
-**   RMALLQ               : Removes entries from idle and main queue
+**   RMALLQ               : Enlèves les entrées de la file d'attente d'inactivité et de la file d'attente normale
 **   NOMIN id             : Désactive la vitesse minimum du transfert <id>
 **   NOMAX id             : Désactive la vitesse maximum du transfert <id>
 **   UNLIMITED id         : Désactive les limites de bande passante pour le transfert <id>
-**   MAXSPEED id x        : Définit la limite max de bande passante <x> kB/s du transfert <id>
+**   MAXSPEED id x        : Définit la limite max de bande passante <x> KB/s du transfert <id>
 **   SEND nick n [net]    : Envoi le pack <n> à <nick>
 **   QUEUE nick n [net]   : Met le pack <n> pour <nick> en file d'attente
 **   IQUEUE nick n [net]  : Met le pack <n> pour <pseudo> en file d'attente d'inactivité
 **   BATCH nick n-m [net] : Met les packs <n> à <m> pour <pseudo> en file d'attente d'inactivité
 **   PSEND channel style [net] : Envoi <style (full|minimal|summary)> (complet|minimal|résumé) XDCC LIST sur <chan>
 **   QSEND [id]           : Démarrer le transfert d'une file d'attente
-**   IQSEND [id]          : Push entry from idle queue into main queue
+**   IQSEND [id]          : Passer un envoi de la file d'attente d'inactivité à la file d'attente normale
 **   SLOTSMAX [slots]     : Changement temporaire de slotsmax à x <slots>
 **   QUEUESIZE [slots]    : Changement temporaire de taille de la file d'attente à x <slots>
 **   REQUEUE x y          : Change la position de la file d'attente <x> à <y>
@@ -45,7 +45,7 @@
 **   REMOVE n [m]         : Enlève le pack <n> ou les packs de <n> à <m>
 **   REMOVEDIR dir        : Enlève tous les packs trouvés dans <dir>
 **   REMOVEGROUP group    : Enlève tous les packs trouvés dans <groupe>
-**   REMOVEMATCH pattern  : Remove every pack matching this pattern
+**   REMOVEMATCH pattern  : Enlève tous les packs contenant ce terme
 **   RENUMBER x [y] z     : Déplace les packs de <x> à <y> à la position <z>
 **   SORT [field] [field] : Trie les packs par <champ>. Option : NAME, DESC, GROUP, PATH, SIZE, TIME, ADDED (Nom, Description, Groupe, Chemin, Taille, Temps, Ajout)
 **   ADD fichier          : Ajoute le fichier <fichier>
@@ -62,8 +62,8 @@
 **   CHDESC n [msg]       : Change la description du pack <n> en <msg>
 **   CHNOTE n [msg]       : Change la note du pack <n> en <msg>
 **   CHTIME n [msg]       : Change la date d'ajout du pack <n> en <msg>
-**   CHMINS n x           : Change la vitesse mini du pack <n> à <m> en <x> kB/s
-**   CHMAXS n x           : Change la vitesse maxi du pack <n> à <m> en <x> kB/s
+**   CHMINS n x           : Change la vitesse mini du pack <n> à <m> en <x> KB/s
+**   CHMAXS n x           : Change la vitesse maxi du pack <n> à <m> en <x> KB/s
 **   CHLIMIT n x          : Change la vitesse limite de download du pack <n> à <m> en <x> transferts par jour
 **   CHLIMITINFO n [msg]  : Change l'annonce de la vitesse limite de download du pack <n> en <msg>
 **   CHTRIGGER n [msg]    : Change le trigger du pack <n> en <msg>
@@ -81,7 +81,7 @@
 **   REGROUP group nouveau : Change tous les packs de <groupe> en groupe <nouveau>
 **   NEWGROUP groupe dir  : Change tous les packs de <dir> vers <groupe>
 **   ANNOUNCE n [msg]     : Annonce <msg> pour pack <n> dans tous les chans joint
-**   NEWANN n [channel] [net] : ANNONCE le(s) dernier(s) <n> packs dans tous les chans joint
+**   NEWANN n [channel] [net] : Annonce le(s) dernier(s) <n> packs dans tous les chans joint
 **   MANNONCE n m [msg]   : Annonce <msg> pour <n> à <m> dans tous les chans joint
 **   CANNOUNCE channel n [msg] : Annonce <msg> pour le pack <n> dans <chan>
 **   SANNOUNCE n [m]      : Annonce courte pour les packs <n> à <m> dans tous les chans joint
@@ -100,9 +100,9 @@
 **   FETCH file url       : download l'url et sauvegarde le fichier dans le répertoire d'upload
 **   FETCHCANCEL [id]     : stop le download du fichier de l'url <id>
 ** -- Misc Commands --
-**   MSG nick message     : Envoi <msg> à l'user <nick> ou sur le chan
+**   MSG nick message     : Envoi <msg> à l'user ou sur le chan <nick>
 **   AMSG msg             : Annonce <msg> sur tous les chan joints
-**   MSGNET net nick message : Envoi <msg> à l'user <nick> ou sur le chan
+**   MSGNET net nick message : Envoi <msg> à l'user ou sur le chan <nick>
 **   MESG message         : Envoi <msg> à tous les users en cours de transfert
 **   MESQ message         : Envoi <msg> à tous les users en file d'attente
 **   IGNORE x hostmask    : Ignore <hostmask> (nick!user@host) pour <x> minutes, * autorisé
@@ -143,12 +143,12 @@
 **   CLOSEC [id]          : Ferme le DCC chat <id>
 **   DEBUG x              : Fixe le niveau de debug à <x>
 **   CONFIG Valeur de la clé : Définir la variable de configuration <key> à <value>
-**   PRINT key            : Affiche la variable de config <key>
+**   PRINT key            : Affiche la variable de configuration <key>
 **   IDENTIFY [net]       : Renvoyer le mot de passe stocké à nickserv
 **   HOLDQUEUE [x]        : Réglage de la file d'attente, x=1 set, x=0 reset
-**   OFFLINE [net]        : Close given network or all networks
-**   ONLINE [net]         : Connect to given network or to all networks
-**   RUBY method [args]   : Call a method in the ruby_script with parameters <args>
+**   OFFLINE [net]        : Fermer le réseau indiqué ou tous les réseaux
+**   ONLINE [net]         : Se connecter au réseau indiqué ou à tous les réseaux
+**   RUBY method [args]   : Appel une méthode dans le ruby_script avec les paramètres <args>
 **   SHUTDOWN act         : Fermeture d'iroffer, <act> est "now" maintenant, "delayed" retardé, ou "cancel" annulé
 **   BACKGROUND           : basculer en arrière plan
 **   DUMP                 : Ecrire un dump dans le fichier log

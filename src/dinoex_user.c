@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_user.c,v 1.64 2011/08/07 10:43:04 cvs Exp $
+ * $Id: dinoex_user.c,v 1.65 2011/08/23 04:17:42 cvs Exp $
  *
  */
 
@@ -535,7 +535,7 @@ static void log_xdcc_request3(privmsginput *pi, const char *msg)
     part3 = "";
   ioutput(OUT_S|OUT_L|OUT_D, COLOR_YELLOW,
           "XDCC %s %s%s%s %s (%s on %s)",
-          pi->msg2, pi->msg3, sep, msg, pi->nick, pi->hostmask, gnetwork->name);
+          pi->msg2, part3, sep, msg, pi->nick, pi->hostmask, gnetwork->name);
 }
 
 /* get restrictlist for current network */
