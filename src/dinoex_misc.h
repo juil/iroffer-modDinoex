@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_misc.h,v 1.133 2011/07/12 19:17:54 cvs Exp $
+ * $Id: dinoex_misc.h,v 1.134 2011/10/22 21:20:55 cvs Exp $
  *
  */
 
@@ -19,6 +19,7 @@ extern xdcc xdcc_listfile;
 unsigned int hide_pack(const xdcc *xd);
 unsigned int number_of_pack(xdcc *pack);
 unsigned int check_level(int prefix);
+unsigned int slotsfree(void);
 
 void set_support_groups(void);
 unsigned long get_next_transfer_time(void);

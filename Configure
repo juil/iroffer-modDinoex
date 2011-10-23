@@ -1,16 +1,16 @@
 #!/bin/sh
 
 #
-# $Id: Configure,v 1.229 2011/08/07 13:56:47 cvs Exp $
+# $Id: Configure,v 1.230 2011/09/10 05:44:20 cvs Exp $
 #
 
-VERSION="3.27"
-RELEASE=1
+VERSION="3.28"
+RELEASE=0
 
 if [ $RELEASE -eq 1 ]; then
  VERSIONLONG="$VERSION"
 else
- VERSIONLONG="$VERSION Beta"
+ VERSIONLONG="$VERSION Beta1"
 fi
 
 msg2()

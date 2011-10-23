@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_misc.c,v 1.338 2011/07/12 19:17:54 cvs Exp $
+ * $Id: dinoex_misc.c,v 1.339 2011/10/22 21:20:55 cvs Exp $
  *
  */
 
@@ -139,6 +139,19 @@ unsigned int check_level(int prefix)
     return 1;
 
   return 0;
+}
+
+/* get coorent free slots */
+unsigned int slotsfree(void)
+{
+  unsigned int slots;
+  unsigned int trans;
+
+  slots = 0;
+  trans = irlist_size(&gdata.trans);
+  if (trans < gdata.slotsmax)
+    slots = gdata.slotsmax - trans;
+  return slots;
 }
 
 /* ckeck if we have any pack with a group */

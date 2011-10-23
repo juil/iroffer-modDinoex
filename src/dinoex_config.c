@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_config.c,v 1.219 2011/07/21 10:43:01 cvs Exp $
+ * $Id: dinoex_config.c,v 1.220 2011/10/22 21:20:55 cvs Exp $
  *
  */
 
@@ -1953,13 +1953,7 @@ static void c_server_join_raw(const char *key, char *var)
 
 static char *p_slotsfree(void)
 {
-  unsigned int slots = 0;
-  unsigned int trans;
-
-  trans = irlist_size(&gdata.trans);
-  if (trans < gdata.slotsmax)
-    slots = gdata.slotsmax - trans;
-  return print_config_long2((ir_int64)slots);
+  return print_config_long2((ir_int64)slotsfree());
 }
 
 static void c_slotsmax(const char * UNUSED(key), char *var)
