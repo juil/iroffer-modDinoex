@@ -1,0 +1,748 @@
+I like to thank those who helped to improve iroffer:
+
+David Johnson (PMG)
+	original distribution
+
+Splizzer
+	groups in iroffer 1.3
+
+Porakin
+	iroffer-lamm distribution
+	manual queue for sends
+	announce/addann/autoaddann
+	option "noxdccinfo"
+	@find-reply ("atfind" config option)
+
+Rom
+	mixing groups and normal packs
+
+Ddrulez
+	option "noduplicatefiles"
+
+Tak0r
+	option "need_voice"
+	option "autoadd_dir"
+	option "need_level"
+	mutiple "filedir"
+	option "nickserv_pass" per network
+	option "logfile_notices"
+	option "logfile_messages"
+	option "auth_name", "login_name"
+
+Keichi
+	option "auto_default_group"
+	admin command "ADDGROUP"
+	option "start_of_month"
+
+Kickaha
+	Genforce queue limit
+
+Takatoo
+	reporting regroup bug
+	admin command "MOVEGROUP"
+	admin command "CRC" for mutiple packs
+
+TheDeath
+	reporting regroup bug
+	reporting send problem
+	option "channel -headline"
+	reporting removelostfiles problem
+	admin command "CHLIMIT"
+	porting to WIN32
+	reporting menmory leak
+	suggesting flood protection
+	reporting ignoreduplicateip bug
+	reporting queue bug
+	reporting send bug
+	german translation of config file
+	http://wiki.deutsche-fansubs.de/index.php?title=Iroffer_Tutorial
+	Debugging of multi irc network support
+	suggesting CRC check
+	extending CRC check
+	direct file access
+	DCLD and BOTINFO for Multinet
+	admin command "SLOTSMAX"
+	admin command "QUEUESIZE"
+	admin command "FETCH"
+	option "uploadminspace"
+	reporting not connected bug
+	reporting bad url bug
+	suggesting list of active downloads in dcl and dcld
+	reporting crash on duplicate channels
+	reporting psend without effect
+	admin command "EXIT"
+	admin command "LOGOUT"
+	reporting crash whith geoip
+	option "geoipdatabase"
+	option "channel -noannounce"
+	admin command "sort name/group/desc"
+	admin command "sort -name/-group/-desc"
+	admin command "XDTRIGGER"
+	reporting notify bug
+	option "http_port"
+	option "group_seperator"
+	option "upnp_router"
+	reporting CRC bug
+	reporting leak of filehandles
+	reporting CONFIG bug
+	reporting xdcclistfile over HTTP bug
+	option "no_minspeed_on_free"
+	option "no_status_log"
+	user command "XDCC SEARCH" with mutiple patterns
+	option "no_auto_rehash"
+	suggesting XDCC BATCH
+	option "logfile_httpd"
+	option "http_geoip"
+	reporting XDCC upload "file to big" bug
+	admin command "NOANNOUNCE"
+	admin command "PRINT"
+	option "passive_dcc_chat"
+	option "logrotate" for httpd
+	suggesting HTTP 403 response
+	option "http_forbidden"
+	suggesting "expire_logfiles"
+	suggesting announce of "XDCC REMOVE <nr>"
+	suggesting delayed announce
+
+[GFE]Lunix
+	alias xdcc list group <group>
+	option "groupsincaps"
+
+[Faith]Athrun
+	reporting the bandwidth problem during uploads
+
+Chobits
+	option "channel -headline"
+	admin command "CHLIMITINFO"
+	spaces in groupname problem
+	option "ignoreduplicateip"
+	admin command "AMSG"
+
+Neo2001
+	"REMOVEGROUP" comamnd
+	option "removelostfiles"
+
+StoVoKor
+	reporting xdcclistfile bug
+	reporting addnew bug
+	user command "XDCC STOP"
+	reporting "XDCC SEARCH" bug
+	option "hadminhost"
+	option "hadminlevel"
+	show current md5/crc32 pack
+	admin command "NOMD5"
+	reporting new_trigger bug
+
+conanmichi
+	reporting group descriptions problems
+	reporting ambiguous online help
+	reporting crc 64bit bug
+	admin command "CHTRIGGER"
+
+Kyu
+	groupname as default group description
+
+Hikari
+	option "autosendpack"
+
+Horst
+	channel anti flooding
+
+Terminator2k2
+	reporting win32 bugs
+
+Thunder
+	option "nodownloadhost"
+	admin command "xdlock"
+	reporting multinet bug, punishslowusers
+	option "hadminhost"
+	reporting IDENTIFY bug
+	reporting add_delayed bug
+	option "trashcan_dir"
+	suggesting "xdccxmlfile" with version
+	suggesting "xdccxmlfile" with crc/md5
+	reporting RLUL bug
+	suggesting "fileremove_max_packs"
+	suggesting option "group_admin"
+
+Alita-Chan
+	reporting XDCC LIST problem with total line
+	reporting hidelockspacks for @find
+	suggesting better logging for QUEUED SEND
+	suggesting XDCC BATCH
+
+Terra_Knight
+	option "autoadd_dir"
+	option "restrictsend_warning"
+	option "restrictsend_timeout"
+
+Anime20o5
+	option "send_statefile"
+
+Jippi
+	reportiing plist xdcclist_grouponly
+	option "channel -pgroup name"
+
+[c]Mr_Unknow
+	automatic unlock if crc matches
+
+Yasuo|Iwakura
+	reporting -plist crash
+	reporting incomplete warning
+	QUL and DCL output
+	autosendpack with 2 parameters
+	admin command "ADDMATCH"
+	option "log_exclude_text"
+
+Road
+	user command XDCC OWNER
+
+Skyw4lker
+	admin command "REMOVE n m"
+	admin command "CANNOUCNE channel n msg"
+	admin command "RENUMBER" with 3 args
+
+Cork
+	option "max_find"
+	reporting trigger with restrictprivlist
+	option "respondtochannellistmsg"
+	option "restrictsend_delay"
+	reporting QSEND bug
+	spaces in filenames
+	reporting tar in Makefile.config
+	reporting msg bug
+	reporting "REHASH" bug
+	option "vhost" per network
+	option "usenatip" per network
+	reporting "usenatip" bug
+
+anibi
+	option "include_subdirs"
+	option "telnet_port"
+
+Tass
+	option "include_subdirs"
+	option "need_voice" for each network
+	option "need_level" for each network
+	testing on SunOS
+
+Kurosaki
+	reporting crc unlock problem
+	reporting ADDGROUP via /MSG bug
+	admin commamd "MOVEGROUPDIR"
+	suggesting comments in "admin_job_file"
+
+PiRaTe
+	suggesting more info on DCLD
+
+ThE_-_BliZZarD
+	admin command "sort"
+
+SpiegelEiXXL
+	admin commamd "fetchcancel"
+	admin commamd "fileremove"
+	admin commamd "JOIN"
+	admin commamd "PART"
+	admin command "ACCEPTU"
+	reporting a memory leak
+
+Noxx
+	hidlockepacks for xdcclistfile
+
+dondieschotte
+	reporting get_network_msg bug
+	option "adminlevel"
+	reporting "adminhostmask" bug
+	reporting "removelostfile" bug
+	message to channels not joined
+	reporting "sapces_in_filenames" bug
+	admin command  "sort 1"
+	admin command  "sort name/group/desc"
+	extend "XDCC INFO"
+	admin command  "md5 n"
+	option "xdcclist_by_privmsg"
+	option "autoadd_delay"
+	reporting "tcprangestart" out-of-range
+	option "tcprangelimit"
+	admin command "listul dir"
+	option "nickserv_pass" per network
+	reporting window resize bug
+	reporting "Transfer Complete" bug
+	option "announce_separator"
+	option "autoadd_group_match"
+	reporting "XDCC LIST" logfile bug
+	suggesting to check upload names in autoadd
+	suggesting "fish" channel option
+	suggesting "psend nick" command
+	reporting "-no-memsave" bug
+	option "show_date_added"
+	option "reconnect_delay"
+	search for date added
+	reporting "autoadd_group_match" bug
+	option "privmsg_fish"
+	option "fish_exclude_nick"
+	reporting duplicate passwords problem
+	option "group_admin uploadhost"
+
+dsd
+	admin command "autoadd"
+	admin command "sannounce"
+	option "autoaddann_short"
+	reporting "restrictsend" bug
+	admin command "LOCK n m pwd"
+
+fiberOptiC
+	option "autocrc_exclude"
+
+chibi
+	admin commamd "newdir"
+	reporting SERVQC bug
+	option "autoadd_sort"
+	reporting "AUTOADD" bug
+	option "xdccxmlfile"
+	option "http_search"
+	reporting "xdccxmlfile" bug
+
+vegetto
+	reporting crash on bad config
+
+Kozue-chan
+	option "hadminhost"
+
+Cheff
+	option "monitor_files"
+
+Kakashi
+	mutiple "filedir"
+
+Benni-chan
+	admin command  "sort group"
+
+lordfiSh
+	reporting uploaddir crash
+
+Ang3lu5
+	option "xdcclist_by_privmsg"
+
+drBeSt
+	reporting CANNOUNCE bug
+
+Per Nielsen
+	admin commamd "MAXSPEED"
+
+Protected
+	otion "idlequeuesize"
+	admin command "RENUMBER" with 3 args
+	option "balanced_queue"
+	admin command "NEWANN"
+
+Radicand
+	warn if spaces found in parameter
+	reporting CANNOUNCE bug
+	reporting spaces_in_filenames bug
+	reporting double upload problem
+	reporting "connectionmethod ssl" bug
+	reporting "nodownloadhost" regexp problem
+	reporting tcp send window bug
+	admin command "GET"
+	reporting "FETCHCANCEL" bug
+	reporting "DCC CHAT" crash
+
+unlogisch
+	option "autoadd_sort"
+	reporting "autoadd_sort" by GROUP bug
+	reporting "GET" without uploaddir bug
+	reporting "CLOSEC" bug
+
+Misha-SU
+	reporting "ANNOUNCE" bug
+	option "nogeoipcountry"
+	reporting ignore bug
+	reporting FETCH problem
+	reporting punishslowusers bug
+	reporting "connectionmethod ssl" bug
+	reporting "DCC RESUME" bug
+	suggesting "XDCC SEND LIST"
+	suggesting "QUEUE" with range
+
+Lamarr
+	reporting "MAXSPEED" bug
+
+Akropolis
+	user commamd "XDCC GET $"
+
+SDoggy
+	reporting sentrecord bug
+
+Mutsumi
+	suggesting "xdccxmlfile" with groups
+
+Galatea
+	suggesting "xdccxmlfile" with groups
+
+Shock
+	reporting configure problem on ubuntu
+
+xtr
+	contributing "XDCC SEARCH" limit mesaage
+	reporting "connectionmethod ssl" bug
+	admin command "MANNOUNCE"
+	reporting "not a file" bug
+
+Wetter
+	option "weblist_info running"
+	reporting truncated weblist
+	reporting XDCC BATCH bug
+
+eagle_bot
+	option "channel -joinmsg"
+	reporting "AUTOGROUP" space bug
+	reporting "REGROUP" space bug
+
+Lamune
+	admin command "NOSEND x msg"
+	reporting FETCH with spaces problem
+	reporting "FETCHCANCEL" bug
+	reporting "BOTINFO" joined for bug
+	suggesting "#channel -waitjoin" option
+	reporting trigger ignore bug
+	option "xdcc_deny"
+	reporting "CLOSEC" bug
+	reporting "FILEDEL" bug
+	option "slow_privmsg"
+	admin command "NOANNOUNCE"
+	suggesting  SSL + CertFP
+	reporting autosendpack bug
+
+DevelDoll
+	report transferlimits to user
+
+DrX
+	report "pgroup" bug
+
+Vision
+	suggesting "fish" channel option
+	suggesting "!new" trigger
+	suggesting blowfished trigger
+	option "fish_only"
+	reporting "fish" bug
+	option "privmsg_fish"
+	option "privmsg_encrypt"
+	reporting "fish" decoding bug
+	reporting "fish" encoding bug
+	reporting "fish" @find bug
+	reporting "fish_only" CHAT bug
+	reporting "channel joinmsg" bug
+	reporting "micrc 64bit upload" bug
+	reporting missing color on !NEW
+
+TheBotKiller
+	suggesting "!new" trigger
+	suggesting "show_list_all" option
+
+Gotham
+	option "show_date_added"
+
+disi
+	reporting "autoadd_group_match" bug
+
+fred|krue
+	fixed spelling in sample.config
+	option "verbose_crc32"
+	reporting DCLD bug
+	reporting DCC RESUME bug
+	suggesting "hide_list_stop"
+	reporting voice needed mesaage
+
+dns777
+	reporting "xdccxmlfile" packsize bug
+	reporting "autoadd_group_match" bug
+	patch xdccxmlfile over http
+	patch #channel -rgroup
+	patch #channel -listmsg
+	patch CTCP LIST
+	bugfix new_trigger
+	reporting "REMOVEDIR" group_admin bug
+	contributing better verify_group_in_grouplist
+	reporting xdccxmlfile bug with utf-8 names
+	reporting autoadd_group_match bug and fix
+	suggesting "!FIND"
+	reporting autoadd_group_match bug
+	reporting "BOTINFO" DCC-IP bug
+
+[V]4Mp|r
+	Italian translation
+
+Infamous
+	option "dos_text_files"
+
+OmegaPhil
+	reporting CONFIG bug
+	suggesting status_time_dcc_chat
+	reporting Configure bug
+
+Bohnenstange
+	reporting curl 7.10.x bug
+	reporting "-pformat all" bug
+
+RyoOhki
+	reporting "GROUPDESC" bug
+	suggesting auto voice script
+
+Drake
+	suggesting detailed MD5/CRC output
+
+AnimeNeko
+	suggesting "no_duplicate_filenames" option
+	suggesting channel -notrigger
+	option "logfile_httpd"
+
+spielefreak
+	reporting "CANNOUNCE" bug
+	reporting "CHTRIGGER" bug
+	reporting "GET" bug
+
+Yumi
+	reporting "XDCC LIST" size bug
+
+T4K
+	option "mirc_dcc64"
+
+Solidus_Snake
+	reporting "IGNORE" overflow
+
+HymnToLife
+	install on BSD
+	reporting "ADDGROUP" bug
+	reporting "REGROUP" bug
+	reporting "FETCHCANCEL" bug
+	reporting "DCLD" nicknames in caps
+	buildfix for "GNU TLS"
+	option "restrictsend" per network
+
+Globulus
+	debugging "mirc_dcc64"
+	debugging "XDCC GET" crash
+	option "logrotate" 1 - 24
+
+Kamina
+	reporting 10TB bug
+	suggesting JOIN with key
+
+xShatteRx
+	reporting XDCC SEND LIST bug
+	option "no_status_chat"
+	reporting XDCC SEND skip queue bug
+	reporting NOSEND bug
+
+Kaonashi
+	Configure bug with /etc/auth.conf
+
+Gentatsu
+	suggesting "ANNOUNCE" without msg
+
+Bambus
+	reporting SSL certificate bug
+	reporting XDDC SEND filename bug
+
+Otaku
+	suggesting XDCC BATCH
+
+satmd
+	suggesting XDCC BATCH
+
+CreeW
+	Italian translation
+	suggesting "CHCOLOR"
+	suggesting "autoadd_color"
+	reporting "CHCOLOR" bug
+	suggesting "CHMAXS" with range
+	suggesting "NEWANN" with params
+	reporting "REHASH" bug
+	suggesting "IQSEND"
+	suggesting "respondtochannellist" per network
+
+[M]-V
+	reporting ADDDIR spaces bug
+	suggesting "RMQ" for all entries
+	reporting CLOSEU bug
+	suggesting "AUTOCANCEL"
+	suggesting "NOAUTOADD"
+
+freijie
+	reporting @find bug
+	suggesting "xdccxmlfile" with packbytes
+
+Aashiqmunda
+	reporting xdcclist_grouponly bug
+	suggesting "BATCH"
+	reporting xdcclistraw bug
+	reporting "autaaddann" text problem
+	suggesting "announce_suffix_color"
+	reporting "XDCC BATCH" bug
+	reporting "BATCH" crash
+	suggesting "DCLD" with IP/country
+
+SellKony
+	reporting CONFIG crash
+	suggesting "NEWANN" with params
+
+Blade121
+	suggesting "MAKEDIR"
+
+Ryu
+	suggesting "MAKEDIR"
+	suggesting "LAG"
+	suggesting higher "max_uploads"
+	suggesting "RESTART"
+
+LazyTiger
+	reporting XDCC SEND -1 crash
+	reporting logstats bug
+
+Scorp
+	reporting GET hostmask problem
+	suggesting "FETCH" with redirect
+
+MasterCJ
+	suggesting detailed vital information
+
+Procyon
+	reporting xdcclistfile size bug
+
+Firas Kraiem
+	Initial Ubuntu package
+
+AlexanderS
+	iroffer-dinoex-3.15.ebuild for Gentoo
+
+Chii-sama
+	suggesting "xdccxmlfile" with totalbytes
+
+Dragon
+	suggesting "no_find_trigger"
+
+Hamikzo
+	suggesting "noannounce" for networks
+
+isengaurd
+	reporting "linux-sendfile" bug
+	suggesting "OFFLINE" mode
+
+PastisD
+	suggesting "xdccxmlfile" with nicknames
+
+Bachstelze
+	reporting gnutls bug.
+	Ubuntu package
+	patch for "PRINT" bug.
+
+super89
+	reporting "include_subdirs" bug
+
+Loke_AF
+	reporting timestamp problem with old statefiles.
+	reporting "AUTOADD" problem with '\'.
+	reporting crash with concurrent transfers
+	reporting "XDCC BATCH" bug
+	reporting "AUTOADD" problem with '//'.
+	suggesting "requeue_sends"
+	suggesting "ignore_duplicate_ip"
+	suggesting "RMALLQ"
+
+Nouhime
+	reporting "http_search" bug.
+	reporting "http_port" groups with "&".
+
+Eomyn
+	suggesting "http_index"
+
+Henrik Krohns
+	reporting "QUIT" bug.
+	reporting "-plist" bug.
+	reporting "ANNOUNCE" priority
+
+torque
+	reporting "restrictsend" bug.
+
+Rilly
+	reporting "PRINT" bug
+
+k1ll0r-chan
+	suggesting "DELTRIGGER"
+
+Xarda
+	suggesting "download_completed_msg"
+	suggesting "requeue_sends"
+	testing time_t on Suse Linux
+
+Erdrick
+	suggesting "DISKFREE"
+
+mynakee
+	reporting "server_connected_raw" bug
+
+lailoken
+	suggesting natural sort
+
+Trellmor
+	reporting "xdcclist_grouponly" verbosity
+
+praya
+	bugfix "xdccxmlfile" transfereddaily
+
+SamKook
+	reporting "freebsd-sendfile" bug
+
+Zir0h
+	reporting "on_added" bug in "rubyscript"
+	reporting "SHUTDOWN" bug with ruby 1.9
+	reporting build failure with ruby 1.9.1
+	reporting crash with ruby 1.9.2
+
+death_walker
+	reporting "autoadd_dir" bug with spaces
+
+nanashiRei
+	reporting "xdccxmlfile" spelling of bandwidth
+	suggesting multiple "periodicmsg"
+
+paulhamm
+	reporting "getip_network" bug
+
+Gamerkun
+	suggesting "adddir_min_size"
+
+Hikaru Shindo
+	bugfix "xdccxmlfile" struture
+
+Zenquibo
+	suggesting "show_group_of_pack"
+
+Dandevito
+	French translation
+
+UndErDarK
+	suggesting "expire_logfiles"
+
+Kenzumi
+	suggestimg "make uninstall"
+
+Gotanius
+	reporting "getip_network" bug
+
+Jikan
+	reporting "autosendpack" bug
+
+vice
+	suggestimg "announce_size"
+
+Thom
+	suggesting "server_connect_timeout"
+
+<<<<<<< HEAD
+=======
+sheppert
+	reporting "slotsfree" bug
+
+>>>>>>> a573948d0456f974fce0c26d9cba40449acb4106

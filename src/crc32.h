@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: crc32.h,v 1.1 2008/12/23 14:27:04 cvs Exp $
+ * $Id$
  *
  */
 

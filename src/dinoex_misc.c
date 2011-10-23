@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_misc.c,v 1.339 2011/10/22 21:20:55 cvs Exp $
+ * $Id$
  *
  */
 
@@ -911,18 +911,6 @@ void add_newest_xdcc(irlist_t *list, const char *grouplist)
 
   best = irlist_add(list, sizeof(void *));
   *best = old;
-}
-
-/* select a transfer to start with */
-unsigned int select_starting_transfer(unsigned int max)
-{
-  unsigned int t;
-
-  t = gdata.cursendptr;
-  if (++t > max)
-    t = 0;
-  gdata.cursendptr = t;
-  return t;
 }
 
 static const char *style_on[ 16 ] = {

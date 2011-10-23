@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_user.h,v 1.2 2010/02/11 11:23:24 cvs Exp $
+ * $Id$
  *
  */
 

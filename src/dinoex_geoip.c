@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_geoip.c,v 1.24 2011/06/10 07:30:45 cvs Exp $
+ * $Id$
  *
  */
 

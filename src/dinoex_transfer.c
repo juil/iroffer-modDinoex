@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_transfer.c,v 1.60 2011/06/10 05:43:05 cvs Exp $
+ * $Id$
  *
  */
 
@@ -599,6 +599,18 @@ int t_select_fdset(int highests, int changequartersec)
   return highests;
 }
 
+/* select a transfer to start with */
+static unsigned int select_starting_transfer(void)
+{
+  unsigned int t;
+
+  t = gdata.cursendptr;
+  if (++t >= irlist_size(&gdata.trans))
+    t = 0;
+  gdata.cursendptr = t;
+  return ++t;
+}
+
 /* handle transfer ip events */
 void t_perform(int changesec, int changequartersec)
 {
@@ -622,7 +634,7 @@ void t_perform(int changesec, int changequartersec)
     }
   }
 
-  i = j = select_starting_transfer(irlist_size(&gdata.trans));
+  i = j = select_starting_transfer();
 
   /* first: do from cur to end */
   for (tr = irlist_get_nth(&gdata.trans, i);

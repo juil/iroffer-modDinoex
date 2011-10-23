@@ -3,7 +3,7 @@ Aktuelle Version auf: http://iroffer.dinoex.net/
 With Version 3.28:
 ------------------
 
-bugfix: http_port
+bugfix: http_port (reported by sheppert)
   versions affected: 3.23 - 3.27
   In field 'slotsfree' of the weblist was the value of 'slotsused' displayed.
 
@@ -439,7 +439,7 @@ bugfix: CHCOLOR
 
 332) no_natural_sort (inspired by lailoken)
   Wenn konfiguriert, werden alle Texte nach ASCII sortiert.
-  Default: natürlliche Sortierenung.
+  Default: natï¿½rlliche Sortierenung.
 
 bugfix: http_port (reported by Nouhime)
   Allow groups with "&" in weblist.

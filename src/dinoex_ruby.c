@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_ruby.c,v 1.46 2011/07/21 02:34:22 cvs Exp $
+ * $Id$
  *
  * See also:
  * http://www.ruby-doc.org/docs/ProgrammingRuby/html/ext_ruby.html

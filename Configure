@@ -1,16 +1,16 @@
 #!/bin/sh
 
 #
-# $Id: Configure,v 1.230 2011/09/10 05:44:20 cvs Exp $
+# $Id$
 #
 
 VERSION="3.28"
-RELEASE=0
+RELEASE=1
 
 if [ $RELEASE -eq 1 ]; then
  VERSIONLONG="$VERSION"
 else
- VERSIONLONG="$VERSION Beta1"
+ VERSIONLONG="$VERSION Beta"
 fi
 
 msg2()
@@ -33,10 +33,10 @@ usage()
  fr*)
   ${msg} "Usage: Configure [ options ]
    -help        Cette Aide
-   -error       Afficher les erreurs lors de l'exécution de Configure
-   -debug       Compiler avec les symboles de débogage
+   -error       Afficher les erreurs lors de l'exï¿½cution de Configure
+   -debug       Compiler avec les symboles de dï¿½bogage
    -profiling   Compiler avec les flag de profil
-   -warn        Compiler avec les flag d'alerte supplémentaire
+   -warn        Compiler avec les flag d'alerte supplï¿½mentaire
    -geoip       Compiler GeoIP lib (pour l'IP par pays)
    -curl        Compiler Curl lib (pour la Commande FETCH)
    -tls         Compiler avec GNU TLS lib (au lieu de OpenSSL)
@@ -47,16 +47,16 @@ usage()
    -no-http     Compiler sans HTTP server
    -no-admin    Compiler sans HTTP Admin
    -no-telnet   Compiler sans Telnet server
-   -no-memsave  Compiler sans protection de mémoire
+   -no-memsave  Compiler sans protection de mï¿½moire
    -no-libs     Compiler un binaire static
    TRANSLATION=	Set custom translations
-   PREFIX=      Définit le chemin d'installation (/usr/local)
-   LOCALBASE=   Définit le chemin des includes et libs (/usr/local)
-   CC=gcc       Définit le Compiler (gcc)
-   CFLAGS=      Définit les options du compiler (flag)
-   LDFLAGS=     Définit les liaisons des flags personnalisés
-   LIBS=        Définit les libs personnalisés
-   RUBY=        Définit l'interprète de ruby (ruby)"
+   PREFIX=      Dï¿½finit le chemin d'installation (/usr/local)
+   LOCALBASE=   Dï¿½finit le chemin des includes et libs (/usr/local)
+   CC=gcc       Dï¿½finit le Compiler (gcc)
+   CFLAGS=      Dï¿½finit les options du compiler (flag)
+   LDFLAGS=     Dï¿½finit les liaisons des flags personnalisï¿½s
+   LIBS=        Dï¿½finit les libs personnalisï¿½s
+   RUBY=        Dï¿½finit l'interprï¿½te de ruby (ruby)"
   ;;
  de*)
   ${msg} "Usage: Configure [ options ]
@@ -65,10 +65,10 @@ usage()
    -debug       Aktiviere Diagnosefuntionen in iroffer
    -profiling   Benutze 'profiling' Funktionen
    -warn        Aktiviere alle Warnungen beim Uebersetzen
-   -geoip       Benutze GeoIP Bibliothek (für IP nach Land)
-   -curl        Benutze Curl Bibliothek (für den FETCH-Befehl)
+   -geoip       Benutze GeoIP Bibliothek (fï¿½r IP nach Land)
+   -curl        Benutze Curl Bibliothek (fï¿½r den FETCH-Befehl)
    -tls         Benutze GNU TLS Bibliothek (anstelle von OpenSSL)
-   -upnp        Benutze miniupnpc Bibliothek (für UPNP-NAT Routers)
+   -upnp        Benutze miniupnpc Bibliothek (fï¿½r UPNP-NAT Routers)
    -ruby        Benutze RUBY Skript Erweiterung
    -no-blowfish Baue ohne Blowfish Verschlusselung
    -no-openssl  Baue ohne OpenSSL Bibliothek
@@ -77,9 +77,9 @@ usage()
    -no-telnet   Baue ohne Telnet Server
    -no-memsave  Baue ohne Speicherschutz
    -no-libs     Baue ein statische Programm
-   TRANSLATION=	Setze weitere Übersetzungen
+   TRANSLATION=	Setze weitere ï¿½bersetzungen
    PREFIX=      Setze Installations-Pfad  (/usr/local)
-   LOCALBASE=   Setze Pfad für Include-Dateien und Bibliotheken (/usr/local)
+   LOCALBASE=   Setze Pfad fï¿½r Include-Dateien und Bibliotheken (/usr/local)
    CC=gcc       Setze Compiler (gcc)
    CFLAGS=      Setze Compiler Optionen
    LDFLAGS=     Setze Linker Optionen
@@ -123,33 +123,33 @@ fr*)
  irt_start="Configuration pour"
  irt_again="Vous devriez relancer Configure avec l'argument '-error' pour voir les details."
  irt_noopenssl="ATTENTION : SVP utilisez '-no-openssl'"
- irt_multinet="ATTENTION : Multinet est maintenant par défaut, enlevez '-m'"
+ irt_multinet="ATTENTION : Multinet est maintenant par dï¿½faut, enlevez '-m'"
  irt_checkingos="Determining OS... "
- irt_checkfor="Vérification pour"
- irt_checkif="Vérifie si"
+ irt_checkfor="Vï¿½rification pour"
+ irt_checkif="Vï¿½rifie si"
  irt_error="***ERREUR*** :"
- irt_notsupported="Cet OS n'est pas supporté"
- irt_noedit="Automatiquement Généré, Ne Pas Modifier"
- irt_showerror="Affichage des erreurs lors de l'exécution"
+ irt_notsupported="Cet OS n'est pas supportï¿½"
+ irt_noedit="Automatiquement Gï¿½nï¿½rï¿½, Ne Pas Modifier"
+ irt_showerror="Affichage des erreurs lors de l'exï¿½cution"
  irt_configure="Configuration"
- irt_debugging="le débogage"
+ irt_debugging="le dï¿½bogage"
  irt_extrawarnings="les messages d'avertissements"
- irt_pedantic="les avertissements pédant"
+ irt_pedantic="les avertissements pï¿½dant"
  irt_profiling="le profilage"
  irt_with="avec"
  irt_without="sans"
  irt_blowfish="encodage blowfish"
- irt_memory="protection mémoire"
- irt_found="trouvé"
- irt_notfound="Non trouvé"
- irt_noexec="Vous n'êtes pas autorisé à exécuter"
+ irt_memory="protection mï¿½moire"
+ irt_found="trouvï¿½"
+ irt_notfound="Non trouvï¿½"
+ irt_noexec="Vous n'ï¿½tes pas autorisï¿½ ï¿½ exï¿½cuter"
  irt_nomake="Impossible de trouver 'make' ou 'gmake'"
  irt_nomake="Impossible de trouver 'gcc' ou 'cc'"
- irt_seeingif="Vérifie si"
- irt_seeinghow="Vérifie comment"
+ irt_seeingif="Vï¿½rifie si"
+ irt_seeinghow="Vï¿½rifie comment"
  irt_works="fonctionne"
- irt_worksinstead="travaille à la place"
- irt_asexpected="comme prévu"
+ irt_worksinstead="travaille ï¿½ la place"
+ irt_asexpected="comme prï¿½vu"
  irt_nowork="ne semble pas fonctionner"
  irt_yes="Oui"
  irt_no="Non"
@@ -158,98 +158,98 @@ fr*)
  irt_neither1="Ni"
  irt_neither2="ou"
  irt_neither3="fonctionnent"
- irt_seeing16bit="Vérifie comment définir un entier de 16 bits"
- irt_seeing32bit="Vérifie comment définir un entier de 32 bits"
- irt_seeing64bit="Vérifie comment définir un entier de 64 bits"
- irt_isdefined="est défini"
- irt_noipv6="échec, IPv6 ne marche pas"
+ irt_seeing16bit="Vï¿½rifie comment dï¿½finir un entier de 16 bits"
+ irt_seeing32bit="Vï¿½rifie comment dï¿½finir un entier de 32 bits"
+ irt_seeing64bit="Vï¿½rifie comment dï¿½finir un entier de 64 bits"
+ irt_isdefined="est dï¿½fini"
+ irt_noipv6="ï¿½chec, IPv6 ne marche pas"
  irt_compiling="la compilation avec la norme #include's"
  irt_nocompiling="n'a pas pu construire avec la norme #include's"
  irt_large="large"
  irt_is="est"
- irt_boosting="Augmenter à"
- irt_novalue="n'a pas pu le déterminer"
- irt_endianness="Détermination endianness"
+ irt_boosting="Augmenter ï¿½"
+ irt_novalue="n'a pas pu le dï¿½terminer"
+ irt_endianness="Dï¿½termination endianness"
  irt_endianbig="gros-boutiste"
  irt_endianlittle="petit-boutiste"
  irt_largefile="le support des gros fichiers"
  irt_nolargefile="Non. La taille Max des fichiers sera de"
- irt_signedness="Détermine le signedness de"
+ irt_signedness="Dï¿½termine le signedness de"
  irt_display_int64="afficher 64 bits en utilisant"
  irt_display_time="l'affichage de time_t en utilisant"
  irt_msssing1="absent"
- irt_msssing2="émulera"
+ irt_msssing2="ï¿½mulera"
  irt_exists="existe"
- irt_isneeded="est nécessaire"
- irt_notneeded="pas nécessaire"
- irt_needed="nécessaire"
+ irt_isneeded="est nï¿½cessaire"
+ irt_notneeded="pas nï¿½cessaire"
+ irt_needed="nï¿½cessaire"
  irt_nocrypt="n'a pas pu trouver crypt() avec ou sans crypt.h"
- irt_nolcrypt="Impossible à lier avec ou sans -lcrypt ou -lcrypto"
+ irt_nolcrypt="Impossible ï¿½ lier avec ou sans -lcrypt ou -lcrypto"
  irt_neither4="Non plus"
  irt_for="pour"
- irt_nopassword="va désactiver les mots de passe cryptés"
- irt_nochroot="va désactiver chroot()-ing"
- irt_nosetuid="va désactiver setuid()-ing"
+ irt_nopassword="va dï¿½sactiver les mots de passe cryptï¿½s"
+ irt_nochroot="va dï¿½sactiver chroot()-ing"
+ irt_nosetuid="va dï¿½sactiver setuid()-ing"
  irt_nogetgrouplist="la liste des groupes seront incorrectes lorsque setuid()-ing"
  irt_nosendfile="ne pas utiliser sendfile()"
  irt_nommap="ne pas utiliser mmap()"
- irt_creating="Création de"
+ irt_creating="Crï¿½ation de"
  irt_done="Fait"
  irt_fdlimit="name of fd limit"
  irt_nofdlimit="ne travaille pas, pas bon tout"
  irt_nosignal="utilisera lame signal handlers"
  irt_values="les valeurs"
- irt_nosi_code="ne fera pas état de 'si_code'"
- irt_nowait="ne fera pas état de wait() status codes"
- irt_tos="TOS peut être définit pour IP sockets"
- irt_nogetaddrinfo="utilisera gethostbyname à la place"
- irt_nogethostbyname="ne fera pas état des codes d'erreur"
- irt_nores_init="res_init() ne sera pas utilisé"
- irt_seeingif_lib="Vérifie si les librairies"
+ irt_nosi_code="ne fera pas ï¿½tat de 'si_code'"
+ irt_nowait="ne fera pas ï¿½tat de wait() status codes"
+ irt_tos="TOS peut ï¿½tre dï¿½finit pour IP sockets"
+ irt_nogetaddrinfo="utilisera gethostbyname ï¿½ la place"
+ irt_nogethostbyname="ne fera pas ï¿½tat des codes d'erreur"
+ irt_nores_init="res_init() ne sera pas utilisï¿½"
+ irt_seeingif_lib="Vï¿½rifie si les librairies"
  irt_lib_exists="existent"
  irt_geoip6="prend en charge IPv6"
- irt_nogeoip6="Désactiver le GeoIP pour IPv6. Si vous voulez utilisez cette fonction, SVP mettez à jour 'liblGeoIP'"
- irt_nogeoip="Désactiver le GeoIP-check. Si vous voulez utilisez cette fonction, SVP installez 'liblGeoIP'"
- irt_noupnp="Désactiver la fonction UPNP. Si vous voulez utilisez cette fonction, SVP installez 'liblminiupnpc'"
- irt_nocurl="Désactiver le FETCH-Command. Si vous voulez utiliser cette fonction, SVP installez 'libcurl'"
- irt_curlssl="Notice: Votre libcurl est lié avec"
- irt_nossl="Désactiver les fonctions SSL. Si vous voulez utiliser cette fonction, SVP installez 'OpenSSL'"
- irt_notls="Désactiver les fonctions SSL. Si vous voulez utiliser cette fonction, SVP installez 'GNU TLS'"
- irt_badssl1="Votre 'libcurl' est liée avec"
+ irt_nogeoip6="Dï¿½sactiver le GeoIP pour IPv6. Si vous voulez utilisez cette fonction, SVP mettez ï¿½ jour 'liblGeoIP'"
+ irt_nogeoip="Dï¿½sactiver le GeoIP-check. Si vous voulez utilisez cette fonction, SVP installez 'liblGeoIP'"
+ irt_noupnp="Dï¿½sactiver la fonction UPNP. Si vous voulez utilisez cette fonction, SVP installez 'liblminiupnpc'"
+ irt_nocurl="Dï¿½sactiver le FETCH-Command. Si vous voulez utiliser cette fonction, SVP installez 'libcurl'"
+ irt_curlssl="Notice: Votre libcurl est liï¿½ avec"
+ irt_nossl="Dï¿½sactiver les fonctions SSL. Si vous voulez utiliser cette fonction, SVP installez 'OpenSSL'"
+ irt_notls="Dï¿½sactiver les fonctions SSL. Si vous voulez utiliser cette fonction, SVP installez 'GNU TLS'"
+ irt_badssl1="Votre 'libcurl' est liï¿½e avec"
  irt_badssl2="SVP configurez"
- irt_noruby="Désactiver RUBY-extension. Si vous voulez utiliser cette fonction, SVP installez 'libruby'"
+ irt_noruby="Dï¿½sactiver RUBY-extension. Si vous voulez utiliser cette fonction, SVP installez 'libruby'"
  irt_make1="Type"
  irt_make2="to compile"
- irt_noerror="Aucune erreur ou avertissement ne doit apparaître lors de la compilation, si c'est le cas, quelque chose ne va pas"
+ irt_noerror="Aucune erreur ou avertissement ne doit apparaï¿½tre lors de la compilation, si c'est le cas, quelque chose ne va pas"
  ;;
 de*)
- irt_start="Konfiguriere für"
- irt_again="Bitte starte Configure zusätzlich mit dem Parameter '-error' für die Fehlermeldungen."
+ irt_start="Konfiguriere fï¿½r"
+ irt_again="Bitte starte Configure zusï¿½tzlich mit dem Parameter '-error' fï¿½r die Fehlermeldungen."
  irt_noopenssl="WARNUNG: Bitte den Parameter '-no-openssl' benutzen"
  irt_multinet="WARNUNG: Multinet ist immer aktiv, entfernde den Parameter -m"
- irt_checkingos="Prüfe Betriebssystem... "
- irt_checkfor="Prüfe auf"
- irt_checkif="Prüfe ob"
+ irt_checkingos="Prï¿½fe Betriebssystem... "
+ irt_checkfor="Prï¿½fe auf"
+ irt_checkif="Prï¿½fe ob"
  irt_error="***FEHLER***:"
- irt_notsupported="Das Betriebssystem ist nicht unterstützt"
- irt_noedit="Automatisch erstellt, nicht ändern"
+ irt_notsupported="Das Betriebssystem ist nicht unterstï¿½tzt"
+ irt_noedit="Automatisch erstellt, nicht ï¿½ndern"
  irt_showerror="Zeige Fehlermeldungen beim Konfigurieren"
  irt_configure="Konfiguriere"
  irt_debugging="debugging"
- irt_extrawarnings="zusätzliche Warnungen"
+ irt_extrawarnings="zusï¿½tzliche Warnungen"
  irt_pedantic="pedantische Warnungen"
  irt_profiling="profiling"
  irt_with="mit"
  irt_without="ohne"
- irt_blowfish="blowfish Verschlüsselung"
+ irt_blowfish="blowfish Verschlï¿½sselung"
  irt_memory="memory protection"
  irt_found="gefunden"
  irt_notfound="nicht gefunden"
- irt_noexec="Du kannst das Programm nicht ausführen"
+ irt_noexec="Du kannst das Programm nicht ausfï¿½hren"
  irt_nomake="Kann weder 'make' noch 'gmake' finden"
  irt_nocc="Kann weder 'gcc' noch 'cc' finden"
- irt_seeingif="Prüfe ob"
- irt_seeinghow="Prüfe wie"
+ irt_seeingif="Prï¿½fe ob"
+ irt_seeinghow="Prï¿½fe wie"
  irt_works="funktioniert"
  irt_worksinstead="funtioniert anstelle"
  irt_asexpected="wie erwartet"
@@ -261,39 +261,39 @@ de*)
  irt_neither1="weder"
  irt_neither2="noch"
  irt_neither3="funktioniert"
- irt_seeing16bit="Prüfe wie ein 16 Bit Integer definiert wird"
- irt_seeing32bit="Prüfe wie ein 32 Bit Integer definiert wird"
- irt_seeing64bit="Prüfe wie ein 64 Bit Integer definiert wird"
+ irt_seeing16bit="Prï¿½fe wie ein 16 Bit Integer definiert wird"
+ irt_seeing32bit="Prï¿½fe wie ein 32 Bit Integer definiert wird"
+ irt_seeing64bit="Prï¿½fe wie ein 64 Bit Integer definiert wird"
  irt_isdefined="ist definiert"
  irt_noipv6="Nein, IPv6 wird nicht funktionieren"
- irt_compiling="das Übersetzen mit den Standard #include's"
- irt_nocompiling="Kann nicht mit den Standard #include's übersetzen"
- irt_large="groß"
+ irt_compiling="das ï¿½bersetzen mit den Standard #include's"
+ irt_nocompiling="Kann nicht mit den Standard #include's ï¿½bersetzen"
+ irt_large="groï¿½"
  irt_is="ist"
- irt_boosting="Vergrößere auf"
+ irt_boosting="Vergrï¿½ï¿½ere auf"
  irt_novalue="kann den Wert nicht ermitteln"
  irt_endianness="Ermittle Byte-Reihenfolge"
  irt_endianbig="Big-Endian"
  irt_endianlittle="Little-Endian"
- irt_largefile="Zugriff auf große Dateien"
- irt_nolargefile="Nein.  Maximale Dategröße ist"
+ irt_largefile="Zugriff auf groï¿½e Dateien"
+ irt_nolargefile="Nein.  Maximale Dategrï¿½ï¿½e ist"
  irt_signedness="Ermittle den Vorzeichentyp von"
  irt_display_int64="die Ausgabe von 64bit definiert wird mit"
  irt_display_time="die Ausgabe von time_t definiert wird mit"
  irt_msssing1="fehlt"
  irt_msssing2="benutze Ersatz"
  irt_exists="existiert"
- irt_isneeded="benötigt wird"
- irt_notneeded="wird nicht benötigt"
- irt_needed="wird benötigt"
+ irt_isneeded="benï¿½tigt wird"
+ irt_notneeded="wird nicht benï¿½tigt"
+ irt_needed="wird benï¿½tigt"
  irt_nocrypt="kann crypt() weder mit noch ohne crypt.h finden"
  irt_nolcrypt="kannt weder mit noch ohne -lcrypt oder -lcrypto binden"
  irt_neither4="Keines"
- irt_for="für"
- irt_nopassword="kann keine Passwörter verschlüsseln"
+ irt_for="fï¿½r"
+ irt_nopassword="kann keine Passwï¿½rter verschlï¿½sseln"
  irt_nochroot="kann kein chroot() verwenden"
  irt_nosetuid="kann kein setuid() verwenden"
- irt_nogetgrouplist="Gruppen Rechte sind unvolstä#ndig bei setuid()"
+ irt_nogetgrouplist="Gruppen Rechte sind unvolstï¿½#ndig bei setuid()"
  irt_nosendfile="Kann sendfile() nicht benutzen"
  irt_nommap="Kann mmap() nicht benutzen"
  irt_creating="Erzeuge"
@@ -304,26 +304,26 @@ de*)
  irt_values="Werte"
  irt_nosi_code="Kann keinen 'si_code' ausgeben."
  irt_nowait="kann keinen Status von wait() ausgeben"
- irt_tos="TOS für IP sockets gesetzt werden kann"
+ irt_tos="TOS fï¿½r IP sockets gesetzt werden kann"
  irt_nogetaddrinfo="Benutze statt dessen gethostbyname()"
  irt_nogethostbyname="Kann Fehler nicht ausgeben"
  irt_nores_init="Kann res_init() nicht benutzen"
- irt_seeingif_lib="Prüfe ob"
+ irt_seeingif_lib="Prï¿½fe ob"
  irt_lib_exists="Bibliothek existiert"
  irt_geoip6="hat IPv6 Funktionen"
- irt_nogeoip6="Benutze GeoIP nicht für IPv6. Für diese Funktion musst du eine neuer Version von 'liblGeoIP' installieren"
- irt_nogeoip="Benutze GeoIP nicht. Für diese Funktion musst du 'liblGeoIP' installieren"
- irt_noupnp="Benutze UPNP nicht. Für diese Funktion musst du 'liblminiupnpc' installieren"
- irt_nocurl="Kein FETCH-Befehl. Für diese Funktion musst du 'libcurl' installieren"
+ irt_nogeoip6="Benutze GeoIP nicht fï¿½r IPv6. Fï¿½r diese Funktion musst du eine neuer Version von 'liblGeoIP' installieren"
+ irt_nogeoip="Benutze GeoIP nicht. Fï¿½r diese Funktion musst du 'liblGeoIP' installieren"
+ irt_noupnp="Benutze UPNP nicht. Fï¿½r diese Funktion musst du 'liblminiupnpc' installieren"
+ irt_nocurl="Kein FETCH-Befehl. Fï¿½r diese Funktion musst du 'libcurl' installieren"
  irt_curlssl="Hinweis: Deine 'libcurl' benutzt"
- irt_nossl="Benutze kein SSL. Für diese Funktion musst du 'OpenSSL' installieren"
- irt_notls="Benutze kein SSL. Für diese Funktion musst du 'GNU TLS' installieren"
+ irt_nossl="Benutze kein SSL. Fï¿½r diese Funktion musst du 'OpenSSL' installieren"
+ irt_notls="Benutze kein SSL. Fï¿½r diese Funktion musst du 'GNU TLS' installieren"
  irt_badssl1="Deine 'libcurl' benutzt"
  irt_badssl2="Bitte konfiguriere"
- irt_noruby="Kann die RUBY-Erweiterung nicht benutzen. Für diese Funktion musst du 'libruby'installieren"
- irt_make1="Zum Übersetzen jetzt"
+ irt_noruby="Kann die RUBY-Erweiterung nicht benutzen. Fï¿½r diese Funktion musst du 'libruby'installieren"
+ irt_make1="Zum ï¿½bersetzen jetzt"
  irt_make2="eingeben"
- irt_noerror="Keine Fehler oder Warnungen sollten beim Übersetzen auftreten. Falls doch ist das ein Fehler"
+ irt_noerror="Keine Fehler oder Warnungen sollten beim ï¿½bersetzen auftreten. Falls doch ist das ein Fehler"
  ;;
 *)
  irt_start="Configuring for"
@@ -409,7 +409,7 @@ de*)
  irt_nowait="won't report wait() status codes"
  irt_tos="TOS can be set for IP sockets"
  irt_nogetaddrinfo="will use gethostbyname() instead"
- irt_negetaddrinfo="utilisera gethostbyname à la place"
+ irt_negetaddrinfo="utilisera gethostbyname ï¿½ la place"
  irt_nogethostbyname="won't report error codes"
  irt_nores_init="won't use res_init()"
  irt_seeingif_lib="Seeing if"

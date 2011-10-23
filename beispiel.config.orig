@@ -1,0 +1,1566 @@
+##############################################################################
+##            iroffer 1.4.b03 mod dinoex Konfigurationsdatei                ##
+##     Zeilen die mit "#" beginnen oder leere Zeilen werden ignoriert.      ##
+##############################################################################
+
+# Version dieser Datei:
+#
+<<<<<<< HEAD
+# $Id: beispiel.config,v 1.212 2011/07/17 19:10:21 cvs Exp $
+=======
+# $Id$
+>>>>>>> a573948d0456f974fce0c26d9cba40449acb4106
+#
+
+##############################################################################
+##                                  FILES                                   ##
+##############################################################################
+
+##############################################################################
+###                             - pid file -                               ###
+### Schreibt die Prozess-ID beim Start in diese Datei                      ###
+pidfile mybot.pid
+
+##############################################################################
+###                             - log file -                               ###
+### logfile gibt die Logdatei für den Bot an.                              ###
+logfile mybot.log
+
+##############################################################################
+###                            - log rotate -                              ###
+### logrotate gibt den Zeitraum vor, nach dem die Logdatei gewechselt      ###
+### wird, mögliche Werte "none" (nie), "monthly" (monatlich),              ###
+### "weekly" (wöchentlich), "daily" (täglich) und 1-24 (stündlich).        ###
+logrotate weekly
+
+##############################################################################
+###                         - expire logfiles -                            ###
+### Nach den angegebenen tagen werden die alten Logdateien gelöscht.       ###
+### Es wir nur nach dem Logroate geprüft.                                  ###
+### Default: Es werden keine Logdateien gelöscht.                          ###
+#expire_logfiles 31
+
+##############################################################################
+###                            - log stats -                               ###
+### Ist logstats aktiviert so schreit der Bot statistische Informationen   ###
+### in die Logdatei und meldet diese auch an einen eventuell aktiven       ###
+### DCC-Chat. Mögliche Werte yes (ja) und no (nein).                       ###
+logstats yes
+
+##############################################################################
+###                             - state file -                             ###
+### Diese Datei dient als allgemeines Datenlager für die bereitgestellten  ###
+### Dateien und die dazugehörigen statistische Daten. Hier werden auch die ###
+### Beschreibungen der Pakete gespeichert.                                 ###
+statefile mybot.state
+
+##############################################################################
+###                          - old state file -                            ###
+### Kein Speicheren von unnötigen Daten im statefile im default.           ###
+### Diese Option schreibt ein zu alten Versionen passendes statefile.      ###
+### HINWEIS: Erforderlich für die PHP Webliste iroffer-state.php           ###
+###          Version 2.10 and kleiner.                                     ###
+#old_statefile
+
+##############################################################################
+###                          - send state file -                           ###
+### Sende das statefile jede Stunde per DCC an einen Nick.                 ###
+#send_statefile XDCC|statistik
+
+##############################################################################
+###                      - send state file minute -                        ###
+### sende das statefile zur angegeben Minute.                              ###
+#send_statefile_minute 0
+
+##############################################################################
+###                         - xdcc listing file -                          ###
+### In diese Datei wird ein vollständiges XDCC-Listing exportiert, um z.B. ###
+### als Packliste auf einer Webseite zu dienen, oder für andere Zwecke.    ###
+### Wenn xdcclistfileraw gesetzt ist, werden die IRC-Farbcode auch mit     ###
+### ausgegeben.                                                            ###
+xdcclistfile mybot.txt
+#xdcclistfileraw
+
+##############################################################################
+###                     - xdcc listing group only  -                       ###
+### Schreibt die Pakete ohne Gruppe und aller Gruppenbeschreibungen        ###
+### als Listing in die oben definierte Datei.                              ###
+### Sonst werden alle Pakete ohne jegliche Gruppeninformation ausgegeben.  ###
+#xdcclist_grouponly
+
+##############################################################################
+###                         - group seperator -                            ###
+### Zeichen zwischen Gruppe und der Beschreibung der Gruppe.               ###
+### Default: space                                                         ###
+#group_seperator " "
+group_seperator " - "
+
+##############################################################################
+###                         - dos text files -                             ###
+### Schreibe das xdcclistfile als DOS Text, mit CRLF als Zeilenumbruch.    ###
+### Default: no, auf CYGWIN Default: yes                                   ###
+#dos_text_files yes
+#dos_text_files no
+
+##############################################################################
+###                          - send listfile -                             ###
+### Nummer des Paketes mit dem xdcclistfile, aktiviert den Befehl:         ###
+### XDCC SEND LIST. Ein Wert von -1 sendet das xdcclistfile, ohne das dazu ###
+### ein Paket angelegt werden muss.                                        ###
+### Default: aus                                                           ###
+#send_listfile 1
+send_listfile -1
+
+##############################################################################
+###                           - xdcc xml file -                            ###
+### Exportiert die Packliste als einfache XML Datei.                       ###
+#xdccxmlfile mybot.xml
+
+##############################################################################
+###                              - charset -                               ###
+### Hier muss der Zeichensatz für die Dateinamen angegeben werden.         ###
+### Den Zeichnensatz auch in "header.html" anpassen.                       ###
+### Default: UTF-8                                                         ###
+#charset UTF-8
+#charset iso-8859-1
+
+##############################################################################
+###                      - xdcc list by privmsg  -                         ###
+### Sende die Ausgabe von XDCC LIST als "privmsg", normal als "notice".    ###
+#xdcclist_by_privmsg
+
+##############################################################################
+###                         - xdcc remove file -                           ###
+### Export der Daten für gelöschte Pakete für die Statistik.               ###
+#xdccremovefile mybot.removed.xdcc
+
+##############################################################################
+###                          - admin job file -                            ###
+### Liest Admin Befehle aus der Datei und arbeitet diese ab.               ###
+### Die Ausgabe und Fehler werden in <filename>.done geschrieben.          ###
+#admin_job_file mybot.job
+
+##############################################################################
+###                            - http port -                               ###
+### Port für den eingebauten Webserver.                                    ###
+### Default: 0 = disabled.                                                 ###
+#http_port 8000
+
+##############################################################################
+###                         - http access log -                            ###
+### Schreibe alle Zugriffe via HTTP im Format CLF in die angegebene Datei. ###
+### Default: kein Protokoll.                                               ###
+#http_access_log httpd_access.log
+
+##############################################################################
+###                            - http vhost -                              ###
+### Liste von bis zu zwei lokale IP-Adressen die der Webserver nutzen      ###
+### soll. z.B.: "::" oder "0.0.0.0" für alle IP-Adressen.                  ###
+### Oder z.B.: "::1" oder "127.0.0.1" um auf den Rechner zu begrenzen.     ###
+### Default: disabled.                                                     ###
+http_vhost ::
+http_vhost 0.0.0.0
+
+##############################################################################
+###                            - http admin -                              ###
+### Erlaube Verwaltung über den eingebauten Webserver.                     ###
+### Default: kein Login                                                    ###
+#http_admin superuser
+
+##############################################################################
+###                            - http allow -                              ###
+### Hiermit kann eingeschränkt werden, wer per HTTP auf den Bot zugreifen  ###
+### darf. Es können mehrere Masken angegeben werden.                       ###
+### Default: alle.                                                         ###
+#http_allow 127.0.0.1
+#http_allow 192.168.1.0/24
+
+##############################################################################
+###                            - http deny -                               ###
+### Hier kann man angeben, wer per HTTP auf den Bot nicht zugreifen darf.  ###
+### Es können mehrere Masken angegeben werden.                             ###
+### Default: keiner.                                                       ###
+#http_deny 172.16.0.0/24
+
+##############################################################################
+###                            - http dir -                                ###
+### Ein Verrzeichnis mit weiteren Dateien für den Webserver.               ###
+### Zum Beispiel für: robots.txt favicon.ico                               ###
+### Default: keins.                                                        ###
+#http_dir htdocs
+
+##############################################################################
+###                        - http admin dir -                              ###
+### Ein geschützttes Verrzeichnis mit weiteren Dateien für den Webserver.  ###
+### Nur der http_admin Benutzer kann daruaf zugreifen.                     ###
+### Default: keins.                                                        ###
+#http_admin_dir htadmin
+
+##############################################################################
+###                            - http date -                               ###
+### Legt die Ausgabe des Datum auf der Website fest.                       ###
+### Default: %d.%m.%Y %H:%M                                                ###
+#http_date %d.%m.%Y %H:%M
+
+##############################################################################
+###                            - http search -                             ###
+### Aktiviert den Suchen-Dialog auf der HTML Seite.                        ###
+### Default: ohne Suche                                                    ###
+http_search
+
+##############################################################################
+###                            - http index -                              ###
+### Definiert die Seite, die angezeigt wird wenn kein Dateiname in der     ###
+### URL angegebn wird.                                                     ###
+### Default: xdcclistfile                                                  ###
+### Webliste mit: http_index /?                                            ###
+### Statische Seite in htdocs mit: http_index /index.html                  ###
+#http_index /?
+
+##############################################################################
+###                          - http forbidden -                            ###
+### Definiert die Seite, die angezeigt wird wenn der Zugang nicht erlaubt  ###
+### ist. Die Seite muss als Datei in http_dir liegen.                      ###
+### Default: Sender nur die HTTP Fehlermeldung.                            ###
+#http_forbidden /forbidden.html
+
+##############################################################################
+###                            - http geoip -                              ###
+### Aktiviert die Prüfung des Landes mit der GeoIP Datenbank für HTTP.     ###
+### Default: keine Prüfung                                                 ###
+#http_geoip
+
+##############################################################################
+###                           - weblist info -                             ###
+### Zeige zusätliche Information auf den HTML Seiten.                      ###
+weblist_info uptime "Online"
+#weblist_info running "Summe Zeit"
+#weblist_info minspeed "Mindest-Rate"
+#weblist_info maxspeed "Maximale-Rate"
+weblist_info cap "Maximale Bandbreite"
+#weblist_info record "Rekord-Rate"
+#weblist_info send "Rekord-Download"
+weblist_info daily "Traffic heute"
+weblist_info weekly "Traffic diese Woche"
+weblist_info monthly "Traffic diesem Monat"
+
+##############################################################################
+###                            - mime type -                               ###
+### Lege zusätzliche Mime-Typen für die HTML Seiten fest.                  ###
+#mime_type torrent application/x-bittorrent
+
+##############################################################################
+###                           - telnet port -                              ###
+### Erlaube Verwaltung über den eingebauten Telnet Server.                 ###
+### Man kann sich erst einloggen wenn eine Zeile mit adminhost oder        ###
+### oder hadminhost und genau dem Wert "telnet!*@telnet" hinzugefügt ist.  ###
+### Default: 0 = disabled.                                                 ###
+#telnet_port 2323
+
+##############################################################################
+###                           - telnet vhost -                             ###
+### Liste von bis zu zwei lokale IP-Adressen die der Telnet Server nutzen  ###
+### soll. z.B.: "::" oder "0.0.0.0" für alle IP-Adressen.                  ###
+### Oder z.B.: "::1" oder "127.0.0.1" um auf den Rechner zu begrenzen.     ###
+### Default: disabled.                                                     ###
+telnet_vhost ::1
+telnet_vhost 127.0.0.1
+
+
+##############################################################################
+##                                   IRC                                    ##
+##############################################################################
+
+##############################################################################
+###                         - network name -                               ###
+### Beginne ein neue Gruppe von Server und Channels für ein anderes IRC    ###
+### Netzwerk.                                                              ###
+### Authentifizierung mit einem selbst erzeugten SSL Zertifikat:           ###
+### Siehe auch: http://www.oftc.net/oftc/NickServ/CertFP                   ###
+### Der Bot sucht nach der Datei "<networkname>.pem", in der das           ###
+### Zertifikat und der Schlüssel sein müssen. Wenn diese Datei nicht       ###
+### existiert, sucht er nach den Dateien "<networkname>.crt" und           ###
+### "<networkname>.key".                                                   ###
+### Das Zertifikat wird beim Verbindem mit dem Server übertragen.          ###
+#network irc.efnet.net
+
+##############################################################################
+###                          - connection method -                         ###
+### Wie Iroffer sich zum IRC-Server verbinden soll, möglich ist:           ###
+###  direct                     - verbindet direkt zum Server (Normalfall) ###
+###  ssl                        - verbindet über SSL zum Server.           ###
+###                               Denke daran, den passenden Port bei      ###
+###                               unter "server" einzustellen.             ###
+###  bnc <ip> <port> <password> <vhost>                                    ###
+###                             - verbindet zum IRC-Server über eine BNC   ###
+###                               verbinden über <ip>:<port> unter         ###
+###                               Verwendung von <password>                ###
+###                               <vhost> ist optional                     ###
+###  wingate <ip> <port>        - verbindet den Bot zum Server via einem   ###
+###                               Wingate Gateway an <ip>:<port>           ###
+###  custom <ip> <port>         - verbindet den Bot zum Server durch       ###
+###                               Abwendung benutzerdefiniert Kommandos    ###
+###                               mehr dazu weiter unten bei proxyinfo     ###
+### die meisten Leute werden im Normalfall "direct" benutzen               ###
+#connectionmethod direct
+
+##############################################################################
+###                       - custom connection info -                       ###
+### wenn "connectionmethod custom" verwendet wird, kann mittels proxyinfo  ###
+### die nötige Befehlszeile für die Verbindung mit dem Proxy/Gateway/etc   ###
+### angegeben werden, als Platzhalter für Server und Port sehen $s und $p  ###
+### zur Verfügung                                                          ###
+#proxyinfo connect $s:$p
+#proxyinfo blah blah
+
+##############################################################################
+###                       - server connect timeout -                       ###
+### Setze den Startwert für das Timeout in Sekunden für die Verbindung     ###
+### zum IRC-Server.                                                        ###
+### Dies ist nur je Netzwerk einstellbar.                                  ###
+### Default: 5                                                             ###
+#server_connect_timeout 10
+
+##############################################################################
+###                         - onjoin information -                         ###
+### Mittels server_join_raw, server_connected_raw und channel_join_raw     ###
+### können RAW-IRC-Commands an den Server zu verschiedenen Zeitpunkten     ###
+### während des Verbindungsaufbaus übergeben werden.                       ###
+### server_join_raw wird ausgeführt wenn NICK, USER gesendet, vor MODE     ###
+### server_connected wird ausgeführt wenn MODE gesendet, vor JOIN          ###
+### channel_join_raw wird ausgeführt wenn ein channel gejoint wird         ###
+### alle 3 Kommandos können mehrfach eingesetzt werden                     ###
+#server_join_raw
+#server_connected_raw
+#channel_join_raw
+
+##############################################################################
+###                            - virtual hosts -                           ###
+### Wenn der Computer/Server mehr als eine lokale IP-Adresse hat kann,     ###
+### mit local_vhost <ip> angegeben werden, welche genutzt werden soll.     ###
+### Wenn Iroffer selbst wählen soll, einfach Option deaktiviert belassen.  ###
+### Wichtig, es muss eine IP angegeben werden, kein Domainname!!!          ###
+### Global oder je Netzwerk einstellbar.                                   ###
+### Um die Verbindung auf IPv4 einzuschränken setze local_vhost 0.0.0.0    ###
+### Um die Verbindung auf IPv6 einzuschränken setze local_vhost ::         ###
+#local_vhost 123.456.789.123
+
+##############################################################################
+###                      - manual dcc ip translation -                     ###
+### Wenn du hinter einen Router mit NAT (Network Address Translation)      ###
+### bist der DCC Kommandos nicht umschreibt, sondern nur die ports an      ###
+### den Bot weiterleitet, muss hier die offizielle IP-Adressen eingetragen ###
+### werden. Wenn unklar ist ob dies zutrifft, benutze diese Option nicht.  ###
+### HINWEIS: Hier darf keine Name, sondern nur eine IP-Adresse im Format   ###
+###          x.x.x.x  eingetragen werden.                                  ###
+#usenatip 1.2.3.4
+
+##############################################################################
+###                      - automatic dcc ip translation -                  ###
+### Hole die IP-Adresse vom Server und verwende sie als Wert für usenatip. ###
+### Setze usenatip auf einen beliebigen Startwert (z.B.: 0.0.0.0) wenn     ###
+### diese Funktion benutzt werden soll. Sinnvoll für Bots die eine         ###
+### dynamische IP haben.                                                   ###
+#getipfromserver
+
+##############################################################################
+###                      - automatic dcc ip translation -                  ###
+### Hole die IP-Adresse vom UPnP-Router und verwende sie als Wert für      ###
+### usenatip. Setze usenatip auf einen beliebigen Startwert (z.B.: 0.0.0.0)###
+### wenn diese Funktion benutzt werden soll. Sinnvoll für Bots die eine    ###
+### dynamische IP haben.                                                   ###
+#getipfromupnp
+
+##############################################################################
+###                         - get ip from network -                        ###
+### Hole die IP-Adresse von einem anderen Netzwerk.                        ###
+### Nützlich ween ein Netzwerk nicht die IP Addresse liefert.              ###
+#getip_network 1
+
+##############################################################################
+###                             - noannounce -                             ###
+### Verhindere alle "Anoounces" in dem aktuellen Netzwerk.                 ###
+#noannounce
+
+##############################################################################
+###                             - plaintext -                              ###
+### Sende bei Announces in das Netzwerk keine Farben.                      ###
+#plaintext
+
+##############################################################################
+###                              - offline -                               ###
+### Verbine nicht zu diesem Netzwerk.                                      ###
+#offline
+
+##############################################################################
+###                             - nickserv -                               ###
+### Wenn der Nick gegen den NickServ registriert ist, kann hier das Pass-  ###
+### wort eingetragen werden, damit er sich beim joinen des Server von      ###
+### selbst identifiziert. Global oder je Netzwerk einstellbar.             ###
+#nickserv_pass mein_botnickpassword
+
+##############################################################################
+###                             - auth name -                              ###
+### Wenn das Netzwek keine NickServ hat, kann hier der Name des Services   ###
+### fuer den AUTH Befehl angegeben werden.                                 ###
+### Dies ist nur je Netzwerk einstellbar.                                  ###
+#auth_name Q@CServe.quakenet.org
+
+##############################################################################
+###                            - login name -                              ###
+### Wenn das Netzwek keine NickServ hat, kann hier der Name des Services   ###
+### fuer den LOGIN Befehl angegeben werden.                                ###
+### Dies ist nur je Netzwerk einstellbar.                                  ###
+#login_name X@channels.undernet.org
+
+##############################################################################
+###                         - server information -                         ###
+### Liste der Server und Ports im Aufbau: "server irc.domain.com 6667".    ###
+### Die Angabe des Ports ist optional, Standard ist 6667.                  ###
+### Mehrere Server können (und sollten) angegeben werden                   ###
+#server irc.efnet.net
+#server irc.efnet.net 6667
+#server irc.efnet.net 6667 server-password
+
+##############################################################################
+###                         - channels (bis zu 50) -                       ###
+### Channelformat:                                                         ###
+### "channel <channel> [-plist <time>] [-plistoffset <time>]               ###
+###    [-pformat <full|minimal|summary>] [-pgroup <group>] [-key <key>]    ###
+###    [-delay <time>] [-noannounce] [-joinmsg "text"] [-headline "text"]  ###
+###    [-fish <key>] [-listmsg "text"] [-rgroup "group1 group2"]           ###
+###    [-notrigger] [-plaintext] [-waitjoin <time>]                        ###
+### plist:       <time> Zeit in Minuten zwischen den Announcen.            ###
+###              Empfehlung: Vielfache oder gleiche Zeit für alle Channel. ###
+### plistoffset: <time> Zeit in Minuten nach der vollen Stunde.            ###
+### pformat:     "full" zeigt alle Packs auf dem Bot und ist Standard.     ###
+###              "minimal" stellt eine kleine Announce zusammen            ###
+###                        (ca. 5 Zeilen).                                 ###
+###              "summary" zeigt eine 2-Zeilen-Zusammenfassung an.         ###
+### pgroup:      zeigt nur Pakete dieser Gruppe an.                        ###
+### key:         Für Channel, die den Modus +k (Key) haben, definiert das  ###
+###              nötige Passwort für das Joinen des Channel.               ###
+### delay:       Verzögert alle Ausgaben im Channel um <time> Sekunden.    ###
+### noannounce:  Keine Announces in dem Channel.                           ###
+### joinmsg:     Beim Betreten des Channel wird <text> gesendet.           ###
+### headline:    <text> wird bei plist als Kopfzeile ausgegeben.           ###
+### fish:        Für verschlüsselte Channels, der <key> wird benutzt um    ###
+###              Verschlüselt die Meldungen auszugeben, und um die Trigger ###
+###              zu dekodieren.                                            ###
+### listmsg:     Der Text <text> wird beim "list" im Channel an den User   ###
+###              gesendet. Dies ersetzt respondtochannellistmsg.           ###
+### rgroup:      Users in diesen Channel können nur Packs aus den hier     ###
+###              angegebenen Gruppen oder der Hauptgruppe anfordern.       ###
+### notrigger:   Keine Trigger in dem Channel.                             ###
+### plaintext:   Sende bei Announces in dem Channel keine Farben.          ###
+### waitjoin:    Warte die angegebene Sekunden nach dem Connect ab, bevor  ###
+###              dieser Channel betreten wird.                             ###
+#channel #chan01
+#channel #chan02 -plist 14
+#channel #chan03 -plist 28 -pformat minimal
+#channel #chan04 -plist 14 -pformat summary -key thekey
+#channel #chan04 -plist 14 -pformat summary -headline "moving soon"
+#channel #chan04 -plist 14 -pformat summary -delay 60 -noannounce
+#channel #chan04 -plist 14 -pformat full -pgroup XXX
+#channel #chan04 -plist 14 -pformat full -joinmsg "!voiceme"
+#channel #chan04 -plist 14 -pformat full -fish geheim
+
+
+# 1. Netzwerk
+network euirc.net
+{
+server irc.euirc.net
+channel #anime-fansubs
+}
+
+# 2. Netzwerk
+network otakubox.at
+{
+server irc.otakubox.at 6667
+channel #dinoex -noannounce
+}
+
+##############################################################################
+###                           - wait after join -                          ###
+### Nach den Betreten eines Channels mach der Bot keine Announces für die  ###
+### amgegebene Zeit. Anderenfalls kann er rwgen join+spam gebannt werden.  ###
+### Default: 200 Sekunden.                                                 ###
+#waitafterjoin 200
+
+##############################################################################
+###                           - no auto rejoin -                           ###
+### Wenn der Bot aus den Channel gekickt wird, soll er nicht automatisch   ###
+### den Channel wieder betreten.                                           ###
+noautorejoin
+
+##############################################################################
+###                          - reconnect delay -                           ###
+### Nach Verbindungsverlust, warte noch für n Sekunden.                    ###
+#reconnect_delay 15
+
+##############################################################################
+###                          - user information -                          ###
+### user_nick definiert den Nicknamen des Bots                             ###
+### Global muss dieser gesetzt sein, kann je Netzwerk verändert werden.    ###
+### user_realname definiert den Text, den man mit /whois abfragen kann     ###
+user_nick XDCC|MyBot
+user_realname My Bot
+
+##############################################################################
+###                             - user mode -                              ###
+### user_modes definiert die Modi, die für den User gesetzt werden solln   ###
+### Global muss dieser gesetzt sein, kann je Netzwerk verändert werden.    ###
+### B Wir sind ein Bot.                                                    ###
+### i Unsichtbar für /WHO                                                  ###
+### Modes sind unterschiedlich ja nach IRC Netzwerk verfügbar.             ###
+### Bevor weitere Modes eingetragen werden, bitte in der Bechreibung desr  ###
+### IRC-Netzwerke nachsehen, welche Funktionen damit aktiviert werden.     ###
+user_modes +iB
+
+##############################################################################
+###                             - owner nick -                             ###
+### Nick der für den Bot verantwortlich ist. Antwort auf XDCC OWNER Befehl.###
+#owner_nick master
+
+##############################################################################
+###                           - watch this user -                          ###
+### Wenn der hier angegebene Benutzer nicht im Channel ist, werden keine   ###
+### weiteren "xdcc send" mehr angenommen. Laufenden Downloads laufen noch  ###
+### bis zum normalen Ende weiter.                                          ###
+#enable_nick master
+
+##############################################################################
+###                      - incoming TCP connections -                      ###
+### Wenn Iroffer hinter einer Firewall gestartet werden soll, und die mög- ###
+### lichkeit besteht, Ports zu öffnen bzw zu forwarden, kann mittels       ###
+### tcprangestart der erste Port des Bereiches für Iroffer angegeben       ###
+### werden. Die Menge nötiger Ports entspricht der maximalen Zahl Send-    ###
+### slots. Wenn nichts definiert ist, wählt das OS selbstständig die Ports ###
+### für eintreffende TCP-Verbindungen.                                     ###
+### Die Obergrenze der Ports kann man mit tcprangelimit festlegen.         ###
+#tcprangestart 4000
+#tcprangelimit 65535
+
+##############################################################################
+###                           - TCP buffer size -                          ###
+### Setzt den Netzwerkbuffer für TCP auf den angegebenen Wert in kByte.    ###
+### Default: 0 = das Betriebssystem optimiert.                             ###
+### Unter CYGWIN ist der Default 372                                       ###
+#tcp_buffer_size 372
+
+##############################################################################
+###                            - TCP no delay -                            ###
+### Schalte das Nagle-Verfahren zur Optimierung der TCP Pakete aus.        ###
+### Default: no, auf CYGWIN Default: yes                                   ###
+#tcp_nodelay no
+#tcp_nodelay yes
+
+##############################################################################
+###                       - override unix loginname -                      ###
+### Überschreibt den Unixlogin in der Ident, funktioniert nur ohne OIdent. ###
+#loginname fakelogin
+
+##############################################################################
+###                          -  passive dcc -                              ###
+### Alle Downloads werden als passives DCC gestartet.                      ###
+### HINWEIS: Alle user müssen eingehenden DCC Verbindungen zulassen.       ###
+### Default: Standard DCC                                                  ###
+#passive_dcc
+
+##############################################################################
+###                          -  mirc dcc64 -                               ###
+### Alle Übertragungen größer 4GB werden als mIRC 64bit DCC gestartet.     ###
+### HINWEIS: Damit funktioniert nur noch mIRC Version 6.33.                ###
+### HINWEIS: XChat, Irssi funktionieren nur mit 32bit DCC.                 ###
+### Default: 32bit DCC                                                     ###
+#mirc_dcc64
+
+##############################################################################
+###                          -  upnp router -                              ###
+### avtivate UPnP support.                                                 ###
+#upnp_router
+
+##############################################################################
+###                      - excluded from auto-ignore -                     ###
+### Diese Hostmasken (eine pro Zeile) werden nie ignoriert, egal ob sie    ###
+### Bot flooden oder nicht.                                                ###
+### Empfehlung: Chanserv und Nickserv sollten nie ignoriert werden.        ###
+#autoignore_exclude nickserv!nickserv@services.domain.com
+#autoignore_exclude chanserv!chanserv@services.domain.com
+autoignore_exclude *!SERVICES@EUIRC.NET
+autoignore_exclude *!*@services.otakubox.de
+autoignore_exclude *!*@services.otakubox.at
+
+##############################################################################
+###                        - auto-ignore threshold -                       ###
+### Wie aggressiv soll autoignore sein ? Mittels autoignore_threshold kann ###
+### angegeben werden, wie hoch die durchschnittliche Zeit zwischen zwei    ###
+### Mitteilungen an den Bot sein muss, ohne das ein Autoignore ausgelöst   ###
+### wird. Standard sind 10 Sekunden.                                       ###
+#autoignore_threshold 10
+
+
+##############################################################################
+##                                   xdcc                                   ##
+##############################################################################
+
+##############################################################################
+###                         - maximum xdcc slots -                         ###
+### Menge gleichzeitiger Dateiübertragungsverbindungen.                    ###
+slotsmax 20
+
+##############################################################################
+###                         - Queue Information -                          ###
+### Größe der Warteschlange, 0 bedeutet keine Warteschlange.               ###
+queuesize 10
+
+##############################################################################
+###                      - max transfers per person -                      ###
+### maximale Anzahl gleichzeitiger Übertragungen pro Person                ###
+maxtransfersperperson 1
+
+##############################################################################
+###                        - ignore duplicate ip -                         ###
+### Erkennt gefälschte Hostmasken und unterbindet damit das mehr Über-     ###
+### tragungen als erlaubt zum selben Host stattfinden. Beim Feststellen    ###
+### werden alle Transfers und Warteschlangeneinträge dieses Nicks          ###
+### abgebrochen/gelöscht und ein Ignore für <n> Std. aktiviert.            ###
+### Default: 0 == keine Prüfung.                                           ###
+#ignore_duplicate_ip 24
+
+##############################################################################
+###                     - max queued items per person -                    ###
+### Maximale Anzahl gleichzeitiger Warteschlangeneinträge                  ###
+maxqueueditemsperperson 1
+
+##############################################################################
+###                          - idle queue size -                           ###
+### Größe der Idle Warteschlange, 0 bedeutet keine Warteschlange.          ###
+### Diese Warteschlange ist für XDCC BACTH erforderlich.                   ###
+idlequeuesize 100
+
+##############################################################################
+###                 - max idle queued items per person -                   ###
+### Maximale Anzahl gleichzeitiger Warteschlangeneinträge                  ###
+maxidlequeuedperperson 20
+
+##############################################################################
+###                        - balanced_queue -                              ###
+### Wenn ein User einen Trasfer beendet, so wird der nächste Transfer      ###
+### von einem anderen User in der Warteschlange bevorzugt. Damit wird      ###
+### die vorhandene Bandbreite gelichmäiger verteilt.                       ###
+### Default: der älteste Eintrag                                           ###
+balanced_queue
+
+##############################################################################
+###                         - requeue_sends -                              ###
+### Beim "shutdown" des Bots werden laufenden Transfers abgebrochen. Ist   ###
+### diese Option aktivuert, werden die Transfers in die Queue gesichert.   ###
+### Damit können die Transfers beim Neustart des Bots weitergehen.         ###
+#requeue_sends
+
+##############################################################################
+###                          - send batch -                                ###
+### Erlaube XDCC BATCH. Die Pakete werden in die Warteschlangen eingefügt. ###
+### Default: nicht erlaubt                                                 ###
+send_batch
+
+##############################################################################
+###                            - holdqueue -                               ###
+### Behalte die Aufträge in der Queue, es werden keine neuen Downloads     ###
+### gestartet. Aktive Downloads laufen bis zum Ende. damit Kann der Bot    ###
+### für Updates sanft heruntergefahren werden.                             ###
+#holdqueue
+
+##############################################################################
+###                 - add/chfile command helper directory -                ###
+### Hier kann ein optionales Dateiverzeichnis angegeben werden, wo Iroffer ###
+### nach Dateien sucht, die mittels add/chfile hinzugefügt werden.         ###
+### Standardmäßig sucht Iroffer im Verzeichnis in dem es ausgeführt wird.  ###
+### Es können mehrerer Verzeichnisse angegeben werden.                     ###
+#filedir /home/me/files
+#c:\iroffer\files
+
+##############################################################################
+###                 - no duplicate files -                                 ###
+### Verhindert das eine Datei versehentlich mehrfach als Pack eingetragen  ###
+### wird.                                                                  ###
+noduplicatefiles
+
+##############################################################################
+###                   - no duplicate filenames -                           ###
+### Verhindert das eine Datei mit dem gleichen Namen versehentlich         ###
+### mehrfach als Pack eingetragen wird.                                    ###
+#no_duplicate_filenames
+
+##############################################################################
+###                     - include subdirs -                                ###
+### Wenn aktiviert, addir, addnew und removedir durchsucht auch die        ###
+### Unter-Verzeichnisse und verabeitete die Dateien darin.                 ###
+include_subdirs
+
+##############################################################################
+###                     - subdirs delayed -                                ###
+### Wenn aktiviert, iwerden bei addir, addnew und autoadd die Unter-       ###
+### Verzeichnisse später durchsucht. Damit bleibt der Bot auch bei großer  ###
+### Anzahl von Unter-Verzeichnissen reaktionsschnell.                      ###
+### Default: aus, Verzeichnisse werden sofort durchsucht.                  ###
+#subdirs_delayed
+
+##############################################################################
+###                     - remove lost files -                              ###
+### Wenn eine Datei auf dem Server gelöscht wird, wird die Datei vom Bot   ###
+### entfernt. Bitte vorsichtig einsetzten, falls man den Bot im falschen   ###
+### Verzeichnis startet, können alle Pakete entfernt werden.               ###
+#removelostfiles
+
+##############################################################################
+###                        - monitor files -                               ###
+### Überwache maximal n Datein pro Skeunde ib gelöscht oder geändert.      ###
+### Default: 20                                                            ###
+#monitor_files 20
+
+##############################################################################
+###                           - groups in caps -                           ###
+### Wenn gesetzt werden Gruppen immer in Großbuchstaben gewandelt.         ###
+#groupsincaps
+
+##############################################################################
+###                        - auto default group -                          ###
+### Beim Hinzufügen neuer Dateien, sucht der Bot nach Ähnlichen Namen und  ###
+### setzt das Paket in die gleiche Gruppe.                                 ###
+auto_default_group
+
+##############################################################################
+###                          - auto path group -                           ###
+### Beim Hinzufügen neuer Dateien, sucht der Bot nach gleiechen            ###
+### Verzeicnissen und setzt das Paket in die gleiche Gruppe.               ###
+auto_path_group
+
+##############################################################################
+###                        - auto crc check -                              ###
+### Beim Hinzufügen neuer Dateien wird die CRC32 Prüfsumme überprüft.      ###
+auto_crc_check
+
+##############################################################################
+###                   - crc exlcude pattern -                              ###
+### Liste von Dateien oder Mustern bei denen kein crc check gemacht wird.  ###
+autocrc_exclude *.torrent
+autocrc_exclude *.xdelta
+
+##############################################################################
+###                 - adddir exlcude pattern -                             ###
+### Liste von Dateien, Verzeichnissen oder Mustern die bei adddir, addnew  ###
+### und autoadd übersprungen werden sollen.                                ###
+adddir_exclude *.txt
+adddir_exclude *.md5
+
+##############################################################################
+###                   - adddir min size -                                  ###
+### Bei addir, adnew und autoadd werden Datein kleiner als die angegebene  ###
+### Größe in KB übersprungen.                                              ###
+### Default: keine Prüfung                                                 ###
+#adddir_min_size 10
+
+##############################################################################
+###                    - auto add announce -                               ###
+### Wenn aktiv, sende eine Nachricht bei jedem neuen Paket das auf dem Bot ###
+### hinzugefügt wird in jeden channel mit dem hier angegebenen Text.       ###
+#autoaddann neu hinzugekommen
+
+##############################################################################
+###                 - auto add announce short -                            ###
+### Wenn aktiv, sende eine Nachricht bei jedem neuen Paket das auf dem Bot ###
+## hinzugefügt wird in jeden channel mit Nummer und Name.                  ###
+#autoaddann_short
+
+##############################################################################
+###                       - announce seperator -                           ###
+### Zeichen zwischen Pack Nummer und Name beim Announce.                   ###
+### Default: space                                                         ###
+#announce_seperator " "
+announce_seperator " - "
+
+##############################################################################
+###                       - announce size -                                ###
+### Melde die Größe des Paks beim Announce.                                ###
+### Default: no                                                            ###
+#announce_size
+
+##############################################################################
+###                      - auto add time -                                 ###
+### Zeit in Sekunden nach der der Bot nach neuen Files im Verzeichnis      ###
+### autoadd_dir sucht. Standardwert 0 d.h. nicht aktiv.                    ###
+#autoadd_time 300
+
+##############################################################################
+###                      - auto add delay -                                ###
+### Zeit in Sekunden die eine Datei alt sein muss um als Paket aufgenommen ###
+### zu werden. Standardwert 0 d.h. nicht aktiv.                            ###
+#autoadd_delay 300
+
+##############################################################################
+###                       - auto add dir -                                 ###
+### Verzeichnis dessen Dateien automatisch als Pakete hinzugefügt werden.  ###
+### Dies passiert regelmäßig über die Konfiguraion "autoadd_time" oder     ###
+### mit den Befehl "AUTOADD" durch den Admin.                              ###
+### either by "autoadd_time" or by the "AUTOADD" command.                  ###
+### Es können mehrere Verzeichnisse angegeben werden.                      ###
+#autoadd_dir /home/me/new
+#autoadd_dir /home/other/new
+
+##############################################################################
+###                      - auto add group -                                ###
+### Gruppe für Pakete auf dem Verzeichnis autoadd_dir. Wenn nichts         ###
+### festgelegt wurde, so werden die Pakete in "MAIN" angelegt.             ###
+#autoadd_group NEWSTUFF
+
+##############################################################################
+###                    - autoadd_group match -                             ###
+### Gruppen für Pakete auf dem Verzeichnis autoadd_dir abhängig vom dem    ###
+### Namen der Datei mit Pfad wird das Paket der Gruppe zugewiesen.         ###
+#autoadd_group_match NEWVIDEO *.avi
+#autoadd_group_match NEWMUSIC *.mp3
+
+##############################################################################
+###                      - auto add color -                                ###
+### Setze Farbe für Pakete auf dem Verzeichnis autoadd_dir.                ###
+### Default keine Farbe.                                                   ###
+### Format: <farbe>,<hintergrund>,<style>                                  ###
+### values for farbe, hintergrund:                                         ###
+###     0 keine Farbe                                                      ###
+###     1 Schwarz                                                          ###
+###     2 Blau                                                             ###
+###     3 Grün                                                             ###
+###     4 Rot                                                              ###
+###     5 Braun                                                            ###
+###     6 Violett                                                          ###
+###     7 Orange                                                           ###
+###     8 Gelb                                                             ###
+###     9 Hellgrün                                                         ###
+###    10 Cyan                                                             ###
+###    11 Hellcyan                                                         ###
+###    12 Hellblau                                                         ###
+###    13 Purpur                                                           ###
+###    14 Grau                                                             ###
+###    15 Hellgrau                                                         ###
+###    16 Weiße                                                            ###
+###                                                                        ###
+###  values for style:                                                     ###
+###     0 = kein                                                           ###
+###     1 = Fett                                                           ###
+###     2 = Unterstichen                                                   ###
+###     4 = Kursiv                                                         ###
+###     8 = Invertiert                                                     ###
+###                                                                        ###
+#autoadd_color 0,0,1
+
+##############################################################################
+###                   - announce suffix color -                            ###
+### Setze Farbe für die Downloadhilfe in der Announce-Nachricht.           ###
+### Damit wird der Text "/MSG <botname> XDCC GET <nr>" in Farbe angezeigt. ###
+### Default keine Farbe.                                                   ###
+#announce_suffix_color 0,0,1
+
+##############################################################################
+###                      - auto add sort -                                 ###
+### Wenn konfiguriert, werden alle neuen Pakete sortiert einggefügt.       ###
+### Die existierende Pakete müssen bereits passend sortiert sein.          ###
+### Die Reihenfolge kann durch mehrerer Argumente fetgelegt werden:        ###
+### NAME = nach dem Dateinamen,               -NAME = rückwärts sortieren  ###
+### DESC = nach der Beschreibung,             -DESC = rückwärts sortieren  ###
+### GROUP = nach der Gruppe                   -GROUP = rückwärts sortieren ###
+### PATH = nach dem Verzeichnis,              -PATH = rückwärts sortieren  ###
+### SIZE = nach der Größe in Bytes,           -SIZE = rückwärts sortieren  ###
+### TIME = nach dem Datum der Datei,          -TIME = rückwärts sortieren  ###
+### ADDED = nach dem Datum des Hinzufügens    -ADDED = rückwärts sortieren ###
+#autoadd_sort GROUP NAME
+
+##############################################################################
+###                     - no natural sort -                                ###
+### Wenn konfiguriert, werden alle Texte nach ASCII sortiert.              ###
+### Default: natürlliche sortierenung.                                     ###
+#no_natural_sort
+
+##############################################################################
+###                  - restrict xdcc list and xdcc send -                  ###
+### Wenn restrictlist gesetzt wird, kann xdcc list und xdcc info nur von   ###
+### jemanden ausgeführt werden, der sich auch im channel befindet.         ###
+### Wenn restrictprivlist gesetzt wird, kann der bot nicht mehr via xdcc   ###
+### list gelistet werden, und gibt, falls es jemand versucht, die mit      ###
+### restrictprivlistmsg gesetzte Mitteilung aus.                           ###
+### restrictsend bedeutet das nur wer im Channel ist, Dateien vom Bot      ###
+### empfangen kann, sobald er ihn verlässt, wird der Send abgebrochen.     ###
+### restrictsend, restrictlist sind global oder je Netzwerk einstellbar.   ###
+#restrictlist
+#restrictprivlist
+#restrictprivlistmsg Wait for public list in the channel.
+#restrictsend
+
+##############################################################################
+###                      - restrictsend warning -                          ###
+### Wenn gesetzt, wird der User gewarnt, wenn er/sie den Channel verlässt. ###
+#restrictsend_warning
+
+##############################################################################
+###                      - restrictsend timeout -                          ###
+### Timeout in Sekunden. Nach dieser Zeit wird der Transfer abgebrochen.   ###
+#restrictsend_timeout 300
+
+##############################################################################
+###                       - restrictsend delay -                           ###
+### Zeit in Sekunden nach einem Connect in der kein Test auf               ###
+###  restrictsend stattfindet.                                             ###
+#restrictsend_delay 300
+
+##############################################################################
+###                      - restrictprivlistmain -                          ###
+### Wenn gesetzt wird "xdcc list" ohne Angabe einer Gruppe abgewiesen.     ###
+### Das Listen einer einzelnen Gruppe bleibt aber möglich.                 ###
+#restrictprivlistmain
+
+##############################################################################
+###                      - restrictprivlistfull -                          ###
+### Wenn gesetzt wird "dcc list all" abgewiesen.                           ###
+#restrictprivlistfull
+
+##############################################################################
+###                       - remove_dead_users -                            ###
+### Wenn der Bot einen Nick nicht mehr erreichen kann:                     ###
+### Wert ungleich 0, weitere Nachrichten and den Nick werden gelöscht.     ###
+### Wert gleich 2, alle Packs in den Warteschalngen werden entfernt.       ###
+### Default: 0, keine Aktion.                                              ###
+#remove_dead_users 2
+
+##############################################################################
+###                         - need voice -                                 ###
+### Nur ein user der in einem der Channels den Status voice oder besser    ###
+### hat (+v Vor Dem Nickname), kann ein "xdcc list" oder "xdcc send"       ###
+### ausführen.                                                             ###
+### Voraussetzung ist, das restrictlist und restrictsend gesetzt ist!      ###
+### Global oder je Netzwerk einstellbar.                                   ###
+#need_voice
+
+##############################################################################
+###                         - need level -                                 ###
+### Nur ein User der in einem der Channels den Status voice oder besser    ###
+### hat (+v Vor Dem Nickname), kann ein "xdcc list" oder "xdcc send"       ###
+### ausführen.                                                             ###
+### Voraussetzung ist, das restrictlist und restrictsend gesetzt ist!      ###
+### Global oder je Netzwerk einstellbar.                                   ###
+### 0 = alle User                                                          ###
+### 1 = nur User mit voice,hop,op                                          ###
+### 2 = nur User mit hop,op                                                ###
+### 3 = nur User mit op                                                    ###
+#need_level 1
+
+##############################################################################
+###                      - channel xdcc commands -                         ###
+### Wenn respondtochannelxdcc gesetzt ist, reagiert der Bot auf Kommandos  ###
+### die in den Channel gepostet werden.
+#respondtochannelxdcc
+
+##############################################################################
+###                      - channel !list command -                         ###
+### Wenn respondtochannellist gesetzt wird, reagiert der bot auf !list     ###
+### im Channel geschrieben.                                                ###
+### Global oder je Netzwerk einstellbar.                                   ###
+respondtochannellist
+
+##############################################################################
+###                      - channel !list text -                            ###
+### Text der in die Antwort auf das !list im channel eingebaut wird.       ###
+### Global oder je Netzwerk einstellbar.                                   ###
+#respondtochannellistmsg packlist at http://www.examle.com/
+
+##############################################################################
+###                      - slow slow_privmsg -                             ###
+### Begrenze PRIVMSG auf 1 Zeile alle n Sekunden. Damit verhindert man das ###
+### der Bot ein Flooding auslöst.                                          ###
+### Nur per Netzwerk einstellbar.                                          ###
+### Default: 1                                                             ###
+#slow_privmsg 1
+
+##############################################################################
+###                          - privmsg  fish -                             ###
+### Wenn gesetzt, werden alle Nachrichten mit diesem Schlüssel dekodiert.  ###
+#privmsg_fish secret
+
+##############################################################################
+###                           - fish only -                                ###
+### Wenn gesetzt, werden unverschlüsselte Trigger in channels mit FISH     ###
+### Verschlüsselung ignoriert.                                             ###
+#fish_only
+
+##############################################################################
+###                         - privmsg encrypt -                            ###
+### Wenn gesetzt, werden alle NOTICE and PRIVMSG verschlüsselt.            ###
+#privmsg_encrypt
+
+##############################################################################
+###                       - fish exclude nick -                            ###
+### Nachrichten an diese Nicks werden nicht verschlüsselt.                 ###
+#fish_exclude_nick nickserv
+
+##############################################################################
+###                      - channel @find command -                         ###
+### Antwortet auf den Befehl "@find begriff" im Channel geschrieben.       ###
+### Der Begriff muss mindestens <n> Zeichen lang sein. Er darf folgende    ###
+### Jokerzeichen enthalten:                                                ###
+###  * = 0 oder mehr Zeichen,  ? = 1 Zeichen,  # = jede positive Zahl      ###
+### Bei n = 0 ist diese Funktion abgeschaltet.                             ###
+atfind 3
+
+##############################################################################
+###                         - no find trigger -                            ###
+### Iroffer reagiert auf "!find" as Trigger wenn atfind angegeben ist.     ###
+### Mit diesem Schalter wird der Bot "!find" nicht beachten.               ###
+### Standard: Reaktion auf "!find".                                        ###
+#no_find_trigger
+
+##############################################################################
+###                           - new trigger -                              ###
+### Antwortet auf den Befehl "!new" im Channel geschrieben.                ###
+### Als Antwort gibe es die <n> zuletzt hinzugefügten Pakete.              ###
+### Bei n = 0 ist diese Funktion abgeschaltet.                             ###
+#new_trigger 3
+
+##############################################################################
+###                             - max find -                               ###
+### Begrenze die Ausgabe von @find und XDCC SREACH Befehlen.               ###
+### Standard: 0 = unbegrenzt.                                              ###
+#max_find 100
+
+##############################################################################
+###                   - bypass queue for small files -                     ###
+### Wenn jemand eine Datei anfordert, die kleiner oder gleich dem          ###
+### definierten Wert (in KB) entspricht, wird diese unabhängig von der     ###
+### Slotseinstellung gesendet.
+#smallfilebypass 0
+
+##############################################################################
+###                      - spaces in filenames -                           ###
+### Erlaube Leerzeichen in Dateinamen beim DCC Transfer                    ###
+### Default: Leerzeichen werden in '_' gewandelt.                          ###
+#spaces_in_filenames
+
+##############################################################################
+###                      - authorized download hosts -                     ###
+### Hiermit kann eingeschränkt werden, wer vom Bot downloaden darf. Ange-  ###
+### geben werden Hostmasken. Um allen den Download zu erlauben, einfach    ###
+### *!*@* als Hostmask einsetzen.                                          ###
+### Jokerzeichen sind:                                                     ###
+###  * = 0 oder mehr Zeichen,  ? = 1 Zeichen,  # = jede positive Zahl      ###
+downloadhost *!*@*
+#downloadhost *!~me@*.domain.com
+#downloadhost *!me@192.168.10.#
+
+##############################################################################
+###                       - blacklist download hosts -                     ###
+### Hier kann man angeben, wer den Bot nicht benutzen darf.                ###
+### Merfache Zeilen sind erlaubt.                                          ###
+### Jokerzeichen sind:                                                     ###
+###  * = 0 oder mehr Zeichen,  ? = 1 Zeichen,  # = jede positive Zahl      ###
+#nodownloadhost *!~me@*.domain.com
+
+##############################################################################
+###                      - unlimited download hosts -                      ###
+### Nicks and Hostnames die hierzu passen, können ohne Beschränkung der    ###
+### Bandbreite übertragen.                                                 ###
+#unlimitedhost XDCC|*!*@*
+
+##############################################################################
+###                            - xdcc allow -                              ###
+### Hiermit kann eingeschränkt werden, wer per DCC vom Bot laden darf.     ###
+### Es können mehrere Masken angegeben werden.                             ###
+### Default: alle.                                                         ###
+#xdcc_allow 127.0.0.1
+#xdcc_allow 192.168.1.0/24
+
+##############################################################################
+###                            - xdcc deny -                               ###
+### Hier kann man angeben, wer nicht per DCC vom Bot laden darf.           ###
+### Es können mehrere Masken angegeben werden.                             ###
+### Default: keiner.                                                       ###
+#xdcc_deny 172.16.0.0/24
+
+##############################################################################
+###                      - geoip country check -                           ###
+### Verhindere Downloads zu hier nicht angegebenen Ländern.                ###
+### Wenn konfiguriert ist nogeoipcountry nicht nutzbar.                    ###
+#geoipcountry de
+#geoipcountry ch
+#geoipcountry at
+
+##############################################################################
+###                      - geoip country check -                           ###
+### Verhindere Downloads zu hier angegebenen Ländern.                      ###
+### Wenn konfiguriert ist der Zugriff für alle anderen Länder erlaubt,     ###
+### und geoipcountry ist nicht nutzbar.                                    ###
+#nogeoipcountry jp
+
+##############################################################################
+###                      - geoip exclude nick -                            ###
+### Erlaube den Download für diese Nicks, auch wenn geoip ein falsches     ###
+### Land ausgibt.                                                          ###
+#geoipexcludenick aoluser
+
+##############################################################################
+###                      - geoip exclude group -                           ###
+### Erlaube den Download für Packs in dieser Gruppe, auch wenn geoip ein   ###
+### falsches Land ausgibt.                                                 ###
+#geoipexcludegroup FREE
+
+##############################################################################
+###                        - geoip database -                              ###
+### Definiere eine andere Datenbankdatei für IPv4.                         ###
+### Wenn du keine Datenbank hast kannst, du dieses hier herunterladen:     ###
+### http://www.maxmind.com/app/geolitecountry                              ###
+#geoipdatabase /usr/local/share/GeoIP/GeoIP.dat
+#geoipdatabase GeoIP.dat
+
+##############################################################################
+###                       - geoip6 database -                              ###
+### Definiere die Datenbankdatei für IPv6.                                 ###
+### Wenn du keine Datenbank hast kannst, du dieses hier herunterladen:     ###
+### http://www.maxmind.com/app/geolitecountry                              ###
+### Default: keine Prüfung bei IPv6.                                       ###
+#geoip6database GeoIPv6.dat
+
+
+##############################################################################
+##                               Network Usage                              ##
+##############################################################################
+
+##############################################################################
+###                      - Allow with low bandwidth -                      ###
+### Wenn Pakete in der Warteschlange sind, und der Verbrauch der Band-     ###
+### breite den vorgegebenen Wert unterschreitet, wird ein zusätzlicher     ###
+### Send gestartet für einen Nutzer aus der Warteschlange.                 ###
+### Achtung, Wert nicht unsinnig niedrig oder hoch setzten!
+#lowbdwth 15
+
+##############################################################################
+###                         - transfer min speed -                         ###
+### Mindestgeschwindigkeit beim Downloaden, sonst wird der Download abge-  ###
+### brochen.                                                               ###
+#transferminspeed 10
+
+##############################################################################
+###                         - transfer max speed -                         ###
+### Maximalgeschwindigkeit beim Downloaden, sonst wird künstlich gebremst. ###
+#transfermaxspeed 50
+
+##############################################################################
+###                        - bandwidth limiting -                          ###
+### Zur Begrenzung von Traffic und um die Verstopfung der Internet-        ###
+### Anbindung zu vermeiden, sollte man hier Grenzwerte in KB/sec           ###
+### festlegen, die der Bot für Downloads maximal benutzen darf.            ###
+### Nomerlerweise gilt der Wert von overallmaxspeed, man kann einen        ###
+### zweiten Wert bei overallmaxspeeddayspeed setzen, der nur für ein       ###
+### bestimmtes Zeitfenster gilt. Anfang und Ende in Stunden (0 bis 23)     ###
+### wird mit overallmaxspeeddaytime festgelegt. Dies ist an den            ###
+### mit overallmaxspeeddaydays angageben Wochentagen:                      ###
+### M=Monatg, T=Dienstag, W=Mittwoch, R=Donnerstag, F=Freitag,             ###
+### S=Samstag, U=Sonnatg.                                                  ###
+#overallmaxspeed 300
+#overallmaxspeeddayspeed 100
+#overallmaxspeeddaytime 9 17
+#overallmaxspeeddaydays MTWRF
+
+##############################################################################
+###                    - daily/weekly/monthly limits -                     ###
+### Das maimale Übertragunsvolumen (Traffic) kann jeweils für den Tag,     ###
+### die Woche und/oder den Monat festgelegt werden. Ein Wert von 0         ###
+### schaltet die Überwachung ab.                                           ###
+### Wird das angegbenen Limit erreicht, so werden alle Downloads sofort    ###
+### abgebrochen, und die Warteschlange geleert.                            ###
+### Das Tageslimit beginnt neu um Mitternacht,                             ###
+### das Wochenlimit am Sonntag Morgen.                                     ###
+###                                                                        ###
+### transferlimits <MB am Tag> <MB in der Woche> <MB im Monat>             ###
+###                                                                        ###
+### BEISPIEL: 'transferlimits 200' setzt die Grenze auf 200MB am Tag.      ###
+###                                                                        ###
+### BEISPIEL: 'transferlimits 0 0 5000' setzt die Grenze auf 5000MB im     ###
+###            Monat.                                                      ###
+###                                                                        ###
+### BEISPIEL: 'transferlimits 200 1200 5000' setzt die Grenzen auf         ###
+###           5000MB im Monat, 1200MB die Woche und 200MB am Tag.          ###
+#transferlimits 200 1200 5000
+
+##############################################################################
+###                           - start of month -                           ###
+### Lege den Tag im Monat fest, zu dem der monatliche Traffic neu beginnt. ###
+### Normalerweise der 1. Tag des Monats.                                   ###
+### Dieser Wert wird erst ausgewertet wenn der alte Monat abgelaufen ist.  ###
+#start_of_month 1
+
+##############################################################################
+###                       - ignore upload bandwidth -                      ###
+### Ignoriert den Traffic der beim Upload von Dateien entsteht.            ###
+### Sonst werden die Downloads bei schnellen Uploads abgebrochen.          ###
+ignoreuploadbandwidth
+
+##############################################################################
+###                         - extend status line -                         ###
+### Erweitert die Status-Zeile um Upload und Download Bandbreite.          ###
+extend_status_line
+
+##############################################################################
+###                        - status time dcc chat -                        ###
+### Zeit in Sekunden bis zur nächsten Ausgabe der Status-Zeile im DCC Chat.###
+### Default: 120                                                           ###
+#status_time_dcc_chat 120
+
+##############################################################################
+###                          - no status chat -                            ###
+### Wenn aktivert, meldet der Bot keine Status-Zeile im Chat.              ###
+#no_status_chat
+
+##############################################################################
+###                           - no status log -                            ###
+### Wenn aktivert, meldet der Bot keine Status-Zeile in der Log-Datei.     ###
+#no_status_log
+
+##############################################################################
+###                           - no auto rehsh -                            ###
+### Wenn aktivert, wird der Bot bei einer Änderung an einer Konfiguraions- ###
+### datei automatsich einen REHASH durchführen.                            ###
+### Default: automatsicher REHASH.                                         ###
+#no_auto_rehash
+
+
+##############################################################################
+##                                   Other                                  ##
+##############################################################################
+
+##############################################################################
+###                          - autosend feature -                          ###
+### Wenn autosendpack gesetzt wird, schickt bei der Bot sobald ein         ###
+### Schlüsselwort im Channel aufkommt, das definierte Pack an die Person.  ###
+### Es wird auf das Erste passende Wort reagiert.                          ###
+### Die Mitteilung kann auch weggelassen werden.                           ###
+###           === DIE MEISTEN WERDEN DIES NICHT BENÖTIGEN! ===             ###
+###         === HOLT EUCH ERST VOM CHANNEL OP DIE ERLAUBNIS! ===           ###
+#autosendpack <packnr> <schlüsselwort> <mitteilung>
+#autosendpack 1 !rules Hier sind die Regeln.
+#autosendpack 2 !faq hier ist die FAQ.
+
+##############################################################################
+###                             - headline -                               ###
+### Überschrift für alle XDCC-Lists                                        ###
+#headline New Stuff Just Added!!
+
+##############################################################################
+###                           - credit line -                              ###
+### Fußnote für alle XDCC-Lists                                            ###
+#creditline Brought to you by me
+
+##############################################################################
+###                     - download completed msg -                         ###
+### Nachricht am Ende des Transfers.                                       ###
+#download_completed_msg Please visit http://exmaple.com/
+
+##############################################################################
+###                             - hide_list_info -                         ###
+### Zeigt die Zeile "/msg nick xdcc info #x" beim announce nicht an, wenn  ###
+### gesetzt.                                                               ###
+#hide_list_info
+
+##############################################################################
+###                             - hide_list_stop -                         ###
+### Zeigt die Zeile "/msg nick xdcc stop" beim announce nicht an, wenn     ###
+### gesetzt.                                                               ###
+#hide_list_stop
+
+##############################################################################
+###                             - show list all -                          ###
+### Zeigt die Zeile "/msg nick xdcc list all" beim announce an.            ###
+#show_list_all
+
+##############################################################################
+###                            - disablexdccinfo -                         ###
+### Wenn gesetzt, schaltet es den Befehl "xdcc info" aus.                  ###
+#disablexdccinfo
+
+##############################################################################
+###                            - hidelockedpacks -                         ###
+### Wenn gesetzt, werden gesperrte Pakete bei "xdcc list" oder             ###
+### "xdcc info" Anfragen nicht angezeigt.                                  ###
+#hidelockedpacks
+
+##############################################################################
+###                            - show date added -                         ###
+### Zeige das Datum, an dem das Paket hinzugefügt wurde, bei XDCC LIST an. ###
+#show_date_added
+
+##############################################################################
+###                        - show group of pack -                          ###
+### Zeige zu allen Paketen auch die Gruppe bei XDCC LIST an.               ###
+### Default Ausgabe ohne die Gruppe                                        ###
+#show_group_of_pack
+
+##############################################################################
+###                         - index bot notify -                           ###
+### Wenn iroffer periodisch jemanden eine Mitteilung schicken soll für     ###
+### Indizierungszwecke oder anderen bedarf, kann perdidocmsg verwendet     ###
+### werden:                                                                ###
+### "periodicmsg <nick> <zeit in min> <mitteilung>                         ###
+### Nur per Netzwerk einstellbar. Mehrere Zeilen pro Netzwerk möglich.     ###
+#periodicmsg nick 10 index me
+
+##############################################################################
+###                        - remote admin info -                           ###
+### Die Admin Befehle können nur von jemanden ausgeführt werden, dessen    ###
+### hostmaske auf die Vorgabe passt, und der das nötige Kennwort kennt.    ###
+### Diese Kommandos können entweder via DCC-Chat oder aber via             ###
+### /msg <botnick> admin <adminpass> <kommando> ausgeführt werden.         ###
+### adminhost benötigt eine komplette hostmask im Aufbau nick!ident@host   ###
+### Falls kein identd benutzt wird, nicht vergessen ein "~" hinzuzufügen.  ###
+### Jokerzeichen sind:                                                     ###
+###  * = 0 oder mehr Zeichen,  ? = 1 Zeichen,  # = jede positive Zahl      ###
+### Aus Sicherheitsgründen wird das Adminpasswort verschlüsselt in der     ###
+### Konfigurationsdatei hinterlegt. Um ein Password zu generieren, bitte   ###
+### Iroffer mit Option "-c" ausführen und den Instruktionen folgen.        ###
+#adminpass add_your_encrypted_password_here
+#adminhost *!~me@*.domain.com
+#adminhost *!me@192.168.10.#
+#adminhost telnet!*@telnet
+
+##############################################################################
+###                       - remote admin level -                           ###
+### Beschränke die Admin Befehle per DCC-Chat oder '/msg'.                 ###
+### 1 = Nur Information und Statistken                                     ###
+### 2 = Sperren und Freigeben von Packs                                    ###
+### 3 = Hinzufügen und Ändern von Packs                                    ###
+### 4 = Löschen von Packs                                                  ###
+### 5 = Vollzugriff, auch Umbenennen und Löschen von Dateien               ###
+### Default: 5                                                             ###
+#adminlevel 4
+
+##############################################################################
+###                     - remote half admin info -                         ###
+### Die Helfer Befehle können nur von jemanden ausgeführt werden, dessen   ###
+### hostmaske auf die Vorgabe passt, und der das nötige Kennwort kennt.    ###
+### Diese Kommandos können entweder via DCC-Chat oder aber via             ###
+### /msg <botnick> admin <hadminpass> <kommando> ausgeführt werden.        ###
+### Aus Sicherheitsgründen wird das Passwort verschlüsselt in der          ###
+### Konfigurationsdatei hinterlegt.                                        ###
+### Der Helfer kann Packs Sperren oder Freigeben.                          ###
+### <hadminhost> darf sich nicht mit <adminhost> überlappen.               ###
+#hadminpass add_your_encrypted_password_here
+#hadminhost *!~me@*.domain.com
+#hadminhost *!me@192.168.10.#
+#hadminhost telnet!*@telnet
+
+##############################################################################
+###                     - remote half admin level -                        ###
+### Beschränke die Helfer Befehle per DCC-Chat oder '/msg'.                ###
+### Werte siehe adminlevel                                                 ###
+### Default: 2                                                             ###
+#hadminlevel 3
+
+##############################################################################
+###                        - remote group admin -                          ###
+### Die Gruppen Befehle können nur von jemanden ausgeführt werden, dessen  ###
+### hostmaske auf die Vorgabe passt, und der das nötige Kennwort kennt.    ###
+##ä Seine Rechte sind außerdem über den Level eingeschränkt.               ###
+### group_admin <level> <hostmask> <encrypted_password> <grouplist>        ###
+### Bei Bedarf kann man nach der Gruppenliste noch ein Uploadir angeben.   ###
+### Die <hostmask> gilt dann auch als <uploadhost>.                        ###
+### Die <hostmask> darf sich nicht mit <adminhost> oder <hadminhost>       ###
+### überlappen.                                                            ###
+#group_admin 3 *!~me@*.domain.com encrypted_password GROUP1,GROUP2
+
+##############################################################################
+###                       -  passive dcc xchat -                           ###
+### Erlaube allen Admins auch passiven DCC Chat zu verwenden.              ###
+### Default: Aus. Admins müssen den Chat vom Bot über den Befehl:          ###
+### "/MSG bot ADMIN password CHATME" anfordern.                            ###
+#passive_dcc_chat
+
+##############################################################################
+###                          - upload directory -                          ###
+### Soll der Bot DCC-Uploads akzeptieren, müssen hier die Uploadhosts,     ###
+### ein Uploadverzeichnis und die maximale Größe in MB für einen Upload    ###
+### definiert werden (0 entspricht keinem Limit bei der Uploadgröße).      ###
+### Jokerzeichen sind:                                                     ###
+###  * = 0 oder mehr Zeichen,  ? = 1 Zeichen,  # = jede positive Zahl      ###
+### ACHTUNG!! Für das Uploaden sollte ein eigenes Verzeichnis angelegt     ###
+### ACHTUNG!! werden, um überschreiben bzw. erweitern wichtiger Dateien zu ###
+### ACHTUNG!! verhindern, bzw Missbrauch und Explolits nicht zu ermöglichen###
+#uploadhost *!~me@*.domain.com
+#uploadhost *!me@192.168.10.#
+#uploaddir /home/me/upload
+#uploaddir c:\iroffer\upload
+#uploadmaxsize 10
+
+##############################################################################
+###                          - upload min space -                          ###
+### Prüfe vor dem Upload auf freien Platz auf der Disk (MBytes).           ###
+#uploadminspace 10
+
+##############################################################################
+###                             - disk quota -                             ###
+### Prüfe den genutzten Platz auf der Disk (MBytes). Neue Pakete werden    ###
+### nicht hinzugefügt, wenn diese Summe erreicht wird.                     ###
+#disk_quota 1000
+
+##############################################################################
+###                             - max uploads -                            ###
+### nur maximal n Uploads gleichzeitig zulassen.                           ###
+### Default: keine Beschränkung.                                           ###
+max_uploads 3
+
+##############################################################################
+###                             - max upspeed -                            ###
+### Hier wird die Bandbreite von Uploads auf maximal n KB/sec begrenzt.    ###
+### Default: keine Beschränkung.                                           ###
+max_upspeed 1000
+
+##############################################################################
+###                          - hide OS information -                       ###
+### Wenn Iroffer in den Versionsangaben und in seine Quitmitteilung nicht  ###
+### das Betriebssystem nennen soll, dann bitte diese Option anstellen.     ###
+#hideos
+
+##############################################################################
+###                        - log notices/messages -                        ###
+### Wenn aktiviert, zeichnet Iroffer alle Notices und/oder Messages im dem ###
+### Nachichtenspeicher auf, dieser kann vom Admin über Chat ausgelesen und ###
+### gelöscht werden.                                                       ###
+#lognotices
+logmessages
+
+##############################################################################
+###                      - logfile notices/messages -                      ###
+### Wenn aktiviert, zeichnet Iroffer alle Notices und/oder Messages im dem ###
+### angegebenen Logfile auf.                                               ###
+#logfile_notices notice.log
+#logfile_messages
+
+##############################################################################
+###                            - logfile httpd -                           ###
+### Wenn aktiviert, zeichnet Iroffer alle Meldungen zum HTTP Server in dem ###
+### angegebenen Logfile auf.                                               ###
+#logfile_httpd httpd_error.log
+
+##############################################################################
+###                          - log exclude host -                          ###
+### Nachrichten von diesen Hostmasks werden nicht in die Logfiles          ###
+### geschrieben oder im Bot gespeichert.                                   ###
+#log_exclude_host SpamScanner!scanner@euirc.net
+#log_exclude_host Defender!Defender@security.otakubox.de
+
+#############################################################################
+###                          - log exclude text -                          ###
+### Nachrichten mit diesem Inhalt werden nicht in den Logfiles             ###
+### geschrieben oder im Bot gespeichert.                                   ###
+### Jokerzeichen sind erlaubt:                                             ###
+###  * = 0 oder mehr Zeichen,  ? = 1 Zeichen,  [0-9] = jede Ziffer         ###
+#log_exclude_text LAG
+#log_exclude_text TIME
+
+##############################################################################
+###                           - timestamp console -                        ###
+### Wenn definiert, setzt Iroffer eine Zeitmarke in der Konsole            ###
+#timestampconsole
+
+##############################################################################
+###                             - quiet mode -                             ###
+### Wenn definiert, unterdrückt Iroffer die meisten Info Meldungen         ###
+### Keine Statistik Nachrich am ende des Transfers.                        ###
+### Keine DCC SEND Erinnerungs-Nachrichen.                                 ###
+### Keine automatischen Nachrichen über die Position in den Warteschlangen.###
+#quietmode
+
+##############################################################################
+###                       - periodic notify time -                         ###
+### Legt fest, wie regelmäßig Iroffer Nutzer über aktuelle Platzierung in  ###
+### der Warteschlange informiert bzw über die verbrauchte Bandbreite.      ###
+### Standard ist 5 min, um es vollständig zu deaktivieren, setzt man es    ###
+### auf 0.                                                                 ###
+#notifytime 5
+
+##############################################################################
+###                         - punish slow users -                          ###
+### Wenn ein Nutzer unter den Minimaldownloadspeed fällt, wird er bestraft ###
+### indem seine Downloads abgebrochen werden und er aus der Warteschlange  ###
+### entfernt wird. Durch diese Option kann er noch zusätzlich um die       ###
+### definierte Zeit (in min) vom Bot ignoriert werden.                     ###
+#punishslowusers 10
+
+##############################################################################
+###                        - no minspeed on free -                         ###
+### Ignoriere minspeed solang noch Solts frei sind.                        ###
+no_minspeed_on_free
+
+##############################################################################
+###                      - disable md5sum of files -                       ###
+### Standardmässig berechnet Iroffer für alle angebotenen Dateien die MD5- ###
+### Prüfsumme. Zum Abstellen ist diese Option zu setzen.                   ###
+### nomd5sum schaltet alle Prüfsummen aus, auch crc32.                     ###
+#nomd5sum
+
+##############################################################################
+###                      - disable crc32 of files -                        ###
+### Standardmäßig berechnet Iroffer für alle angebotenen Dateien die       ###
+### CRC32 Prüfsumme. Zum Abstellen  ist diese Option zu setzen.            ###
+#nocrc32
+
+##############################################################################
+###                           - verbose crc32 -                            ###
+### Standardmässig meldet iroffer beim Hinzufügen von Paketen nur Fehler   ###
+### beim Vergleichen der Checksumme. Wenn diese Option gesetzt isst, so    ###
+### meldet iroffer die Prüfsumme bei allen Dateien.                        ###
+#verbose_crc32
+
+##############################################################################
+###                        - direct file access -                          ###
+### Erlaube dem Admin Dateien auf der Festplatte zu verändern.             ###
+### Dies ist für den Download mit dem Befehl FETCH erfoderlich.            ###
+#direct_file_access
+
+##############################################################################
+###                        - direct config access -                        ###
+### Erlaube dem Admin die Konfiguration zu ändern.                         ###
+#direct_config_access
+
+##############################################################################
+###                           - trashcan dir -                             ###
+### Dateien werden nicht gelöscht, sondern in dieses Verzeichnis           ###
+### verschoben.                                                            ###
+### Default: Lösche die Files von dem Laufwerk.                            ###
+#trashcan_dir /home/me/trashcan
+
+##############################################################################
+###                      - fileremove max packs -                          ###
+### Maximale Zahl der Pakete auf diesem Bot. Wenn mehr Pakete hinzugefügt  ###
+### werden, so werden die ältesten von der Festplatte gelöscht.            ###
+### Default: 0 = keine Aktion.                                             ###
+#fileremove_max_packs 10
+
+##############################################################################
+###                           - ruby script -                              ###
+### Rufe diese Ruby Skript auf, wenn der Bot eine Zeile vom IRC-Server     ###
+### bekommt.                                                               ###
+#ruby_script "ruby-helper.rb"
+
+##############################################################################
+###                           - dump all -                                 ###
+### Wenn definiert werden alle Konfigurations-Varaiablen beim DUMP         ###
+### ausgegeben.                                                            ###
+### Default werden nur die geänderten Werte ausgegeben.                    ###
+#dump_all
+
+##############################################################################
+###                             - debug -                                  ###
+### Zeige zusätzliche Ausgaben auf der Console.                            ###
+### Default: 0 == keine                                                    ###
+#debug 3
+
+##############################################################################
+##                                    End                                   ##
+##############################################################################
+

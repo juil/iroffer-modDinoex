@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_misc.h,v 1.134 2011/10/22 21:20:55 cvs Exp $
+ * $Id$
  *
  */
 
@@ -57,8 +57,6 @@ const char *get_grouplist_channel(const char *dest);
 unsigned int verify_cidr(irlist_t *list, const ir_sockaddr_union_t *remote);
 
 void add_newest_xdcc(irlist_t *list, const char *grouplist);
-
-unsigned int select_starting_transfer(unsigned int max);
 
 char *color_text(char *desc, unsigned int color);
 char *xd_color_description(const xdcc *xd);
