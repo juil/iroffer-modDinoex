@@ -83,23 +83,38 @@ Index: README.modDinoex
 ===================================================================
 RCS file: /usr/home/public/iroffer/README.modDinoex,v
 retrieving revision 1.871
-retrieving revision 1.873
-diff -u -r1.871 -r1.873
+retrieving revision 1.874
+diff -u -r1.871 -r1.874
 --- README.modDinoex	7 Aug 2011 13:56:47 -0000	1.871
-+++ README.modDinoex	22 Oct 2011 21:20:55 -0000	1.873
++++ README.modDinoex	22 Oct 2011 21:23:36 -0000	1.874
 @@ -1,5 +1,12 @@
  Aktuelle Version auf: http://iroffer.dinoex.net/
  
 +With Version 3.28:
 +------------------
 +
-+bugfix: http_port
++bugfix: http_port (reported by sheppert)
 +  versions affected: 3.23 - 3.27
 +  In field 'slotsfree' of the weblist was the value of 'slotsused' displayed.
 +
  With Version 3.27:
  ------------------
  
+Index: THANKS
+===================================================================
+RCS file: /usr/home/public/iroffer/THANKS,v
+retrieving revision 1.380
+retrieving revision 1.381
+diff -u -r1.380 -r1.381
+--- THANKS	31 Jul 2011 04:58:02 -0000	1.380
++++ THANKS	22 Oct 2011 21:23:36 -0000	1.381
+@@ -740,3 +740,6 @@
+ Thom
+ 	suggesting "server_connect_timeout"
+ 
++sheppert
++	reporting "slotsfree" bug
++
 Index: header.html
 ===================================================================
 RCS file: /usr/home/public/iroffer/header.html,v
@@ -247,16 +262,16 @@ Index: src/dinoex_misc.c
 ===================================================================
 RCS file: /usr/home/public/iroffer/src/dinoex_misc.c,v
 retrieving revision 1.338
-retrieving revision 1.339
-diff -u -r1.338 -r1.339
+retrieving revision 1.340
+diff -u -r1.338 -r1.340
 --- src/dinoex_misc.c	12 Jul 2011 19:17:54 -0000	1.338
-+++ src/dinoex_misc.c	22 Oct 2011 21:20:55 -0000	1.339
++++ src/dinoex_misc.c	23 Oct 2011 08:36:39 -0000	1.340
 @@ -9,7 +9,7 @@
   * If you received this file without documentation, it can be
   * downloaded from http://iroffer.dinoex.net/
   *
 - * $Id: dinoex_misc.c,v 1.338 2011/07/12 19:17:54 cvs Exp $
-+ * $Id: dinoex_misc.c,v 1.339 2011/10/22 21:20:55 cvs Exp $
++ * $Id: dinoex_misc.c,v 1.340 2011/10/23 08:36:39 cvs Exp $
   *
   */
  
@@ -280,20 +295,39 @@ diff -u -r1.338 -r1.339
  /* ckeck if we have any pack with a group */
  void set_support_groups(void)
  {
+@@ -900,18 +913,6 @@
+   *best = old;
+ }
+ 
+-/* select a transfer to start with */
+-unsigned int select_starting_transfer(unsigned int max)
+-{
+-  unsigned int t;
+-
+-  t = gdata.cursendptr;
+-  if (++t > max)
+-    t = 0;
+-  gdata.cursendptr = t;
+-  return t;
+-}
+-
+ static const char *style_on[ 16 ] = {
+   /* 0 =*/ "", /* NOTRANSLATE */
+   /* 1 =*/ IRC_BOLD,
 Index: src/dinoex_misc.h
 ===================================================================
 RCS file: /usr/home/public/iroffer/src/dinoex_misc.h,v
 retrieving revision 1.133
-retrieving revision 1.134
-diff -u -r1.133 -r1.134
+retrieving revision 1.135
+diff -u -r1.133 -r1.135
 --- src/dinoex_misc.h	12 Jul 2011 19:17:54 -0000	1.133
-+++ src/dinoex_misc.h	22 Oct 2011 21:20:55 -0000	1.134
++++ src/dinoex_misc.h	23 Oct 2011 08:36:39 -0000	1.135
 @@ -9,7 +9,7 @@
   * If you received this file without documentation, it can be
   * downloaded from http://iroffer.dinoex.net/
   *
 - * $Id: dinoex_misc.h,v 1.133 2011/07/12 19:17:54 cvs Exp $
-+ * $Id: dinoex_misc.h,v 1.134 2011/10/22 21:20:55 cvs Exp $
++ * $Id: dinoex_misc.h,v 1.135 2011/10/23 08:36:39 cvs Exp $
   *
   */
  
@@ -305,6 +339,60 @@ diff -u -r1.133 -r1.134
  
  void set_support_groups(void);
  unsigned long get_next_transfer_time(void);
+@@ -57,8 +58,6 @@
+ 
+ void add_newest_xdcc(irlist_t *list, const char *grouplist);
+ 
+-unsigned int select_starting_transfer(unsigned int max);
+-
+ char *color_text(char *desc, unsigned int color);
+ char *xd_color_description(const xdcc *xd);
+ 
+Index: src/dinoex_transfer.c
+===================================================================
+RCS file: /usr/home/public/iroffer/src/dinoex_transfer.c,v
+retrieving revision 1.60
+retrieving revision 1.62
+diff -u -r1.60 -r1.62
+--- src/dinoex_transfer.c	10 Jun 2011 05:43:05 -0000	1.60
++++ src/dinoex_transfer.c	23 Oct 2011 08:43:43 -0000	1.62
+@@ -9,7 +9,7 @@
+  * If you received this file without documentation, it can be
+  * downloaded from http://iroffer.dinoex.net/
+  *
+- * $Id: dinoex_transfer.c,v 1.60 2011/06/10 05:43:05 cvs Exp $
++ * $Id: dinoex_transfer.c,v 1.62 2011/10/23 08:43:43 cvs Exp $
+  *
+  */
+ 
+@@ -599,6 +599,18 @@
+   return highests;
+ }
+ 
++/* select a transfer to start with */
++static unsigned int select_starting_transfer(void)
++{
++  unsigned int t;
++
++  t = gdata.cursendptr;
++  if (++t >= irlist_size(&gdata.trans))
++    t = 0;
++  gdata.cursendptr = t;
++  return ++t;
++}
++
+ /* handle transfer ip events */
+ void t_perform(int changesec, int changequartersec)
+ {
+@@ -622,7 +634,7 @@
+     }
+   }
+ 
+-  i = j = select_starting_transfer(irlist_size(&gdata.trans));
++  i = j = select_starting_transfer();
+ 
+   /* first: do from cur to end */
+   for (tr = irlist_get_nth(&gdata.trans, i);
 Index: src/dinoex_user.c
 ===================================================================
 RCS file: /usr/home/public/iroffer/src/dinoex_user.c,v
