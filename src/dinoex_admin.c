@@ -954,6 +954,14 @@ static void a_cancel_transfers(xdcc *xd, const char *msg)
   }
 }
 
+static void write_files_changed(void)
+{
+  write_files();
+#ifdef USE_RUBY
+  do_myruby_packlist();
+#endif /* USE_RUBY */
+}
+
 static unsigned int a_remove_pack(const userinput * const u, xdcc *xd, unsigned int num)
 {
   char *tmpdesc;
@@ -996,7 +1004,7 @@ static unsigned int a_remove_pack(const userinput * const u, xdcc *xd, unsigned 
 
   set_support_groups();
   autotrigger_rebuild();
-  write_files();
+  write_files_changed();
   return 0;
 }
 
@@ -1328,6 +1336,9 @@ void a_autoaddann(xdcc * UNUSED(xd), unsigned int pack)
   do_myruby_added(xd->file, pack);
 #endif /* USE_RUBY */
 
+  if (no_verifyshell(&gdata.autoaddann_mask, getfilename(xd->file)))
+    return;
+
   if (gdata.autoaddann_short)
     a_make_announce("SANNOUNCE", pack); /* NOTRANSLATE */
 
@@ -1550,7 +1561,7 @@ static xdcc *a_add2(const userinput * const u, const char *group)
   set_support_groups();
   xd->color = a_get_color(gdata.autoadd_color);
   ++(xd->announce);
-  write_files();
+  write_files_changed();
   return xd;
 }
 
@@ -2301,7 +2312,7 @@ void a_renumber3(const userinput * const u)
     }
   }
 
-  write_files();
+  write_files_changed();
 }
 
 void a_sort(const userinput * const u)
@@ -2332,7 +2343,7 @@ void a_sort(const userinput * const u)
     a_sort_insert(xdo, k);
   }
 
-  write_files();
+  write_files_changed();
 }
 
 int a_open_file(char **file, int mode)
@@ -2435,8 +2446,7 @@ static void a_adddir_sub(const userinput * const u, const char *thedir, DIR *d, 
     if (f == NULL)
       break;
 
-    if (verifyshell(&gdata.adddir_exclude, f->d_name))
-    {
+    if (verifyshell(&gdata.adddir_exclude, f->d_name)) {
       if (gdata.debug > 0)
         a_respond(u, "  Ignoring adddir_exclude file: %s", f->d_name);
       continue;
@@ -2484,6 +2494,13 @@ static void a_adddir_sub(const userinput * const u, const char *thedir, DIR *d, 
         mydelete(tempstr);
         continue;
       }
+    }
+
+    if (no_verifyshell(&gdata.adddir_match, f->d_name)) {
+      if (gdata.debug > 0)
+        a_respond(u, "  Ignoring adddir_match file: %s", f->d_name);
+      mydelete(tempstr);
+      continue;
     }
 
     if (check_bad_filename(f->d_name)) {
@@ -2767,7 +2784,7 @@ void a_chdesc(const userinput * const u)
 
   mydelete(xd->desc);
   xd->desc = mystrdup(newdesc);
-  write_files();
+  write_files_changed();
 }
 
 void a_chnote(const userinput * const u)
@@ -2794,7 +2811,7 @@ void a_chnote(const userinput * const u)
     clean_quotes(u->arg2e);
     xd->note = mystrdup(u->arg2e);
   }
-  write_files();
+  write_files_changed();
 }
 
 void a_chtime(const userinput * const u)
@@ -3203,7 +3220,7 @@ void a_lock(const userinput * const u)
     xd->lock = mystrdup(pass);
   }
 
-  write_files();
+  write_files_changed();
 }
 
 void a_unlock(const userinput * const u)
@@ -3233,7 +3250,7 @@ void a_unlock(const userinput * const u)
     xd->lock = NULL;
   }
 
-  write_files();
+  write_files_changed();
 }
 
 void a_lockgroup(const userinput * const u)
@@ -3265,7 +3282,7 @@ void a_lockgroup(const userinput * const u)
     mydelete(xd->lock);
     xd->lock = mystrdup(u->arg2);
   }
-  write_files();
+  write_files_changed();
 }
 
 void a_unlockgroup(const userinput * const u)
@@ -3293,7 +3310,7 @@ void a_unlockgroup(const userinput * const u)
     mydelete(xd->lock);
     xd->lock = NULL;
   }
-  write_files();
+  write_files_changed();
 }
 
 void a_relock(const userinput * const u)
@@ -3324,7 +3341,7 @@ void a_relock(const userinput * const u)
     a_respond(u, "%s: [Pack %u] Password: %s", "LOCK", n, u->arg2);
     xd->lock = mystrdup(u->arg2);
   }
-  write_files();
+  write_files_changed();
 }
 
 void a_groupdesc(const userinput * const u)
@@ -3605,7 +3622,7 @@ void a_chfile(const userinput * const u)
     return;
 
   a_chfile_sub(u, xd, num, file, &st);
-  write_files();
+  write_files_changed();
 }
 
 static unsigned int a_newdir_check(const userinput * const u, const char *dir1, const char *dir2, xdcc *xd)
@@ -3704,7 +3721,7 @@ void a_newdir(const userinput * const u)
   a_respond(u, "%s: %u Packs found", u->cmd, found);
 
   if (found > 0)
-    write_files();
+    write_files_changed();
 }
 
 static void a_target_file(char **file2, const char *file1)
@@ -3866,7 +3883,7 @@ void a_movegroupdir(const userinput * const u)
   mydelete(tempstr);
   mydelete(thedir);
   if (foundit > 0)
-    write_files();
+    write_files_changed();
 }
 
 void a_filedel(const userinput * const u)
@@ -4822,6 +4839,8 @@ void a_nomd5(const userinput * const u)
 void a_cleargets(const userinput * const u)
 {
   xdcc *xd;
+
+  backup_statefile();
 
   for (xd = irlist_get_head(&gdata.xdccs);
        xd;

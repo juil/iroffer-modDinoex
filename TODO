@@ -1,9 +1,7 @@
 [Iroffer.dinoex.de]
 Feature #38 xdcc command to export the crc32/md5 as sumfile
 Feature #70 command for saving the "running" config
-Feature #89 limit autoaddan to file that matches a given mask
 Feature #114: Support for compressing the rotated logfiles
-Feature #118: Add ability to whitelist certain filetypes for adddir
 
 [Iroffer.org]
 
@@ -164,6 +162,7 @@ Long Term Features:
   1592  old announce message
   1593  announce pack-1
   1595  vitual packs, relayed to an other bot
+  1597  status trigger instaled of CTCP
 
 Not going to happen anytime soon:
   1001  need voice seperate for each channel

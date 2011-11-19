@@ -86,3 +86,6 @@ z.sh
 
 ## to hinder the import of a .cvsignore file
 .cvsignore
+
+## hinder the import of kdiff3 backup files
+*.orig

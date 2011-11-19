@@ -561,6 +561,7 @@ CreeW
 	reporting "REHASH" bug
 	suggesting "IQSEND"
 	suggesting "respondtochannellist" per network
+	suggesting "on_packlist"
 
 [M]-V
 	reporting ADDDIR spaces bug
@@ -582,6 +583,7 @@ Aashiqmunda
 	reporting "XDCC BATCH" bug
 	reporting "BATCH" crash
 	suggesting "DCLD" with IP/country
+	suggesting "autoaddann_mask"
 
 SellKony
 	reporting CONFIG crash
@@ -650,6 +652,7 @@ Loke_AF
 	suggesting "ignore_duplicate_ip"
 	suggesting "RMALLQ"
 	reporting uneven transfer bug
+	suggesting "extend_status_line" with SrvQ
 
 Nouhime
 	reporting "http_search" bug.
