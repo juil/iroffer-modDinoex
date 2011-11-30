@@ -5,6 +5,7 @@ Ab Version 3.28:
 
 bugfix: http_port 
   Reduziere die Last beim Senden über HTTP.
+  Reduziere die Last beim Senden �ber HTTP.
 
 bugfix: max_upspeed
   Wenn ein Upload "max_upspeed" erreichte, lief der Bot mit 100% CPU Last.
@@ -22,6 +23,7 @@ bugfix: max_upspeed
 
 386) CLEARRECORDS, CLEARGETS
   Erstelle ein Backup des "statefiles" vor dem Löschen.
+  Erstelle ein Backup des "statefiles" vor dem L�schen.
 
 385) ruby_script
   Neue Methode "on_packlist", wird aufgerufen wen der Inhalt der Paket-Liste sich ge�ndert hat.
