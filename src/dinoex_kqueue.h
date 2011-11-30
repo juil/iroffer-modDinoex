@@ -9,7 +9,7 @@
  * If you received this file without documentation, it can be
  * downloaded from http://iroffer.dinoex.net/
  *
- * $Id: dinoex_kqueue.h,v 1.2 2011/11/26 13:55:51 cvs Exp $
+ * $Id$
  *
  */
 
