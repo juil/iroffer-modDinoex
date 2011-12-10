@@ -10,7 +10,7 @@ RELEASE=0
 if [ $RELEASE -eq 1 ]; then
  VERSIONLONG="$VERSION"
 else
- VERSIONLONG="$VERSION Beta10"
+ VERSIONLONG="$VERSION Beta14"
 fi
 
 msg2()

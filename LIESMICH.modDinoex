@@ -10,7 +10,6 @@ bugfix: upnp_router
   Update for libminiupnpc 1.6
 
 bugfix: http_port 
-  Reduziere die Last beim Senden über HTTP.
   Reduziere die Last beim Senden �ber HTTP.
 
 bugfix: max_upspeed
@@ -28,7 +27,6 @@ Configure -kqueue
   gefunden werden sollen.
 
 386) CLEARRECORDS, CLEARGETS
-  Erstelle ein Backup des "statefiles" vor dem Löschen.
   Erstelle ein Backup des "statefiles" vor dem L�schen.
 
 385) ruby_script

@@ -1,0 +1,183 @@
+<!-- Creator     : groff version 1.19.2 -->
+<!-- CreationDate: Tue Nov  1 21:12:04 2011 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p     { margin-top: 0; margin-bottom: 0; }
+       pre   { margin-top: 0; margin-bottom: 0; }
+       table { margin-top: 0; margin-bottom: 0; }
+</style>
+<title>XDCC</title>
+
+</head>
+<body>
+
+<h1 align=center>XDCC</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#COMMANDS">COMMANDS</a><br>
+<a href="#SEE ALSO">SEE ALSO</a><br>
+
+<hr>
+
+
+<a name="NAME"></a>
+<h2>NAME</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">XDCC
+usercommands</p>
+
+<a name="SYNOPSIS"></a>
+<h2>SYNOPSIS</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>XDCC &lt;
+command &gt; [ args ]</b></p>
+
+<a name="DESCRIPTION"></a>
+<h2>DESCRIPTION</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>XDCC</b> The
+user can inteact with the bot on the following commands.</p>
+
+<a name="COMMANDS"></a>
+<h2>COMMANDS</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>XDCC
+HELP</b></p>
+
+<p style="margin-left:22%;"><i>/MSG mybot XDCC HELP</i>
+<br>
+Shows the supported user commands on the bot mybot</p>
+
+<p style="margin-left:11%;"><b>XDCC LIST</b></p>
+
+<p style="margin-left:22%;"><i>/MSG mybot XDCC LIST <br>
+/MSG mybot XDCC LIST group <br>
+/MSG mybot XDCC LIST ALL</i> <br>
+Starts a listing of packs from the bot mybot.</p>
+
+<p style="margin-left:11%;"><b>XDCC STOP</b></p>
+
+<p style="margin-left:22%;"><i>/MSG mybot XDCC STOP</i>
+<br>
+Stops the listing from bot mybot.</p>
+
+<p style="margin-left:11%;"><b>XDCC SEND LIST</b></p>
+
+<p style="margin-left:22%;"><i>/MSG mybot XDCC SEND LIST
+<br>
+/MSG mybot XDCC GET LIST</i> <br>
+Sends the list of all packages from the bot mybot via DCC
+filetransfer.</p>
+
+<p style="margin-left:11%;"><b>XDCC SEARCH</b></p>
+
+<p style="margin-left:22%;"><i>/MSG mybot XDCC SEARCH
+pattern</i> <br>
+Prints out the first packs matching the pattern found on the
+bot mybot.</p>
+
+<p style="margin-left:11%;"><b>XDCC INFO</b></p>
+
+<p style="margin-left:22%;"><i>/MSG mybot XDCC INFO
+pack</i> <br>
+Prints out details date of Pack number pack found on the bot
+mybot. <br>
+Here you see the computed CRC32 and md5sum of this pack.</p>
+
+<p style="margin-left:11%;"><b>XDCC SEND</b></p>
+
+<p style="margin-left:22%;"><i>/MSG mybot XDCC SEND pack
+<br>
+/MSG mybot XDCC SEND pack password <br>
+/MSG mybot XDCC GET pack <br>
+/MSG mybot XDCC GET pack password</i> <br>
+Request a download of pack number pack on the bot mybot.
+<br>
+If the pack is protected by password you have to add it
+here.</p>
+
+<p style="margin-left:11%;"><b>XDCC BATCH</b></p>
+
+<p style="margin-left:22%;"><i>/MSG mybot XDCC BATCH group
+<br>
+/MSG mybot XDCC BATCH group password</i> <br>
+Request a download of a series of packs matching group group
+on the bot mybot.</p>
+
+<p style="margin-left:22%; margin-top: 1em"><i>/MSG mybot
+XDCC BATCH pack1-pack2 <br>
+/MSG mybot XDCC BATCH pack1-pack2 password</i> <br>
+Request a download of a series of packs from number pack1 to
+number pack2 on the bot mybot.</p>
+
+<p style="margin-left:22%; margin-top: 1em"><i>/MSG mybot
+XDCC BATCH pack1,pack2 <br>
+/MSG mybot XDCC BATCH pack1,pack2 password</i> <br>
+Request a download of a list of individual packs pack1 and
+pack2 on the bot mybot.</p>
+
+<p style="margin-left:22%; margin-top: 1em">All this
+patterns can be used together. <br>
+If the pack is protected by password you have to add it
+here.</p>
+
+<p style="margin-left:11%;"><b>XDCC QUEUE</b></p>
+
+<p style="margin-left:22%;"><i>/MSG mybot XDCC QUEUE</i>
+<br>
+Shows the queued packs and the estimated time you have to
+wait.</p>
+
+<p style="margin-left:11%;"><b>XDCC REMOVE</b></p>
+
+<p style="margin-left:22%;"><i>/MSG mybot XDCC REMOVE</i>
+<br>
+Remove all the queued packs requested on bot mybot.</p>
+
+<p style="margin-left:22%; margin-top: 1em"><i>/MSG mybot
+XDCC REMOVE pack</i> <br>
+Remove the queued packs with pack number pack on bot
+mybot.</p>
+
+<p style="margin-left:11%;"><b>XDCC CANCEL</b></p>
+
+<p style="margin-left:22%;"><i>/MSG mybot XDCC CANCEL</i>
+<br>
+Cancel a running transfer on bot mybot.</p>
+
+<a name="SEE ALSO"></a>
+<h2>SEE ALSO</h2>
+
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>/usr/share/doc/iroffer</b></p>
+
+<p style="margin-left:22%;">Please look for more detailed
+information in this directory.</p>
+
+
+<p style="margin-left:11%;"><b>http://iroffer.dinoex.net/</b></p>
+
+<p style="margin-left:22%;">Downloads and
+Documentation.</p>
+
+
+<p style="margin-left:11%;"><b>http://iroffer.dinoex.de/projects/show/iroffer</b></p>
+
+<p style="margin-left:22%;">Projectpage with Tracker and
+RSS feed.</p>
+<hr>
+</body>
+</html>
