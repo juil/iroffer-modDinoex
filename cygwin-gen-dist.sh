@@ -21,6 +21,12 @@ rm -f a.zip
 # Activer les options
 ./Configure -tls -geoip -upnp -ruby -debug
 make clean
+if test ! -f doc/iroffer.1.txt
+then
+	# generate ASCII files
+	make doc
+	./update-en.sh
+fi
 #
 # Build translated versions
 # Construire la version traduite
@@ -39,6 +45,7 @@ do
 		src="iroffer-${lang}.exe"
 		;;
 	esac
+	rm -rf "${dir}"
 	mkdir "${dir}"
 	mv "${src}" "${dir}/${bin}"
 	rsync -av htdocs ${all} "${dir}/"
@@ -58,14 +65,17 @@ do
 	esac
 	if test -e /bin/7za
 	then
+		rm -f "${dir}.7z"
 		7za a -mx=9 -r "${dir}.7z" "${dir}/"
 	else
+		rm -f "${dir}.zip"
 		zip -r "${dir}.zip" "${dir}/"
 	fi
 done
 #
 # Build DLL pack
 dlldir="iroffer-dinoex-win32-${cygwin}-dll"
+rm -rf "${dlldir}"
 mkdir "${dlldir}"
 cygcheck "${name}-win32-${cygwin}/iroffer.exe" |
 tr '\\' '/' |
@@ -82,8 +92,10 @@ do
 done
 if test -e /bin/7za
 then
+	rm -f "${dlldir}.7z"
 	7za a -mx=9 -r "${dlldir}.7z" "${dlldir}"
 else
+	rm -f "${dlldir}.zip"
 	zip -r "${dlldir}.zip" "${dlldir}"
 fi
 # eof

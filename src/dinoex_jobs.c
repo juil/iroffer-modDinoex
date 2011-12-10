@@ -19,6 +19,7 @@
 #include "iroffer_headers.h"
 #include "iroffer_globals.h"
 #include "dinoex_utilities.h"
+#include "dinoex_kqueue.h"
 #include "dinoex_admin.h"
 #include "dinoex_irc.h"
 #include "dinoex_config.h"
@@ -87,7 +88,7 @@ static unsigned long bytes_to_long( const char **str )
   return result;
 }
 
-static char *encrypt_fish( const char *str, int len, const char *key)
+static char *encrypt_fish( const char *str, size_t len, const char *key)
 {
   BLOWFISH_CTX ctx;
   char *dest;
@@ -143,7 +144,7 @@ static unsigned long base64_to_long( const char **str )
 }
 
 
-static char *decrypt_fish( const char *str, int len, const char *key)
+static char *decrypt_fish( const char *str, size_t len, const char *key)
 {
   BLOWFISH_CTX ctx;
   char *dest;
@@ -282,7 +283,7 @@ vwriteserver_channel(unsigned int delay, const char *format, va_list ap)
 {
   char *msg;
   channel_announce_t *item;
-  int len;
+  ssize_t len;
 
   updatecontext();
 
@@ -290,7 +291,7 @@ vwriteserver_channel(unsigned int delay, const char *format, va_list ap)
 
   len = vsnprintf(msg, maxtextlength, format, ap);
 
-  if ((len < 0) || (len >= (int)maxtextlength)) {
+  if ((len < 0) || (len >= maxtextlength)) {
     outerror(OUTERROR_TYPE_WARN, "WRITESERVER: Output too large, ignoring!");
     mydelete(msg);
     return;
@@ -342,14 +343,14 @@ __attribute__ ((format(printf, 2, 0)))
 vprivmsg_chan(const channel_t *ch, const char *format, va_list ap)
 {
   char tempstr[maxtextlength];
-  int len;
+  ssize_t len;
 
   if (ch == NULL) return;
   if (!ch->name) return;
 
   len = vsnprintf(tempstr, maxtextlength, format, ap);
 
-  if ((len < 0) || (len >= (int)maxtextlength)) {
+  if ((len < 0) || (len >= maxtextlength)) {
     outerror(OUTERROR_TYPE_WARN, "PRVMSG-CHAN: Output too large, ignoring!");
     return;
   }
@@ -403,7 +404,7 @@ static const char *check_fish_exclude(const char *nick)
 
 #endif /* WITHOUT_BLOWFISH */
 
-void writeserver_privmsg(writeserver_type_e delay, const char *nick, const char *message, int len)
+void writeserver_privmsg(writeserver_type_e delay, const char *nick, const char *message, size_t len)
 {
 #ifndef WITHOUT_BLOWFISH
   const char *fish;
@@ -428,7 +429,7 @@ void writeserver_privmsg(writeserver_type_e delay, const char *nick, const char 
   writeserver(delay, "PRIVMSG %s :%s", nick, message); /* NOTRANSLATE */
 }
 
-void writeserver_notice(writeserver_type_e delay, const char *nick, const char *message, int len)
+void writeserver_notice(writeserver_type_e delay, const char *nick, const char *message, size_t len)
 {
 #ifndef WITHOUT_BLOWFISH
   const char *fish;
@@ -752,7 +753,7 @@ void crc32_update(char *buf, size_t len)
   gdata.crc32build.crc_total = crc_total;
 }
 
-void crc32_final(xdcc *xd)
+static void crc32_final(xdcc *xd)
 {
   xd->crc32 = ~gdata.crc32build.crc;
   xd->has_crc32 = 1;
@@ -1235,6 +1236,7 @@ void start_md5_hash(xdcc *xd, unsigned int packnum)
   ioutput(OUT_S|OUT_L|OUT_D, COLOR_NO_COLOR,
           "MD5: [Pack %u] Calculating", packnum);
 
+  gdata.md5build.bytes = 0;
   gdata.md5build.file_fd = open(xd->file, O_RDONLY | ADDED_OPEN_FLAGS);
   if (gdata.md5build.file_fd >= 0) {
     gdata.md5build.xpack = xd;
@@ -1258,8 +1260,7 @@ void cancel_md5_hash(xdcc *xd, const char *msg)
   if (gdata.md5build.xpack == xd) {
     outerror(OUTERROR_TYPE_WARN, "MD5: [Pack %u] Canceled (%s)", number_of_pack(xd), msg);
 
-    FD_CLR(gdata.md5build.file_fd, &gdata.readset);
-    close(gdata.md5build.file_fd);
+    event_close(gdata.md5build.file_fd);
     gdata.md5build.file_fd = FD_UNUSED;
     gdata.md5build.xpack = NULL;
   }
@@ -1272,6 +1273,36 @@ void cancel_md5_hash(xdcc *xd, const char *msg)
 #ifdef HAVE_MMAP
   assert(!irlist_size(&xd->mmaps));
 #endif /* HAVE_MMAP */
+}
+
+void complete_md5_hash(void)
+{
+  MD5Final(gdata.md5build.xpack->md5sum, &gdata.md5build.md5sum);
+  if (!gdata.nocrc32)
+    crc32_final(gdata.md5build.xpack);
+  gdata.md5build.xpack->has_md5sum = 1;
+
+  ioutput(OUT_S|OUT_L|OUT_D, COLOR_NO_COLOR,
+          "MD5: [Pack %u] is " MD5_PRINT_FMT,
+          number_of_pack(gdata.md5build.xpack),
+          MD5_PRINT_DATA(gdata.md5build.xpack->md5sum));
+  if (!gdata.nocrc32)
+     ioutput(OUT_S|OUT_L|OUT_D, COLOR_NO_COLOR,
+             "CRC32: [Pack %u] is " CRC32_PRINT_FMT,
+             number_of_pack(gdata.md5build.xpack), gdata.md5build.xpack->crc32);
+
+  event_close(gdata.md5build.file_fd);
+  gdata.md5build.file_fd = FD_UNUSED;
+  if (!gdata.nocrc32 && gdata.auto_crc_check) {
+    const char *crcmsg = validate_crc32(gdata.md5build.xpack, 2);
+    if (crcmsg != NULL) {
+      ioutput(OUT_S|OUT_L|OUT_D, COLOR_NO_COLOR,
+              "CRC32: [Pack %u] File '%s' %s.",
+              number_of_pack(gdata.md5build.xpack),
+              gdata.md5build.xpack->file, crcmsg);
+    }
+  }
+  gdata.md5build.xpack = NULL;
 }
 
 void a_fillwith_plist(userinput *manplist, const char *name, channel_t *ch)

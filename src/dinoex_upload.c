@@ -19,6 +19,7 @@
 #include "iroffer_headers.h"
 #include "iroffer_globals.h"
 #include "dinoex_utilities.h"
+#include "dinoex_kqueue.h"
 #include "dinoex_upload.h"
 #include "dinoex_irc.h"
 #include "dinoex_curl.h"
@@ -114,7 +115,7 @@ static int l_setup_listen(upload * const l)
 {
   char *tempstr;
   char *msg;
-  int rc;
+  unsigned int rc;
 
   updatecontext();
 
@@ -199,8 +200,7 @@ static void l_setup_accept(upload * const l)
 
   ir_listen_port_connected(l->con.localport);
 
-  FD_CLR(l->con.listensocket, &gdata.readset);
-  close(l->con.listensocket);
+  event_close(l->con.listensocket);
   l->con.listensocket = FD_UNUSED;
 
   ioutput(OUT_S|OUT_L|OUT_D, COLOR_MAGENTA,
@@ -356,7 +356,7 @@ void l_perform(int changesec)
 }
 
 /* check if a filename is already in a upload */
-int file_uploading(const char *file)
+unsigned int file_uploading(const char *file)
 {
   upload *ul;
 
@@ -425,7 +425,7 @@ static int verify_uploadhost(const char *hostmask)
 }
 
 /* check for valid upload user and size */
-int invalid_upload(const char *nick, const char *hostmask, off_t len)
+unsigned int invalid_upload(const char *nick, const char *hostmask, off_t len)
 {
   updatecontext();
 

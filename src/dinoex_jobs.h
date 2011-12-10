@@ -38,8 +38,8 @@ __attribute__ ((format(printf, 2, 3)))
 #endif
 privmsg_chan(const channel_t *ch, const char *format, ...);
 
-void writeserver_privmsg(writeserver_type_e delay, const char *nick, const char *message, int len);
-void writeserver_notice(writeserver_type_e delay, const char *nick, const char *message, int len);
+void writeserver_privmsg(writeserver_type_e delay, const char *nick, const char *message, size_t len);
+void writeserver_notice(writeserver_type_e delay, const char *nick, const char *message, size_t len);
 void clean_send_buffers(void);
 void sendannounce(void);
 
@@ -49,7 +49,6 @@ void look_for_file_remove(void);
 void reset_download_limits(void);
 const char *validate_crc32(xdcc *xd, int quiet);
 void crc32_update(char *buf, size_t len);
-void crc32_final(xdcc *xd);
 void autoadd_all(void);
 void run_delayed_jobs(void);
 const char *find_groupdesc(const char *group);
@@ -59,6 +58,7 @@ void autotrigger_add(xdcc *xd);
 void autotrigger_rebuild(void);
 void start_md5_hash(xdcc *xd, unsigned int packnum);
 void cancel_md5_hash(xdcc *xd, const char *msg);
+void complete_md5_hash(void);
 void a_fillwith_plist(userinput *manplist, const char *name, channel_t *ch);
 int save_unlink(const char *path);
 void rename_with_backup(const char *file, const char *backup, const char *tmp, const char *msg);

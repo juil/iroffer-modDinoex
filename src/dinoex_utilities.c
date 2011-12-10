@@ -165,7 +165,7 @@ char *clean_quotes(char *str)
 {
   char *src;
   char *dest;
-  unsigned int len;
+  size_t len;
 
   if (str[0] != '"')
     return str;
@@ -223,18 +223,6 @@ const char *getfilename(const char *pathname)
     return pathname;
 
   return ++work;
-}
-
-/* close an TCP connection safely */
-void shutdown_close(int handle)
-{
-  /*
-   * cygwin close() is broke, if outstanding data is present
-   * it will block until the TCP connection is dead, sometimes
-   * upto 10-20 minutes, calling shutdown() first seems to help
-   */
-  shutdown(handle, SHUT_RDWR);
-  close(handle);
 }
 
 /* get the port number from a socket */
@@ -508,7 +496,7 @@ size_t removenonprintable(char *str)
 void removenonprintablefile(char *str)
 {
   unsigned char *copy;
-  char last = '/';
+  unsigned char last = '/';
 
   if (str == NULL)
     return;
