@@ -3,6 +3,25 @@ Aktuelle Version auf: http://iroffer.dinoex.net/
 With Version 3.28:
 ------------------
 
+390) md5sum_exclude (suggested by Loke_AF)
+  configured, MD5 and CRC32 will be not computed for files matching
+  this patterns.
+
+389) SERVQ (suggested by Loke_AF)
+
+  new admin command:
+  SERVQ <net>                        Clears the server send queue
+
+bugfix: ONLINE, OFFLINE, HOP, LAG
+  Without argument not all networks where affected.
+
+bugfix: DELTRIGGER
+  Allow DELTRIGGER when CHTRIGGER is enabled.
+
+bugfix: expire_logfiles (reported by Loke_AF)
+  versions affected: 3.26 - 3.27
+  Bot could not delete expired files.
+
 -kqueue    Compile with kqueue() support
 
 bugfix: md5
@@ -12,7 +31,7 @@ bugfix: upnp_router
   Update for libminiupnpc 1.6
 
 bugfix: http_port
-  Reduce load when sending date over HTTP.
+  Reduce load when sending data over HTTP.
 
 bugfix: max_upspeed (reported by Loke_AF)
   The CPU load reached 100% when max_upspeed as limiting an upload.
@@ -60,7 +79,7 @@ Configure TRANSLATION=
   Extend the Makefile with custom translations
 
 382) REMOVEMATCH
-  
+
   new admin command:
   REMOVEMATCH <pattern>              Remove every pack matching this pattern
 
@@ -193,7 +212,7 @@ bugfix: XDCC INFO
 
 363) backup statefile
   Backup statefile when version of iroffer changes
-  
+
 362) offline
   Disable connecting to this network.
 
